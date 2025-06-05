@@ -6,6 +6,7 @@ import { NftComponent } from './pages/nft/nft.component';
 import { CartComponent } from './components/nft/cart/cart.component';
 import { PointsShopComponent } from './pages/points-shop/points-shop.component';
 import { PointsShopLayoutComponent } from './pages/points-shop/points-shop-layout.component';
+import { CommunityComponent } from './components/community/community.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
           { path: 'emoticons', component: PointsShopComponent },
         ]
       },
+      { path: 'community', component: CommunityComponent },
       { path: '**', redirectTo: 'errors/404' },
     ],
   },

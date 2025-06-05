@@ -2,7 +2,7 @@
 
 @import 'tailwindcss';
 
-
+@import "../node_modules/ngx-toastr/toastr.css";
 /** Plugins **/
 @import './assets/styles/apexchart.css';
 

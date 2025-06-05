@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/core/models/menu.model';
 import { MenuService } from '../../../services/menu.service';
 import { NavbarSubmenuComponent } from '../navbar-submenu/navbar-submenu.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar-menu',
@@ -14,10 +15,15 @@ export class NavbarMenuComponent implements OnInit {
   private showMenuClass = ['scale-100', 'animate-fade-in-up', 'opacity-100', 'pointer-events-auto'];
   private hideMenuClass = ['scale-95', 'animate-fade-out-down', 'opacity-0', 'pointer-events-none'];
 
-  constructor(public menuService: MenuService) {}
+  constructor(public menuService: MenuService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
+  onRegisterpage(){
+    this.router.navigate(['auth/sign-up']);
+  }
   public toggleMenu(menu: MenuItem): void {
     menu.selected = !menu.selected;
   }

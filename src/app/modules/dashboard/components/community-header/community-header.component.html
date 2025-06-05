@@ -1,0 +1,77 @@
+<!-- Tabs -->
+<div class="flex space-x-2 mb-6" style="margin-top:30px">
+  <button
+    *ngFor="let tab of tabs"
+    (click)="selectedTab = tab"
+    [ngClass]="{
+      'bg-[#66c0f4] text-white': selectedTab === tab,
+      'bg-[#2a475e] text-white': selectedTab !== tab
+    }"
+    class="px-3 py-1 rounded transition">
+    {{ tab }}
+  </button>
+</div>
+
+<!-- Nội dung theo từng tab -->
+<div *ngIf="selectedTab === 'Tất cả'" class="text-white">
+  <p class="text-lg">🧩 Đây là nội dung tổng hợp từ tất cả các mục.</p>
+</div>
+
+<div *ngIf="selectedTab === 'Tranh ảnh'" class="grid grid-cols-3 gap-4 text-white">
+  <!-- Đánh giá -->
+  <div class="bg-[#1b2838] p-4 rounded">
+    <p class="text-sm">5 người thấy bài đánh giá này hữu ích</p>
+    <p class="text-lg font-bold mt-2">👍 Tích cực</p>
+    <p class="text-sm">36.6 giờ được ghi nhận</p>
+    <p class="mt-2">hay nha chơi vs Coop kiểu này cũng vui</p>
+    <p class="text-xs text-gray-400 mt-2">Đăng ngày: 30 Tháng 05</p>
+  </div>
+
+  <!-- Screenshot -->
+  <div class="bg-[#1b2838] p-4 rounded">
+    <img src="assets/screenshot.jpg" alt="screenshot" class="rounded mb-2" />
+    <p>Don't worry...he...he is just sleeping... yeah..</p>
+    <p class="text-sm text-gray-400">Rogue Trooper</p>
+    <p class="text-sm">🔥 14 💬 9</p>
+  </div>
+</div>
+
+<div *ngIf="selectedTab === 'Hướng dẫn'" class="grid grid-cols-3 gap-4 text-white">
+  <div class="bg-[#1b2838] p-4 rounded">
+    <p class="font-bold">Wuthering Waves: Hướng dẫn</p>
+    <p class="mt-2">Cốt truyện Wuthering Waves Việt Nam</p>
+    <p class="text-sm">Nếu có thêm kênh làm về cốt truyện mình sẽ bổ sung thêm...</p>
+  </div>
+
+  <div class="bg-[#1b2838] p-4 rounded">
+    <p class="font-bold">Total War: THREE KINGDOMS: Hướng dẫn</p>
+    <p class="mt-2">Hướng dẫn cơ bản Total War: Three Kingdom</p>
+    <p class="text-sm">Kính chào mọi người, mình xin viết hướng dẫn sơ đồ căn bản...</p>
+  </div>
+
+  <div class="bg-[#1b2838] p-4 rounded">
+    <p class="font-bold">SCP: Containment Breach Multiplayer</p>
+    <p class="mt-2">L!!! sus guide</p>
+    <p class="text-xs">1234 +=+=+=+=+<br>Reeeeeeeeeeeeeeeeeeeeeeee 222222</p>
+  </div>
+</div>
+
+<div *ngIf="selectedTab === 'Phát sóng'" class="text-white">
+  <p>📺 Danh sách các buổi phát sóng sẽ hiển thị tại đây.</p>
+</div>
+
+<div *ngIf="selectedTab === 'Video'" class="text-white">
+  <p>🎥 Các video được chia sẻ sẽ hiển thị tại đây.</p>
+</div>
+
+<div *ngIf="selectedTab === 'Workshop'" class="text-white">
+  <p>🛠️ Workshop bao gồm các mod, bản đồ, v.v.</p>
+</div>
+
+<div *ngIf="selectedTab === 'Tin tức'" class="text-white">
+  <p>📰 Các bài viết tin tức mới nhất sẽ hiển thị ở đây.</p>
+</div>
+
+<div *ngIf="selectedTab === 'Đánh giá'" class="text-white">
+  <p>📝 Đánh giá từ người dùng về các game, sản phẩm.</p>
+</div>

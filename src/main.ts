@@ -6,6 +6,8 @@ import { AppComponent } from './app/app.component';
 import { AppRoutingModule } from './app/app-routing.module';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 if (environment.production) {
   enableProdMode();
@@ -14,9 +16,11 @@ if (environment.production) {
     selfXSSWarning();
   }
 }
-
 bootstrapApplication(AppComponent, {
-  providers: [importProvidersFrom(BrowserModule, AppRoutingModule), provideAnimations()],
+  providers: [
+    importProvidersFrom(BrowserModule, AppRoutingModule, HttpClientModule,ToastrModule.forRoot(),), // 👈 Thêm vào đây
+    provideAnimations()
+  ],
 }).catch((err) => console.error(err));
 
 function selfXSSWarning() {

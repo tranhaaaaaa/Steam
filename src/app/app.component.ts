@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { NgxSonnerToaster } from 'ngx-sonner';
 import { ThemeService } from './core/services/theme.service';
 import { ResponsiveHelperComponent } from './shared/components/responsive-helper/responsive-helper.component';
+import { UserLogged } from './core/utils/userLogged';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,6 +12,12 @@ import { ResponsiveHelperComponent } from './shared/components/responsive-helper
 })
 export class AppComponent {
   title = 'Angular Tailwind';
+public userLogged = new UserLogged();
+  constructor(public themeService: ThemeService,
+    private route: Router
+  ) {
+    //  if(!this.userLogged.isLogged()){
+    //   this.route.navigate(['/auth/sign-in']);
+    }
+  }
 
-  constructor(public themeService: ThemeService) {}
-}
