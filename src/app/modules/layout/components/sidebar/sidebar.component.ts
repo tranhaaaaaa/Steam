@@ -1,3 +1,4 @@
+// app/modules/layout/components/sidebar/sidebar.component.ts
 import { NgClass, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -9,7 +10,7 @@ import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
-  imports: [NgClass, AngularSvgIconModule],
+  imports: [NgClass, AngularSvgIconModule, NgIf, SidebarMenuComponent],
 })
 export class SidebarComponent implements OnInit {
   public appJson: any = packageJson;

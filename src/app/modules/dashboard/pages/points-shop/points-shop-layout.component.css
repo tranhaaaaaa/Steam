@@ -1,0 +1,56 @@
+/* app/modules/dashboard/pages/points-shop/points-shop-layout.component.css */
+
+/* Points Shop Layout Styles */
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #1b2838 0%, #2a475e 50%, #1b2838 100%);
+}
+
+/* Container styling */
+.points-shop-container {
+  display: flex;
+  min-height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: #1b2838;
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 240px;
+  background: #1e2328;
+  border-right: 1px solid #3c5a74;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  background: #1b2838;
+  overflow-y: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .points-shop-container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none; /* Hide sidebar on mobile, could add toggle later */
+  }
+}

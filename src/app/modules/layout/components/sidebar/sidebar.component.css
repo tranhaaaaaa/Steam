@@ -1,0 +1,103 @@
+/* app/modules/layout/components/sidebar/sidebar.component.css */
+
+/* Steam-like dark sidebar theme */
+:host {
+  display: flex;
+  height: 100%;
+}
+
+/* Custom scrollbar */
+:host ::ng-deep .scrollbar-thumb-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+:host ::ng-deep .scrollbar-thumb-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:host ::ng-deep .scrollbar-thumb-card::-webkit-scrollbar-thumb {
+  background: #4c6b83;
+  border-radius: 3px;
+}
+
+:host ::ng-deep .scrollbar-thumb-card::-webkit-scrollbar-thumb:hover {
+  background: #66c0f4;
+}
+
+/* Navigation transitions */
+nav {
+  background: linear-gradient(135deg, #1b2838 0%, #2a475e 50%, #1b2838 100%);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Logo area styling */
+.logo-area {
+  border-bottom: 1px solid #4c6b83;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Smooth width transitions */
+nav.transition-all {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects for toggle button */
+button:hover {
+  background-color: rgba(102, 192, 244, 0.1);
+}
+
+/* Focus styles */
+button:focus {
+  outline: 2px solid #66c0f4;
+  outline-offset: 2px;
+}
+
+/* Text styling */
+.text-steam-blue {
+  color: #66c0f4;
+}
+
+.text-steam-gray {
+  color: #8f98a0;
+}
+
+.text-steam-light {
+  color: #c7d5e0;
+}
+
+/* Border styling */
+.border-steam {
+  border-color: #3c5a74;
+}
+
+/* Background variants */
+.bg-steam-dark {
+  background-color: #1b2838;
+}
+
+.bg-steam-darker {
+  background-color: #171a21;
+}
+
+/* Sidebar collapsed state */
+.sidebar-collapsed {
+  width: 60px !important;
+}
+
+.sidebar-collapsed .menu-text {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Animation for text visibility */
+.menu-text {
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+/* Custom border gradients */
+.border-gradient {
+  background: linear-gradient(90deg, transparent, #4c6b83, transparent);
+  height: 1px;
+  margin: 0.5rem 0;
+}

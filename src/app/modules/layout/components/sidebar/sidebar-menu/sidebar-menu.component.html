@@ -1,23 +1,27 @@
-<div *ngFor="let menu of menuService.pagesMenu">
+<!-- app/modules/layout/components/sidebar/sidebar-menu/sidebar-menu.component.html -->
+<div *ngFor="let menu of menuService.pagesMenu3">
+  <!-- Group Title -->
   <div *ngIf="menuService.showSideBar" class="mx-1 flex items-center justify-between py-3">
-    <small [ngClass]="{ hidden: !menuService.showSideBar }" class="text-muted-foreground/50 text-xs font-semibold">
+    <small class="text-[#66c0f4] text-xs font-bold uppercase tracking-wide">
       {{ menu.group }}
     </small>
   </div>
-  <ul class="flex flex-col">
+  
+  <ul class="flex flex-col space-y-1 mb-6">
     <!-- List items -->
     <li *ngFor="let item of menu.items">
       <!-- Menu List -->
       <div
         (click)="toggleMenu(item)"
         [ngClass]="{
-          'hover:bg-primary/10': !menuService.showSideBar && item.active,
-          'hover:bg-card/50': !menuService.showSideBar
+          'hover:bg-[#2a475e]/30': !menuService.showSideBar && item.active,
+          'hover:bg-[#2a475e]/20': !menuService.showSideBar
         }"
-        class="text-muted-foreground hover:text-foreground group relative flex grow items-center gap-4 rounded-lg px-2">
+        class="text-[#c7d5e0] hover:text-white group relative flex grow items-center gap-3 rounded-md px-2 py-2">
+        
         <!-- Icon -->
-        <div [ngClass]="item.active && !menuService.showSideBar ? 'text-primary' : 'text-muted-foreground/50'">
-          <svg-icon src="{{ item.icon }}" [svgClass]="'h-5 w-5'"> </svg-icon>
+        <div [ngClass]="item.active && !menuService.showSideBar ? 'text-[#66c0f4]' : 'text-[#8f98a0]'">
+          <svg-icon src="{{ item.icon }}" [svgClass]="'h-4 w-4'"> </svg-icon>
         </div>
 
         <!-- Condition -->
@@ -30,11 +34,11 @@
         <ng-template #parentMenu let-item="item">
           <div
             routerLink="{{ item.route }}"
-            class="text-muted-foreground hover:text-primary flex h-[36px] cursor-pointer items-center justify-start rounded-sm">
+            class="text-[#c7d5e0] hover:text-white flex h-[32px] cursor-pointer items-center justify-start rounded-sm">
             <a
               [ngClass]="{ hidden: !menuService.showSideBar }"
-              routerLinkActive="text-primary"
-              class="truncate text-xs font-semibold tracking-wide focus:outline-hidden">
+              routerLinkActive="text-white font-bold"
+              class="truncate text-sm font-medium tracking-wide focus:outline-hidden">
               {{ item.label }}
             </a>
           </div>
@@ -42,10 +46,10 @@
 
         <!-- Workaround:: Disable routerLink -->
         <ng-template #childMenu let-item="item">
-          <div class="flex h-9 grow cursor-pointer items-center justify-start rounded-sm">
+          <div class="flex h-8 grow cursor-pointer items-center justify-start rounded-sm">
             <a
               [ngClass]="{ hidden: !menuService.showSideBar }"
-              class="text-muted-foreground group-hover:text-primary truncate text-xs font-semibold tracking-wide focus:outline-hidden">
+              class="text-[#c7d5e0] group-hover:text-white truncate text-sm font-medium tracking-wide focus:outline-hidden">
               {{ item.label }}
             </a>
           </div>
@@ -55,18 +59,18 @@
         <button
           *ngIf="item.children"
           [ngClass]="{ hidden: !menuService.showSideBar }"
-          class="text-foreground/50 flex cursor-pointer items-center justify-end p-0 transition-all duration-500 ltr:right-0 rtl:left-0">
+          class="text-[#8f98a0] hover:text-white flex cursor-pointer items-center justify-end p-0 transition-all duration-500 ltr:right-0 rtl:left-0">
           @if(!item.expanded){
-          <svg-icon src="assets/icons/heroicons/outline/plus.svg" svgClass="h-4 w-4"> </svg-icon>
+          <svg-icon src="assets/icons/heroicons/outline/plus.svg" svgClass="h-3 w-3"> </svg-icon>
           }@else {
-          <svg-icon src="assets/icons/heroicons/outline/minus.svg" svgClass="h-4 w-4"> </svg-icon>
+          <svg-icon src="assets/icons/heroicons/outline/minus.svg" svgClass="h-3 w-3"> </svg-icon>
           }
         </button>
 
         <!-- Tooltip -->
-        <div class="z-1 fixed h-[36px]" *ngIf="!menuService.showSideBar">
+        <div class="z-1 fixed h-[32px]" *ngIf="!menuService.showSideBar">
           <span
-            class="z-1 bg-foreground text-background absolute w-auto min-w-max translate-y-[2px] scale-0 rounded-md p-2 text-xs font-bold shadow-md transition-all duration-200 group-hover:scale-100 ltr:origin-left ltr:translate-x-10 rtl:origin-right rtl:-translate-x-10">
+            class="z-1 bg-[#1b2838] text-white border border-[#4c6b83] absolute w-auto min-w-max translate-y-[2px] scale-0 rounded-md p-2 text-xs font-medium shadow-lg transition-all duration-200 group-hover:scale-100 ltr:origin-left ltr:translate-x-10 rtl:origin-right rtl:-translate-x-10">
             {{ item.label }}
           </span>
         </div>
@@ -77,7 +81,7 @@
     </li>
   </ul>
 
-  <div class="py-3" *ngIf="menu.separator">
-    <hr class="border-border border-dashed" />
+  <div class="py-2" *ngIf="menu.separator && menuService.showSideBar">
+    <hr class="border-[#4c6b83] border-dashed opacity-50" />
   </div>
 </div>

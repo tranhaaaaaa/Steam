@@ -10,24 +10,24 @@ export class Menu {
         {
           icon: 'assets/icons/heroicons/outline/download.svg',
           label: 'Trang chủ',
-          route: '/download',
+          route: '/dashboard/nfts',
         },
         {
           icon: 'assets/icons/heroicons/outline/gift.svg',
-          label: 'Khám phá', 
-          route: '/gift',
+          label: 'Points Shop', // Thêm menu item mới
+          route: '/dashboard/points-shop',
         },
         {
           icon: 'assets/icons/heroicons/outline/users.svg',
           label: 'Yêu thích',
           route: '/users',
         },
-          {
+        {
           icon: 'assets/icons/heroicons/outline/users.svg',
           label: 'Tin tức',
           route: '/users',
         },
-         {
+        {
           icon: 'assets/icons/heroicons/outline/users.svg',
           label: 'Thống kê',
           route: '/users',
@@ -119,16 +119,16 @@ export class Menu {
     {
       group: 'Cửa hàng của bạn',
       separator: true,
-      items: [
+       items: [
         {
           icon: 'assets/icons/heroicons/outline/download.svg',
           label: 'Home',
-          route: '/download',
+          route: '/dashboard/nfts',
         },
         {
           icon: 'assets/icons/heroicons/outline/gift.svg',
-          label: 'Community Recommendations', 
-          route: '/gift',
+          label: 'Points Shop', // Thêm vào menu dropdown
+          route: '/dashboard/points-shop',
         },
         {
           icon: 'assets/icons/heroicons/outline/users.svg',

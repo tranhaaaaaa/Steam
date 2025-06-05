@@ -1,3 +1,4 @@
+// app/modules/layout/services/menu.service.ts
 import { Injectable, OnDestroy, signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,16 +13,16 @@ export class MenuService implements OnDestroy {
   private _showMobileMenu = signal(false);
   private _pagesMenu = signal<MenuItem[]>([]);
   private _pagesMenu2 = signal<MenuItem[]>([]);
+  private _pagesMenu3 = signal<MenuItem[]>([]);
 
   private _subscription = new Subscription();
   private _subscription2 = new Subscription();
-
-
+  private _subscription3 = new Subscription();
 
   constructor(private router: Router) {
     /** Set dynamic menu */
     this._pagesMenu2.set(Menu.pages2);
-       let sub1 = this.router.events.subscribe((event) => {
+    let sub1 = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         /** Expand menu base on active route */
         this._pagesMenu2().forEach((menu) => {
@@ -39,12 +40,9 @@ export class MenuService implements OnDestroy {
         });
       }
     });
-    
     this._subscription2.add(sub1);
 
-
     this._pagesMenu.set(Menu.pages);
-
     let sub = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         /** Expand menu base on active route */
@@ -64,6 +62,129 @@ export class MenuService implements OnDestroy {
       }
     });
     this._subscription.add(sub);
+
+    // Steam Points Shop Menu
+    this._pagesMenu3.set([
+      {
+        group: 'FEATURED',
+        separator: true,
+        items: [
+          {
+            icon: 'assets/icons/heroicons/outline/home.svg',
+            label: 'Featured Home',
+            route: '/dashboard/nfts',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/game-controller.svg',
+            label: 'From Your Games',
+            route: '/dashboard/points-shop',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/calendar.svg',
+            label: 'From Sales & Events',
+            route: '/dashboard/cart',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/collection.svg',
+            label: 'Bundles',
+            route: '/components/table',
+          },
+        ],
+      },
+      {
+        group: 'INTERFACE',
+        separator: true,
+        items: [
+          {
+            icon: 'assets/icons/heroicons/outline/keyboard.svg',
+            label: 'Keyboards',
+            route: '/keyboards',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/play.svg',
+            label: 'Startup Movies',
+            route: '/startup-movies',
+          },
+        ],
+      },
+      {
+        group: 'PROFILE',
+        separator: true,
+        items: [
+          {
+            icon: 'assets/icons/heroicons/outline/user-circle.svg',
+            label: 'Avatars',
+            route: '/avatars',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/photo.svg',
+            label: 'Backgrounds',
+            route: '/backgrounds',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/trophy.svg',
+            label: 'Community Awards',
+            route: '/community-awards',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/star.svg',
+            label: 'Seasonal Badge',
+            route: '/seasonal-badge',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/identification.svg',
+            label: 'Game Profiles',
+            route: '/game-profiles',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/sparkles.svg',
+            label: 'Showcases',
+            route: '/showcases',
+          },
+        ],
+      },
+      {
+        group: 'CHAT',
+        separator: false,
+        items: [
+          {
+            icon: 'assets/icons/heroicons/outline/gif.svg',
+            label: 'Animated Stickers',
+            route: '/animated-stickers',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/chat-bubble-oval-left.svg',
+            label: 'Chat Effects',
+            route: '/chat-effects',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/face-smile.svg',
+            label: 'Emoticons',
+            route: '/emoticons',
+          },
+        ],
+      },
+    ]);
+
+    let sub3 = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        /** Expand menu base on active route */
+        this._pagesMenu3().forEach((menu) => {
+          let activeGroup = false;
+          menu.items.forEach((subMenu) => {
+            const active = this.isActive(subMenu.route);
+            subMenu.expanded = active;
+            subMenu.active = active;
+            if (active) activeGroup = true;
+            if (subMenu.children) {
+              this.expand(subMenu.children);
+            }
+          });
+          menu.active = activeGroup;
+        });
+      }
+    });
+    this._subscription3.add(sub3);
   }
 
   get showSideBar() {
@@ -75,8 +196,11 @@ export class MenuService implements OnDestroy {
   get pagesMenu() {
     return this._pagesMenu();
   }
-get pagesMenu2() {
+  get pagesMenu2() {
     return this._pagesMenu2();
+  }
+  get pagesMenu3() {
+    return this._pagesMenu3();
   }
   set showSideBar(value: boolean) {
     this._showSidebar.set(value);
@@ -116,5 +240,7 @@ get pagesMenu2() {
 
   ngOnDestroy(): void {
     this._subscription.unsubscribe();
+    this._subscription2.unsubscribe();
+    this._subscription3.unsubscribe();
   }
 }

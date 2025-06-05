@@ -1,3 +1,4 @@
+// app/modules/layout/components/sidebar/sidebar-menu/sidebar-menu.component.ts
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';

@@ -1,0 +1,72 @@
+<div class="points-shop-container">
+  <!-- Header Section -->
+  <div class="points-header">
+    <div class="points-hero">
+      <div class="points-info">
+        <img src="https://store.akamai.steamstatic.com/public/images/v6/app/points_shop_header.png" 
+             alt="Points Shop" class="points-logo">
+        <div class="points-content">
+          <h1>BUY GAMES, EARN POINTS</h1>
+          <p>Customize your Steam experience with Points Shop items</p>
+          <div class="points-balance">
+            <span class="points-amount">{{ formatPoints(pointsBalance) }}</span>
+            <img src="https://store.akamai.steamstatic.com/public/images/v6/app/steam_point_icon.png" 
+                 alt="Steam Points" class="points-icon">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shop Sections -->
+  <div class="shop-content">
+    <div *ngFor="let section of pointsSections; let sectionIndex = index" class="shop-section">
+      <!-- Section Header -->
+      <div class="section-header">
+        <div class="section-title-container">
+          <h2 class="section-title">{{ section.title }}</h2>
+          <span *ngIf="section.subtitle" class="section-subtitle">{{ section.subtitle }}</span>
+        </div>
+        <a *ngIf="section.showMoreLink" href="#" class="view-more-link">
+          <span>See All</span>
+          <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+      </div>
+
+      <!-- Items Container -->
+      <div class="items-container">
+        <div class="items-scroll-wrapper">
+          <!-- SỬA LẠI HÀM (click) -->
+          <button *ngIf="section.items.length > 4" class="nav-button nav-left" (click)="scrollItems(sectionIndex, 'left')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          
+          <div class="items-grid" [id]="'items-grid-' + sectionIndex">
+            <!-- Bỏ đi các logic mua bán để đơn giản hóa và sửa lỗi -->
+            <div *ngFor="let item of section.items" class="item-card" [ngClass]="section.itemWidthClass">
+              <div class="item-image-container">
+                <img [src]="item.image" [alt]="item.title" class="item-image" (error)="onImageError($event)">
+              </div>
+              <div class="item-info">
+                <h3 class="item-title">{{ item.title }}</h3>
+                <div class="item-type">
+                  <svg-icon [src]="getItemTypeIcon(item.type)" class="item-type-icon"></svg-icon>
+                  <span class="item-type-label">{{ item.itemTypeLabel }}</span>
+                </div>
+                <div class="item-price">
+                  <span class="current-price">{{ formatPoints(item.points) }}</span>
+                  <img src="https://store.akamai.steamstatic.com/public/images/v6/app/steam_point_icon.png" alt="Points" class="price-points-icon">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SỬA LẠI HÀM (click) -->
+          <button *ngIf="section.items.length > 4" class="nav-button nav-right" (click)="scrollItems(sectionIndex, 'right')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
