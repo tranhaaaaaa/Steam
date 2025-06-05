@@ -132,57 +132,14 @@
     <ng-container *ngIf="activeAuction.length > 0">
       <!-- Clone cuối lên đầu -->
       <div class="card" aria-hidden="true">
-        <img [src]="activeAuction[activeAuction.length - 1].image" alt="clone" class="nft-image" />
-        <div class="content">
-          <h3 class="title">{{ activeAuction[activeAuction.length - 1].title }}</h3>
-          <div class="creator">
-            <img [src]="activeAuction[activeAuction.length - 1].avatar" alt="Creator avatar" class="avatar" />
-            <span>Created by {{ activeAuction[activeAuction.length - 1].creator }}</span>
-          </div>
-          <div class="info-row">
-            <span>Last bid:</span>
-            <span>{{ activeAuction[activeAuction.length - 1].last_bid | number: '1.2-2' }} VND</span>
-          </div>
-          <div class="info-row">
-            <span>Price:</span>
-            <span>{{ activeAuction[activeAuction.length - 1].price  | number: '1.2-2' }} VND</span>
-          </div>
-          <div class="info-row">
-            <span>Instant price:</span>
-            <span>{{ activeAuction[activeAuction.length - 1].instant_price | number: '1.2-2' }} VND</span>
-          </div>
-          <div class="ending">Ends in {{ activeAuction[activeAuction.length - 1].ending_in }}</div>
-          <button class="btn-view">View</button>
-        </div>
+        <img [src]="activeAuction[activeAuction.length - 1].image" alt="clone" class="nft-image" />  
       </div>
 
-      <!-- Items chính -->
       <div *ngFor="let auction of activeAuction" class="card">
         <img [src]="auction.image" alt="{{ auction.title }}" class="nft-image" />
-        <div class="content">
-          <h3 class="title">{{ auction.title }}</h3>
-          <div class="creator">
-            <img [src]="auction.avatar" alt="Creator avatar" class="avatar" />
-            <span>Created by {{ auction.creator }}</span>
-          </div>
-          <div class="info-row">
-            <span>Last bid:</span>
-            <span>{{ auction.last_bid | number: '1.2-2' }} VND</span>
-          </div>
-          <div class="info-row">
-            <span>Price:</span>
-            <span>{{ auction.price  | number: '1.2-2' }} VND</span>
-          </div>
-          <div class="info-row">
-            <span>Instant price:</span>
-            <span>{{ auction.instant_price | number: '1.2-2' }} VND</span>
-          </div>
-          <div class="ending">Ends in {{ auction.ending_in }}</div>
-          <button class="btn-view">View</button>
-        </div>
+     
       </div>
 
-      <!-- Clone đầu xuống cuối -->
       <div class="card" aria-hidden="true">
         <img [src]="activeAuction[0].image" alt="clone" class="nft-image" />
         <div class="content">

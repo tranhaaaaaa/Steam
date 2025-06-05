@@ -4,7 +4,69 @@ export class Menu {
   public static pages: MenuItem[] = [
     
     {
-      group: 'Store',
+      group: 'Cửa hàng',
+      separator: true,
+      items: [
+        {
+          icon: 'assets/icons/heroicons/outline/download.svg',
+          label: 'Trang chủ',
+          route: '/download',
+        },
+        {
+          icon: 'assets/icons/heroicons/outline/gift.svg',
+          label: 'Khám phá', 
+          route: '/gift',
+        },
+        {
+          icon: 'assets/icons/heroicons/outline/users.svg',
+          label: 'Yêu thích',
+          route: '/users',
+        },
+          {
+          icon: 'assets/icons/heroicons/outline/users.svg',
+          label: 'Tin tức',
+          route: '/users',
+        },
+         {
+          icon: 'assets/icons/heroicons/outline/users.svg',
+          label: 'Thống kê',
+          route: '/users',
+        },
+      ],
+    },
+    {
+      group: 'Cộng đồng',
+      separator: true,
+      items: [
+        {
+          icon: 'assets/icons/heroicons/outline/download.svg',
+          label: 'Trang chủ',
+          route: '/download',
+        },
+        {
+          icon: 'assets/icons/heroicons/outline/gift.svg',
+          label: 'Thảo luận', 
+          route: '/gift',
+        },
+        {
+          icon: 'assets/icons/heroicons/outline/users.svg',
+          label: 'Workshop',
+          route: '/users',
+        },
+         {
+          icon: 'assets/icons/heroicons/outline/users.svg',
+          label: 'Chợ',
+          route: '/users',
+        },
+         {
+          icon: 'assets/icons/heroicons/outline/users.svg',
+          label: 'Phát sóng',
+          route: '/users',
+        },
+      ],
+    },
+    {
+      group: 'Thông tin',
       separator: true,
       items: [
         {
@@ -25,49 +87,7 @@ export class Menu {
       ],
     },
     {
-      group: 'COMMUNITY',
-      separator: true,
-      items: [
-        {
-          icon: 'assets/icons/heroicons/outline/download.svg',
-          label: 'Home',
-          route: '/download',
-        },
-        {
-          icon: 'assets/icons/heroicons/outline/gift.svg',
-          label: 'Discovery Queue', 
-          route: '/gift',
-        },
-        {
-          icon: 'assets/icons/heroicons/outline/users.svg',
-          label: 'Whishlist',
-          route: '/users',
-        },
-      ],
-    },
-    {
-      group: 'ABOUT',
-      separator: true,
-      items: [
-        {
-          icon: 'assets/icons/heroicons/outline/download.svg',
-          label: 'Home',
-          route: '/download',
-        },
-        {
-          icon: 'assets/icons/heroicons/outline/gift.svg',
-          label: 'Discovery Queue', 
-          route: '/gift',
-        },
-        {
-          icon: 'assets/icons/heroicons/outline/users.svg',
-          label: 'Whishlist',
-          route: '/users',
-        },
-      ],
-    },
-    {
-      group: 'SUPPORT',
+      group: 'Hỗ trợ',
       separator: false,
       items: [
         {
@@ -97,7 +117,7 @@ export class Menu {
     public static pages2: MenuItem[] = [
     
     {
-      group: 'Your Store',
+      group: 'Cửa hàng của bạn',
       separator: true,
       items: [
         {
@@ -118,7 +138,7 @@ export class Menu {
       ],
     },
     {
-      group: 'New & Noteworthy',
+      group: 'Mới & đáng chú ý',
       separator: true,
       items: [
         {
@@ -139,7 +159,7 @@ export class Menu {
       ],
     },
     {
-      group: 'Categories',
+      group: 'Danh mục',
       separator: true,
       items: [
         {
@@ -165,12 +185,12 @@ export class Menu {
       ],
     },
     {
-      group: 'Points Shop',
+      group: 'Cửa hàng điểm',
       separator: false,
       items: [ ],
     },
     {
-      group: 'News',
+      group: 'Tin tức',
       separator: false,
       items: [ ],
     },
