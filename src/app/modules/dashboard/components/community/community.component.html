@@ -1,0 +1,59 @@
+<div class="min-h-[60vh] bg-[#1b2838] text-white p-10">
+  <div class="max-w-5xl mx-auto">
+    <h1 class="text-3xl font-bold mb-2">Hoạt động cộng đồng</h1>
+    <p class="text-gray-300 mb-8">
+      Nội dung chính thức và từ cộng đồng cho tất cả trò chơi và phần mềm trên Steam.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Card Đăng nhập / Tham gia -->
+      <div class="bg-[#16202d] p-6 rounded-lg shadow-md">
+        <p class="text-gray-300 mb-4">Chào mừng bạn đến với cộng đồng Steam</p>
+        <p class="text-gray-400 mb-4">Đăng nhập vào cộng đồng Steam để duyệt những trung tâm mới.</p>
+        <div class="flex flex-col space-y-3">
+          <button class="bg-green-600 hover:bg-green-700 py-2 px-4 rounded-md" (click)="onClick()">Đăng nhập</button>
+          <button class="bg-[#a4d007] hover:bg-[#8cb400] py-2 px-4 rounded-md">Tham gia Steam</button>
+        </div>
+        <p class="text-sm text-gray-400 mt-4">
+          Mới dùng Steam? <span class="text-blue-400 underline cursor-pointer">Tìm hiểu thêm</span>.
+        </p>
+      </div>
+
+      <!-- Card Trung tâm phổ biến -->
+      <div class="bg-[#16202d] p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-4">TRUNG TÂM PHỔ BIẾN</h2>
+        <div class="space-y-4">
+          <div>
+            <p class="font-semibold">Marvel's Spider-Man 2</p>
+            <p class="text-gray-400 text-sm" style="color:rgb(86, 86, 220)">6 tác phẩm mới tuần này</p>
+          </div>
+          <div>
+            <p class="font-semibold">ELDEN RING</p>
+            <p class="text-gray-400 text-sm" style="color:rgb(86, 86, 220)">73 tác phẩm mới tuần này</p>
+          </div>
+          <div>
+            <p class="font-semibold">DOOM: The Dark Ages</p>
+            <p class="text-gray-400 text-sm" style="color:rgb(86, 86, 220)">13,601 ảnh chụp mới tuần này</p>
+          </div>
+          <div>
+            <p class="font-semibold">Wuthering Waves</p>
+            <p class="text-gray-400 text-sm" style="color:rgb(86, 86, 220)">304 tác phẩm mới tuần này</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Tìm kiếm -->
+      <div class="bg-[#16202d] p-6 rounded-lg shadow-md">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">TÌM TRUNG TÂM</h2>
+          <input placeholder="Tìm sản phẩm" class="bg-[#0e141b] border border-gray-700 p-2 w-full rounded-md"/>
+        </div>
+        <div class="mt-4">
+          <h2 class="text-xl font-semibold mb-2">TÌM NGƯỜI</h2>
+          <input placeholder="" class="bg-[#0e141b] border border-gray-700 p-2 w-full rounded-md"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-community-header></app-community-header>

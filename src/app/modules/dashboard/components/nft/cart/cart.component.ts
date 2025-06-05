@@ -1,6 +1,7 @@
 import { CommonModule, NgClass, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { MenuItem } from 'src/app/core/models/menu.model';
 import { NavbarSubmenuComponent } from 'src/app/modules/layout/components/navbar/navbar-submenu/navbar-submenu.component';
 import { MenuService } from 'src/app/modules/layout/services/menu.service';
@@ -15,7 +16,9 @@ export class CartComponent implements OnInit {
   private showMenuClass = ['scale-100', 'animate-fade-in-up', 'opacity-100', 'pointer-events-auto'];
   private hideMenuClass = ['scale-95', 'animate-fade-out-down', 'opacity-0', 'pointer-events-none'];
 
-  constructor(public menuService: MenuService) {}
+  constructor(public menuService: MenuService,
+    private router : Router
+  ) {}
 
   ngOnInit(): void {}
  public static pages2: MenuItem[] = [
@@ -115,7 +118,9 @@ export class CartComponent implements OnInit {
       this.showMenuClass.forEach((c) => element.classList.add(c));
     }
   }
-
+  onDashbroad(){
+    this.router.navigate(['/dashboard/nfts']);
+  }
   public mouseLeave(event: any): void {
     let element = event.target.querySelector('app-navbar-submenu').children[0];
     if (element) {

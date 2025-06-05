@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router, RouterLink } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { UserLogged } from 'src/app/core/utils/userLogged';
 
 @Component({
   selector: 'app-sign-in',
@@ -15,8 +17,8 @@ export class SignInComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
   passwordTextType!: boolean;
-
-  constructor(private readonly _formBuilder: FormBuilder, private readonly _router: Router) {}
+  public userLogged = new UserLogged();
+  constructor(private readonly _formBuilder: FormBuilder, private readonly _router: Router, private service : AuthService) {}
 
   onClick() {
     console.log('Button clicked');
@@ -24,7 +26,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required,]],
       password: ['', Validators.required],
     });
   }
@@ -44,7 +46,10 @@ export class SignInComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-
+    console.log(this.form.value);
+    this.service.login(this.form.value).subscribe(res => {
+      console.log(res);
+    })
     this._router.navigate(['/']);
   }
 }

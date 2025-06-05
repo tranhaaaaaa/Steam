@@ -10,7 +10,7 @@ export class Menu {
         {
           icon: 'assets/icons/heroicons/outline/download.svg',
           label: 'Trang chủ',
-          route: '/download',
+          route: '/dashboard/nfts',
         },
         {
           icon: 'assets/icons/heroicons/outline/gift.svg',
@@ -41,7 +41,7 @@ export class Menu {
         {
           icon: 'assets/icons/heroicons/outline/download.svg',
           label: 'Trang chủ',
-          route: '/download',
+          route: '/dashboard/community',
         },
         {
           icon: 'assets/icons/heroicons/outline/gift.svg',
