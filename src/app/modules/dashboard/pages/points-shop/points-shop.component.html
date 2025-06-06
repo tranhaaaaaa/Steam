@@ -1,69 +1,72 @@
-<div class="points-shop-container">
+<div class="points-shop-container bg-gray-900 text-white py-10 px-5">
   <!-- Header Section -->
-  <div class="points-header">
-    <div class="points-hero">
-      <div class="points-info">
-        <img src="https://store.akamai.steamstatic.com/public/images/v6/app/points_shop_header.png" 
-             alt="Points Shop" class="points-logo">
+  <div class="points-header bg-cover bg-center py-20">
+    <div class="points-hero flex justify-center items-center">
+      <div class="points-info text-center">
+              <img src="https://store.cloudflare.steamstatic.com/public/images/applications/store/dance.png?v=b896bc369ba61bf18e031b94ffb2578a" 
+              alt="Points Shop" class="points-logo mx-auto mb-6">
+          <img src="https://store.cloudflare.steamstatic.com/public/images/applications/store/boombox.png?v=13d9f30e1bb9b30809e30e399cd5c6ad" 
+              alt="Points Shop" class="points-logo mx-auto mb-6">
+                    <img src="https://store.cloudflare.steamstatic.com/public/images/applications/store/csgoChat_128_chickendance.png?v=ce4e554948a5e3175fce773e5525c393" 
+              alt="Points Shop" class="points-logo mx-auto mb-6">
+              
         <div class="points-content">
-          <h1>BUY GAMES, EARN POINTS</h1>
-          <p>Customize your Steam experience with Points Shop items</p>
-          <div class="points-balance">
-            <span class="points-amount">{{ formatPoints(pointsBalance) }}</span>
-            <img src="https://store.akamai.steamstatic.com/public/images/v6/app/steam_point_icon.png" 
-                 alt="Steam Points" class="points-icon">
-          </div>
+          <h1 class="text-4xl font-semibold mb-4 font-bold">Mua trò chơi, nhận điểm thưởng</h1>
+          <p class="text-lg mb-6 font-bold">Tùy chỉnh trải nghiệm trên Steam của bạn với vật phẩm từ cửa hàng điểm</p>
+          
         </div>
       </div>
     </div>
   </div>
 
   <!-- Shop Sections -->
-  <div class="shop-content">
-    <div *ngFor="let section of pointsSections; let sectionIndex = index" class="shop-section">
+  <div class="shop-content mt-10">
+    <div *ngFor="let section of pointsSections; let sectionIndex = index" class="shop-section mb-10">
       <!-- Section Header -->
-      <div class="section-header">
+      <div class="section-header flex justify-between items-center mb-6">
         <div class="section-title-container">
-          <h2 class="section-title">{{ section.title }}</h2>
-          <span *ngIf="section.subtitle" class="section-subtitle">{{ section.subtitle }}</span>
+          <h2 class="section-title text-3xl font-semibold font-bold">{{ section.title }}</h2>
+          <span *ngIf="section.subtitle" class="section-subtitle text-sm text-gray-400 font-bold">{{ section.subtitle }}</span>
         </div>
-        <a *ngIf="section.showMoreLink" href="#" class="view-more-link">
+        <a *ngIf="section.showMoreLink font-bold" href="#" class="view-more-link text-blue-500 flex items-center">
           <span>See All</span>
-          <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <svg class="arrow-icon ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </a>
       </div>
 
       <!-- Items Container -->
       <div class="items-container">
-        <div class="items-scroll-wrapper">
-          <!-- SỬA LẠI HÀM (click) -->
-          <button *ngIf="section.items.length > 4" class="nav-button nav-left" (click)="scrollItems(sectionIndex, 'left')">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        <div class="items-scroll-wrapper flex items-center overflow-hidden relative">
+          <!-- Left Navigation Button -->
+          <button *ngIf="section.items.length > 4" class="nav-button nav-left absolute left-0 top-1/2 transform -translate-y-1/2 bg-transparent border-none cursor-pointer" (click)="scrollItems(sectionIndex, 'left')">
+            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
           </button>
-          
-          <div class="items-grid" [id]="'items-grid-' + sectionIndex">
-            <!-- Bỏ đi các logic mua bán để đơn giản hóa và sửa lỗi -->
-            <div *ngFor="let item of section.items" class="item-card" [ngClass]="section.itemWidthClass">
-              <div class="item-image-container">
-                <img [src]="item.image" [alt]="item.title" class="item-image" (error)="onImageError($event)">
+
+          <!-- Items Grid -->
+          <div class="items-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5" [id]="'items-grid-' + sectionIndex">
+            <div *ngFor="let item of section.items" class="item-card bg-gray-800 p-4 rounded-lg shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
+              <div class="item-image-container relative overflow-hidden mb-4">
+                <img [src]="item.image" [alt]="item.title" class="item-image w-full h-58 object-cover rounded-md transition-opacity duration-200 font-bold" (error)="onImageError($event)">
               </div>
-              <div class="item-info">
-                <h3 class="item-title">{{ item.title }}</h3>
-                <div class="item-type">
-                  <svg-icon [src]="getItemTypeIcon(item.type)" class="item-type-icon"></svg-icon>
-                  <span class="item-type-label">{{ item.itemTypeLabel }}</span>
+              <div class="item-info text-center">
+                <h3 class="item-title text-lg font-semibold mb-2 font-bold">{{ item.title }}</h3>
+                <div class="item-type flex justify-center items-center mb-4">
+                  <svg-icon [src]="getItemTypeIcon(item.type)" class="item-type-icon w-5 h-5 mr-2"></svg-icon>
+                  <span class="item-type-label text-sm font-bold">{{ item.itemTypeLabel }}</span>
                 </div>
                 <div class="item-price">
-                  <span class="current-price">{{ formatPoints(item.points) }}</span>
-                  <img src="https://store.akamai.steamstatic.com/public/images/v6/app/steam_point_icon.png" alt="Points" class="price-points-icon">
+                  <span class="current-price text-xl font-semibold">{{ formatPoints(item.points) }}</span>
+                  VND
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- SỬA LẠI HÀM (click) -->
-          <button *ngIf="section.items.length > 4" class="nav-button nav-right" (click)="scrollItems(sectionIndex, 'right')">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+          <!-- Right Navigation Button -->
+          <button *ngIf="section.items.length > 4" class="nav-button nav-right absolute right-0 top-1/2 transform -translate-y-1/2 bg-transparent border-none cursor-pointer" (click)="scrollItems(sectionIndex, 'right')">
+            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
           </button>
         </div>
       </div>

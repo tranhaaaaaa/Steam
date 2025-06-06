@@ -27,7 +27,9 @@ export class NavbarMenuComponent implements OnInit {
   public toggleMenu(menu: MenuItem): void {
     menu.selected = !menu.selected;
   }
-
+onloginPage(){
+    this.router.navigate(['auth/sign-in']);
+}
   public mouseEnter(event: any): void {
     let element = event.target.querySelector('app-navbar-submenu').children[0];
     if (element) {
