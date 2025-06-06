@@ -2,16 +2,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-
+import { Router } from '@angular/router'; 
 interface PointsItem {
   id: number;
   title: string;
   points: number;
   image: string;
-  type: 'game_profile' | 'seasonal_badge' | 'sticker' | 'background' | 'emoticon' | 'startup_movie' | 'avatar_frame' | 'mini_profile_background' | 'chat_effect';
+  type: 'game_profile' | 'seasonal_badge' | 'sticker' | 'background' | 'emoticon' | 'startup_movie' | 'avatar_frame' | 'mini_profile_background' | 'chat_effect' | 'animated_avatar';
   itemTypeLabel: string;
-  discount?: number;       // Thêm lại thuộc tính optional
-  originalPoints?: number; // Thêm lại thuộc tính optional
+  gameIcon?: string; // Icon nhỏ của game ở góc
 }
 
 interface PointsSection {
@@ -33,8 +32,10 @@ interface PointsSection {
 export class PointsShopComponent implements OnInit {
   
   pointsBalance = 28420; // Current user points
+    public pointsSections: PointsSection[] = [];
+
   
-  pointsSections: PointsSection[] = [
+  featuredSections: PointsSection[] = [
     {
       title: 'Spring Sale 2025 Items',
       type: 'seasonal_items',
@@ -104,9 +105,65 @@ export class PointsShopComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  private salesAndEventsSections: PointsSection[] = [
+    {
+      title: 'Spring Sale 2025',
+      subtitle: 'See All (15)',
+      type: 'seasonal_items',
+      showMoreLink: false,
+      itemWidthClass: 'w-item-standard',
+      items: [
+        { id: 1, title: 'WILD BEGINNINGS', points: 5000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/5951828a23114f23ab0321c82859389b51465940.png', type: 'game_profile', itemTypeLabel: 'Game Profile', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2687520/5a91462025617c67761c84a8775d158133565245.jpg' },
+        { id: 24, title: 'FEATHERED FRIEND', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/8a7b3b0a10d5231a4b2e8f6e2c7a6b4d0b1a0c9d.png', type: 'sticker', itemTypeLabel: 'Animated Sticker', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2687520/5a91462025617c67761c84a8775d158133565245.jpg' },
+        { id: 25, title: 'BLOOMING BUDDY', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/9d8a7b3b0a10d5231a4b2e8f6e2c7a6b4d0b1a0c.png', type: 'sticker', itemTypeLabel: 'Animated Sticker', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2687520/5a91462025617c67761c84a8775d158133565245.jpg' },
+        { id: 26, title: 'GEO-GATHERER', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/c9d8a7b3b0a10d5231a4b2e8f6e2c7a6b4d0b1a0.png', type: 'sticker', itemTypeLabel: 'Animated Sticker', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2687520/5a91462025617c67761c84a8775d158133565245.jpg' },
+        { id: 27, title: 'OUTLAND OBSERVER', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/b4d0b1a0c9d8a7b3b0a10d5231a4b2e8f6e2c7a6.png', type: 'sticker', itemTypeLabel: 'Animated Sticker', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2687520/5a91462025617c67761c84a8775d158133565245.jpg' },
+      ]
+    },
+    {
+      title: 'Lunar New Year 2025',
+      type: 'seasonal_items',
+      showMoreLink: false,
+      itemWidthClass: 'w-item-sticker',
+      items: [
+        { id: 28, title: 'LUNAR2025SNAKEINABLANKET', points: 0, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2824970/e8f6e2c7a6b4d0b1a0c9d8a7b3b0a10d5231a4b2.png', type: 'emoticon', itemTypeLabel: 'Emoticon', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2824970/2f3b0e8a9c6d5a7e1f4c8b9d3e2a5c7f8b1d4e6a.jpg' },
+        { id: 9, title: 'SNAKE IN A BLANKET', points: 0, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/b5d1a4e7c9f6b2e5a8d5e8a2f1c9b6d4a7e3f2c8.png', type: 'sticker', itemTypeLabel: 'Animated Sticker', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2824970/2f3b0e8a9c6d5a7e1f4c8b9d3e2a5c7f8b1d4e6a.jpg' },
+        { id: 6, title: 'HAPPY NEW YEAR 2025', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/4e9d3c8b5d1a4e7c9f6b2e5a8d5e8a2f1c9b6d4a.png', type: 'sticker', itemTypeLabel: 'Animated Sticker', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2824970/2f3b0e8a9c6d5a7e1f4c8b9d3e2a5c7f8b1d4e6a.jpg' },
+        { id: 7, title: 'STEAM SNAKE 2025', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/c9f6b2e5a8d5e8a2f1c9b6d4a7e3f2c8b5d1a4e7.png', type: 'sticker', itemTypeLabel: 'Animated Sticker', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2824970/2f3b0e8a9c6d5a7e1f4c8b9d3e2a5c7f8b1d4e6a.jpg' },
+        { id: 8, title: 'RED ENVELOPE 2025', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/a4e7c9f6b2e5a8d5e8a2f1c9b6d4a7e3f2c8b5d1.png', type: 'sticker', itemTypeLabel: 'Animated Sticker', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2824970/2f3b0e8a9c6d5a7e1f4c8b9d3e2a5c7f8b1d4e6a.jpg' },
+      ]
+    },
+    {
+      title: 'Steam Scream 2024',
+      subtitle: 'See All (10)',
+      type: 'seasonal_items',
+      showMoreLink: false,
+      itemWidthClass: 'w-item-standard',
+      items: [
+        { id: 29, title: 'MOVIE TICKET', points: 2000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2539840/e2c7a6b4d0b1a0c9d8a7b3b0a10d5231a4b2e8f6.png', type: 'avatar_frame', itemTypeLabel: 'Avatar Frame', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2539840/5a91462025617c67761c84a8775d158133565245.jpg' },
+        { id: 30, title: '3D BONES', points: 3000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2539840/a10d5231a4b2e8f6e2c7a6b4d0b1a0c9d8a7b3b0.png', type: 'animated_avatar', itemTypeLabel: 'Animated Avatar', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2539840/5a91462025617c67761c84a8775d158133565245.jpg' },
+        { id: 31, title: 'HAUNTED THEATER', points: 5000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2539840/b0a10d5231a4b2e8f6e2c7a6b4d0b1a0c9d8a7b3.png', type: 'game_profile', itemTypeLabel: 'Game Profile', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2539840/5a91462025617c67761c84a8775d158133565245.jpg' },
+        { id: 32, title: 'SKULLPOP', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2539840/d8a7b3b0a10d5231a4b2e8f6e2c7a6b4d0b1a0c9.png', type: 'sticker', itemTypeLabel: 'Animated Sticker', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2539840/5a91462025617c67761c84a8775d158133565245.jpg' },
+        { id: 33, title: 'GHOSTCAKE', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2539840/7b3b0a10d5231a4b2e8f6e2c7a6b4d0b1a0c9d8a.png', type: 'sticker', itemTypeLabel: 'Animated Sticker', gameIcon: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2539840/5a91462025617c67761c84a8775d158133565245.jpg' },
+      ]
+    }
+  ];
 
-  ngOnInit(): void { }
+    // 5. Hàm kiểm tra URL để hiển thị header tương ứng
+    isSalesAndEventsPage(): boolean {
+    return this.router.url.includes('/sales-events');
+  }
+
+  constructor(private router: Router) { }
+
+    ngOnInit(): void {
+    // 3. Quyết định dữ liệu nào sẽ được hiển thị dựa trên URL
+    if (this.router.url.includes('/sales-events')) {
+      this.pointsSections = this.salesAndEventsSections;
+    } else {
+      this.pointsSections = this.featuredSections;
+    }
+  }
 
   
 

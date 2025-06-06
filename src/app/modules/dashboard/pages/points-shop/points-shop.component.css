@@ -76,3 +76,79 @@
 .w-item-sticker { width: 160px; background: var(--steam-darkest-blue); }
 .w-item-sticker .item-info { text-align: center; }
 .w-item-sticker .item-price { justify-content: center; }
+
+
+/* CSS MỚI CHO TRANG SALES & EVENTS */
+
+.sales-events-header {
+  padding: 60px 20px;
+  text-align: center;
+  background-image: url('https://store.akamai.steamstatic.com/public/images/v6/app/points_shop_events_hero_bg.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #1a2a3a;
+}
+
+.sales-events-title {
+  font-size: 3rem;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.sales-events-subtitle {
+  font-size: 1.1rem;
+  color: var(--steam-light-gray);
+}
+
+.item-game-icon-overlay {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+.item-video-icon {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0,0,0,0.4);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-in-prompt {
+  text-align: center;
+  padding: 40px 20px;
+  margin-top: 50px;
+  border-top: 1px solid var(--steam-border-color);
+}
+
+.sign-in-prompt p {
+  color: var(--steam-gray);
+  margin-bottom: 20px;
+}
+
+.sign-in-button {
+  background: linear-gradient(to right, #75b022, #588a1b);
+  color: #d2ff9d;
+  border: none;
+  padding: 10px 50px;
+  border-radius: 3px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sign-in-button:hover {
+  filter: brightness(1.1);
+}

@@ -1,6 +1,6 @@
 <div class="points-shop-container">
-  <!-- Header Section -->
-  <div class="points-header">
+  <!-- Header Section: Hiển thị có điều kiện -->
+  <div *ngIf="!isSalesAndEventsPage()" class="points-header">
     <div class="points-hero">
       <div class="points-info">
         <img src="https://store.akamai.steamstatic.com/public/images/v6/app/points_shop_header.png" 
@@ -18,10 +18,15 @@
     </div>
   </div>
 
+  <!-- Header MỚI cho trang Sales & Events -->
+  <div *ngIf="isSalesAndEventsPage()" class="sales-events-header">
+    <h1 class="sales-events-title">Items From Steam Sales and Events</h1>
+    <p class="sales-events-subtitle">Find items still available from our sales and events</p>
+  </div>
+
   <!-- Shop Sections -->
   <div class="shop-content">
     <div *ngFor="let section of pointsSections; let sectionIndex = index" class="shop-section">
-      <!-- Section Header -->
       <div class="section-header">
         <div class="section-title-container">
           <h2 class="section-title">{{ section.title }}</h2>
@@ -29,23 +34,21 @@
         </div>
         <a *ngIf="section.showMoreLink" href="#" class="view-more-link">
           <span>See All</span>
-          <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </a>
       </div>
-
-      <!-- Items Container -->
       <div class="items-container">
         <div class="items-scroll-wrapper">
-          <!-- SỬA LẠI HÀM (click) -->
-          <button *ngIf="section.items.length > 4" class="nav-button nav-left" (click)="scrollItems(sectionIndex, 'left')">
+          <button *ngIf="section.items.length > 5" class="nav-button nav-left" (click)="scrollItems(sectionIndex, 'left')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
           </button>
-          
           <div class="items-grid" [id]="'items-grid-' + sectionIndex">
-            <!-- Bỏ đi các logic mua bán để đơn giản hóa và sửa lỗi -->
             <div *ngFor="let item of section.items" class="item-card" [ngClass]="section.itemWidthClass">
               <div class="item-image-container">
                 <img [src]="item.image" [alt]="item.title" class="item-image" (error)="onImageError($event)">
+                <img *ngIf="item.gameIcon" [src]="item.gameIcon" class="item-game-icon-overlay">
+                <div class="item-video-icon">
+                  <svg viewBox="0 0 24 24"><path fill="currentColor" d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"></path></svg>
+                </div>
               </div>
               <div class="item-info">
                 <h3 class="item-title">{{ item.title }}</h3>
@@ -60,13 +63,17 @@
               </div>
             </div>
           </div>
-
-          <!-- SỬA LẠI HÀM (click) -->
-          <button *ngIf="section.items.length > 4" class="nav-button nav-right" (click)="scrollItems(sectionIndex, 'right')">
+          <button *ngIf="section.items.length > 5" class="nav-button nav-right" (click)="scrollItems(sectionIndex, 'right')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
           </button>
         </div>
       </div>
+    </div>
+    
+    <!-- Nút Sign In ở cuối trang -->
+    <div *ngIf="isSalesAndEventsPage()" class="sign-in-prompt">
+      <p>You'll need to sign into your Steam account to see this page</p>
+      <button class="sign-in-button">Sign In</button>
     </div>
   </div>
 </div>

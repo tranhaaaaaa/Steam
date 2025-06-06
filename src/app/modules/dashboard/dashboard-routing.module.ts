@@ -7,7 +7,7 @@ import { CartComponent } from './components/nft/cart/cart.component';
 import { PointsShopComponent } from './pages/points-shop/points-shop.component';
 import { PointsShopLayoutComponent } from './pages/points-shop/points-shop-layout.component';
 import { CommunityComponent } from './components/community/community.component';
-
+import { BundlesComponent } from './pages/bundles/bundles.component';
 const routes: Routes = [
   {
     path: '',
@@ -23,7 +23,7 @@ const routes: Routes = [
           { path: '', component: PointsShopComponent },
           { path: 'from-games', component: PointsShopComponent },
           { path: 'sales-events', component: PointsShopComponent },
-          { path: 'bundles', component: PointsShopComponent },
+          { path: 'bundles', component: BundlesComponent },
           { path: 'keyboards', component: PointsShopComponent },
           { path: 'startup-movies', component: PointsShopComponent },
           { path: 'avatars', component: PointsShopComponent },

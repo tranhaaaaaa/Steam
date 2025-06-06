@@ -1,0 +1,33 @@
+<div class="bundles-container">
+  <!-- Header -->
+  <div class="bundles-header">
+    <h1 class="bundles-title">Item Bundles</h1>
+    <p class="bundles-subtitle">
+      Love Points Shop items? Get a bundle of them for a discount - you won't be charged for items you already own.
+    </p>
+  </div>
+
+  <!-- Bundles Grid -->
+  <div class="bundles-content">
+    <h2 class="grid-title">All Item Bundles</h2>
+    <div class="bundles-grid">
+      <div *ngFor="let bundle of bundles" class="bundle-card">
+        <div class="bundle-image-container">
+          <img [src]="bundle.bundleImage" [alt]="bundle.title" class="bundle-image">
+          <img [src]="bundle.gameIcon" [alt]="bundle.title + ' icon'" class="game-icon">
+        </div>
+        <div class="bundle-info">
+          <h3 class="bundle-title">{{ bundle.title }} ({{ bundle.itemCount }})</h3>
+          <div class="bundle-details">
+            <div class="discount-tag">-{{ bundle.discountPercentage }}%</div>
+            <div class="price-section">
+              <svg-icon src="assets/icons/heroicons/solid/check-circle.svg" class="checkmark-icon"></svg-icon>
+              <span class="points-value">{{ formatPoints(bundle.points) }}</span>
+              <img src="https://store.akamai.steamstatic.com/public/images/v6/app/steam_point_icon.png" alt="Points" class="points-icon">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

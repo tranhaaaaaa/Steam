@@ -1,0 +1,154 @@
+/* src/app/modules/dashboard/pages/bundles/bundles.component.css */
+
+:host {
+  --steam-blue: #66c0f4;
+  --steam-gray: #8f98a0;
+  --steam-light-gray: #c7d5e0;
+  --steam-dark-blue: #1b2838;
+  --steam-mid-blue: #2a475e;
+  --steam-darkest-blue: #171a21;
+  --steam-border-color: rgba(102, 192, 244, 0.2);
+  --steam-green: #a0cf00;
+}
+
+.bundles-container {
+  width: 100%;
+}
+
+.bundles-header {
+  padding: 60px 20px;
+  text-align: center;
+  background-image: url('https://store.akamai.steamstatic.com/public/images/v6/app/points_shop_events_hero_bg.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #1a2a3a;
+}
+
+.bundles-title {
+  font-size: 3rem;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.bundles-subtitle {
+  font-size: 1.1rem;
+  color: var(--steam-light-gray);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.bundles-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.grid-title {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: white;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--steam-border-color);
+  letter-spacing: 1px;
+}
+
+.bundles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.bundle-card {
+  background: linear-gradient(135deg, #203044, #182331);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.bundle-card:hover {
+  border-color: var(--steam-blue);
+  transform: translateY(-3px);
+}
+
+.bundle-image-container {
+  position: relative;
+  background-color: var(--steam-darkest-blue);
+  padding: 20px;
+}
+
+.bundle-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.game-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 3px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.7);
+}
+
+.bundle-info {
+  padding: 15px;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.bundle-title {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--steam-light-gray);
+  margin: 0 0 10px 0;
+}
+
+.bundle-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.discount-tag {
+  background-color: #4c6b22;
+  color: var(--steam-green);
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.price-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkmark-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--steam-green);
+}
+
+.points-value {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
+}
+
+.points-icon {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 768px) {
+  .bundles-grid {
+    grid-template-columns: 1fr;
+  }
+}
