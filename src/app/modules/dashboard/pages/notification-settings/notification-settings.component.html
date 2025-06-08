@@ -1,0 +1,21 @@
+<div class="notifications-container" [formGroup]="notificationForm">
+  <div class="content-section">
+    <h2 class="section-title">Thông báo</h2>
+    <div class="section-body">
+      <p>Steam sẽ hiển thị bản tóm tắt các thông báo khi khởi động, sau đó giảm tần suất để chỉ thông báo khi cần thiết.</p>
+      <p>Lưu ý: Tắt một loại thông báo cũng đồng nghĩa với việc không hiển thị chiếc chuông màu xanh lá trên phần mềm Steam.</p>
+      
+      <h3 class="subsection-title">Gửi tôi một thông báo khi...</h3>
+
+      <div class="settings-list">
+        <div *ngFor="let setting of settings" class="setting-item">
+          <span>{{ setting.label }}</span>
+          <div class="toggle-switch" (click)="toggleSetting(setting.key)" [class.active]="notificationForm.get(setting.key)?.value">
+            <div class="toggle-handle"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="keyboards-container">
+  <!-- Header -->
+  <div class="keyboards-header">
+    <h1 class="keyboards-title">Bàn phím Steam</h1>
+  </div>
+
+  <!-- Content -->
+  <div class="keyboards-content">
+    <h2 class="grid-title">TẤT CẢ BÀN PHÍM STEAM DECK</h2>
+    <p class="grid-subtitle">Cá nhân hóa bàn phím ảo trên Steam Deck.</p>
+    
+    <div class="keyboards-grid">
+      <div *ngFor="let keyboard of keyboards" class="keyboard-card">
+        <div class="image-container">
+          <img [src]="keyboard.image" [alt]="keyboard.title" class="keyboard-image">
+          
+          <!-- Steam Deck Icon -->
+          <div class="icon-overlay steam-deck-icon">
+            <svg-icon src="assets/icons/heroicons/solid/device-tablet.svg"></svg-icon>
+          </div>
+          
+          <!-- Keyboard Icon -->
+          <div class="icon-overlay keyboard-type-icon">
+            <svg-icon src="assets/icons/heroicons/solid/keyboard.svg"></svg-icon>
+          </div>
+        </div>
+        <div class="info-container">
+          <h3 class="keyboard-title">{{ keyboard.title }}</h3>
+          <p class="keyboard-type">{{ keyboard.itemTypeLabel }}</p>
+          <div class="price-section">
+            <svg-icon src="assets/icons/heroicons/solid/check-circle.svg" class="checkmark-icon"></svg-icon>
+            <span class="points-value">{{ formatPoints(keyboard.points) }}</span>
+            <svg-icon src="assets/icons/steam-points-icon.svg" class="points-icon"></svg-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="security-container">
+
+  <!-- Account Security Section -->
+  <div class="content-section">
+    <h2 class="section-title">
+      <svg-icon src="assets/icons/heroicons/solid/shield-check.svg"></svg-icon>
+      Account Security
+    </h2>
+    <div class="section-body">
+      <p>Steam Guard helps protect the value in your account from unauthorized access. You'll be asked to verify your sign in with the Steam Mobile App. <a href="#">Steam Guard FAQ</a></p>
+      
+      <div class="steam-guard-status no-authenticator">
+        <svg-icon src="assets/icons/heroicons/solid/exclamation-triangle.svg"></svg-icon>
+        No mobile authenticator
+      </div>
+
+      <div class="get-steam-guard">
+        <div class="qr-section">
+          <h4>Get the Steam Mobile App with authenticator</h4>
+          <p>Scan this QR code with your phone to learn more about all of the mobile apps for Steam.</p>
+        </div>
+        <img src="https://store.akamai.steamstatic.com/public/images/v6/ico/ico_qr_steam_mobile.png" alt="QR Code" class="qr-code">
+        <div class="app-links">
+          <p class="min-req">Minimum OS required: iOS 15.1 or Android 7.0</p>
+          <a href="#"><img src="https://store.akamai.steamstatic.com/public/images/v6/ico/ico_app_store.png" alt="Download on the App Store"></a>
+          <a href="#"><img src="https://store.akamai.steamstatic.com/public/images/v6/ico/ico_google_play.png" alt="Get it on Google Play"></a>
+          <p class="min-req">Android users without access to Google Play can download the latest version <a href="#">here</a>.</p>
+          <a href="#" class="faq-link">Steam Guard Mobile Authenticator FAQ</a>
+        </div>
+      </div>
+
+      <div class="account-info-grid">
+        <div>
+          <p>Steam account: <strong>cwsheen2002</strong></p>
+          <button class="action-button-light">Change password</button>
+        </div>
+        <div>
+          <p>Phone number: <strong>None</strong></p>
+          <button class="action-button-light">Manage phone number</button>
+        </div>
+        <div>
+          <p>Email address: <strong>nnguyenthailongvu&#64;gmail.com</strong></p>
+          <p>Status: <strong class="verified-status">Verified</strong></p>
+          <p>Sign in verification: <strong>Via email</strong></p>
+          <div class="button-group">
+            <button class="action-button-light">Change email address</button>
+            <button class="action-button-light">Remove security</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Authorized Devices Section -->
+  <div class="content-section">
+    <h2 class="section-title">Authorized Devices</h2>
+    <div class="section-body column-layout">
+      <p>This section lists the PCs, mobile devices, and web browsers where your account has recently been signed in.</p>
+      <p>To end all current sessions and sign you out of all devices and browsers, select Remove All Credentials below.</p>
+      
+      <div class="device-list">
+        <h3 class="subsection-title">Active now</h3>
+        <div *ngFor="let device of activeDevices" class="device-item" [class.current-device]="device.isCurrentDevice">
+          <svg-icon [src]="getDeviceIcon(device.type)" class="device-icon"></svg-icon>
+          <div class="device-details">
+            <p class="device-name">{{ device.type }} - "{{ device.name }}" <span *ngIf="device.isCurrentDevice" class="this-device-tag">THIS DEVICE</span></p>
+          </div>
+          <span class="device-location">{{ device.location }}</span>
+          <svg-icon src="assets/icons/heroicons/solid/chevron-down.svg" class="expand-icon"></svg-icon>
+        </div>
+
+        <h3 class="subsection-title">Recently seen devices</h3>
+        <div *ngFor="let device of recentlySeenDevices" class="device-item">
+          <svg-icon [src]="getDeviceIcon(device.type)" class="device-icon"></svg-icon>
+          <div class="device-details">
+            <p class="device-name">{{ device.type }} - "{{ device.name }}"</p>
+            <p class="last-active">Last active: {{ device.lastActive }}</p>
+            <p class="new-device-info" *ngIf="device.isNew">New Device (first seen less than 2 weeks ago) <a href="#">Not you?</a></p>
+          </div>
+          <span class="device-location">{{ device.location }}</span>
+          <svg-icon src="assets/icons/heroicons/solid/chevron-down.svg" class="expand-icon"></svg-icon>
+        </div>
+      </div>
+
+      <button class="sign-out-all-button">Sign out everywhere</button>
+    </div>
+  </div>
+
+  <!-- Signed Out Devices Section -->
+  <div class="content-section">
+    <h2 class="section-title">Signed Out Devices</h2>
+    <div class="section-body column-layout">
+      <p>Your account isn't usable on these devices until you sign in with your password.</p>
+      <div class="device-list">
+        <div *ngFor="let device of signedOutDevices" class="device-item">
+          <svg-icon [src]="getDeviceIcon(device.type)" class="device-icon"></svg-icon>
+          <div class="device-details">
+            <p class="device-name">{{ device.type }} - "{{ device.name }}"</p>
+            <p class="last-active">Last active: {{ device.lastActive }}</p>
+          </div>
+          <span class="device-location">{{ device.location }}</span>
+          <svg-icon src="assets/icons/heroicons/solid/chevron-down.svg" class="expand-icon"></svg-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

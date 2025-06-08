@@ -1,0 +1,39 @@
+
+<div class="community-recommends-container">
+  <!-- Header -->
+  <div class="section-header">
+    <div class="title-container">
+      <h2 class="section-title">THE COMMUNITY RECOMMENDS</h2>
+      <p class="section-subtitle">CUSTOMIZE, EXPLORE BY TAG, & MORE</p>
+    </div>
+    <div class="carousel-nav">
+      <button (click)="scroll('left')" class="nav-arrow"><</button>
+      <button (click)="scroll('right')" class="nav-arrow">></button>
+    </div>
+  </div>
+
+  <!-- Carousel -->
+  <div #carousel class="carousel-wrapper">
+    <div *ngFor="let rec of recommendations" class="recommendation-card">
+      <div class="card-content">
+        <div class="main-image-container">
+          <img [src]="rec.mainImage" [alt]="rec.title" class="main-image">
+        </div>
+        <div class="info-panel">
+          <h3 class="item-title">{{ rec.title }}</h3>
+          <p class="item-description">{{ rec.description }}</p>
+          <div class="tags-container">
+            <span *ngFor="let tag of rec.tags" class="tag">{{ tag }}</span>
+          </div>
+          <div class="reviewer-info">
+            <img [src]="rec.review.avatar" [alt]="rec.review.author" class="reviewer-avatar">
+            <div class="review-text">
+              <p>"{{ rec.review.text }}"</p>
+              <span>- {{ rec.review.author }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

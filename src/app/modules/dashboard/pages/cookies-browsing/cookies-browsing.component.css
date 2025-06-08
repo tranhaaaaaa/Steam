@@ -1,0 +1,151 @@
+:host {
+  --steam-blue: #66c0f4;
+  --steam-gray: #8f98a0;
+  --steam-light-gray: #c7d5e0;
+  --steam-dark-blue: #1b2838;
+  --steam-mid-blue: #2a475e;
+}
+
+.content-section {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+.section-title {
+  background-color: var(--steam-mid-blue);
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #ffffff;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.section-body {
+  padding: 20px;
+}
+.cookie-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #3d4450;
+}
+.cookie-controls h3 {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+.action-button-light, .action-button-blue {
+  padding: 8px 15px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border: none;
+  transition: all 0.2s ease;
+}
+.action-button-light {
+  background: linear-gradient(to right, #435f7a, #33495e);
+  color: #d2e8f6;
+}
+.action-button-light:hover {
+  background: linear-gradient(to right, #517291, #3e5870);
+}
+.action-button-blue {
+  background: linear-gradient(to right, #4b90e0, #3c74b6);
+  color: white;
+}
+.action-button-blue:hover {
+  filter: brightness(1.1);
+}
+
+.cookie-setting-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #171a21;
+  padding: 15px;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+.cookie-setting-card h4 {
+  color: var(--steam-light-gray);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.cookie-setting-card p {
+  font-size: 0.85rem;
+  color: var(--steam-gray);
+  max-width: 500px;
+}
+.cookie-names {
+  font-style: italic;
+  margin-top: 10px;
+}
+.privacy-link {
+  color: var(--steam-blue);
+  text-decoration: none;
+  margin-left: 5px;
+}
+.privacy-link:hover {
+  text-decoration: underline;
+}
+
+.toggle-switch {
+  width: 80px;
+  height: 30px;
+  background-color: #3d4450;
+  border-radius: 15px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  transition: background-color 0.3s ease;
+}
+.toggle-switch.active {
+  background-color: #4c6b22;
+}
+.toggle-handle {
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+}
+.toggle-switch.active .toggle-handle {
+  transform: translateX(50px);
+}
+.toggle-label {
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  line-height: 30px;
+  transition: opacity 0.2s ease;
+}
+.toggle-switch .toggle-label {
+  right: 15px;
+}
+.toggle-switch.active .toggle-label {
+  left: 15px;
+}
+
+.subsection-title {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-top: 30px;
+  margin-bottom: 5px;
+}
+.subsection-description {
+  color: var(--steam-gray);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}

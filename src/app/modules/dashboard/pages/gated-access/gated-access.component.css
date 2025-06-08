@@ -1,0 +1,55 @@
+:host {
+  --steam-blue: #66c0f4;
+  --steam-gray: #8f98a0;
+  --steam-light-gray: #c7d5e0;
+}
+
+.content-section {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  margin-bottom: 30px;
+}
+
+.section-body {
+  padding: 20px;
+}
+
+.action-button-light {
+  background: linear-gradient(to right, #435f7a, #33495e);
+  color: #d2e8f6;
+  padding: 8px 15px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border: none;
+  transition: all 0.2s ease;
+  margin-bottom: 15px;
+}
+
+.action-button-light:hover {
+  background: linear-gradient(to right, #517291, #3e5870);
+}
+
+.info-text {
+  color: var(--steam-gray);
+  font-size: 0.9rem;
+}
+
+.info-box {
+  margin-bottom: 30px;
+}
+
+.info-box h3 {
+  color: var(--steam-blue);
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.info-box p {
+  color: var(--steam-light-gray);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  max-width: 600px;
+}

@@ -1,0 +1,66 @@
+<!-- src/app/modules/dashboard/pages/account/account-details.component.html -->
+<div class="details-container">
+  <!-- Store & Purchase History -->
+  <div class="content-section">
+    <h2 class="section-title">
+      <svg-icon src="assets/icons/heroicons/outline/shopping-cart.svg"></svg-icon>
+      Store & Purchase History
+    </h2>
+    <div class="section-body">
+      <div class="left-panel">
+        <button class="action-button-light">+ Add funds to your Steam Wallet</button>
+        <div class="wallet-balance">
+          <span>Wallet Balance</span>
+          <span>0₫</span>
+        </div>
+        <div class="payment-methods">
+          <p>The following payment methods are currently associated with your account.</p>
+          <div class="payment-method-card">
+            <span>Visa ending in 95</span>
+            <div class="card-actions">
+              <a href="#">Edit</a> | <a href="#">Delete</a>
+            </div>
+          </div>
+          <button class="action-button-light">Update the payment method linked to this account</button>
+        </div>
+      </div>
+      <div class="right-panel">
+        <button class="action-button-dark">View purchase history</button>
+        <button class="action-button-dark">View licenses and product key activations</button>
+        <button class="action-button-dark">Update store preferences</button>
+        <div class="country-info">
+          <p>Country: <strong>Viet Nam</strong></p>
+          <p>If you have moved to a different country, you may be able to update your Steam Wallet and how you view the Steam Store.</p>
+          <button class="action-button-light">Update store country</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Info -->
+  <div class="content-section">
+    <h2 class="section-title">
+      <svg-icon src="assets/icons/heroicons/outline/envelope.svg"></svg-icon>
+      Contact Info
+    </h2>
+    <div class="section-body">
+      <div class="left-panel">
+        <button class="action-button-dark">Manage Email Preferences</button>
+        <!-- SỬA LỖI Ở ĐÂY -->
+        <p>Email address: <strong>nguyenthailongvu&#64;gmail.com</strong></p>
+        <p>Status: <strong class="verified-status">Verified</strong></p>
+        <button class="action-button-light">Change my email address</button>
+      </div>
+      <div class="right-panel">
+        <button class="action-button-dark">Add a phone number</button>
+        <p>For extra security you can add a phone number to your account. Steam can send important messages to your phone.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Account -->
+  <div class="delete-section">
+    <button class="action-button-light">Delete my Steam account</button>
+    <span>- Learn more about permanently deleting your account and associated information.</span>
+  </div>
+</div>

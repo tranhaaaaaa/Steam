@@ -1,0 +1,27 @@
+.nft-page-container {
+  max-width: 940px;
+  margin: 0 auto;
+}
+.keep-scrolling {
+  text-align: center;
+  padding: 80px 20px;
+  color: #8f98a0;
+}
+.scroll-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  background-image: url('https://store.akamai.steamstatic.com/public/images/v6/home/background_main_logo_bubbling.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.2;
+}
+.keep-scrolling p {
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+.keep-scrolling span {
+  font-size: 0.9rem;
+}

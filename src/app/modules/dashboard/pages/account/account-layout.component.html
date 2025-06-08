@@ -1,0 +1,32 @@
+<!-- src/app/modules/dashboard/pages/account/account-layout.component.html -->
+<div class="account-page-container">
+  <div class="breadcrumbs">
+    <a routerLink="/">Home</a> > <span>Account</span>
+  </div>
+
+  <h1 class="account-title">cwsheen2002's Account</h1>
+  <p class="steam-id">Steam ID: 76561199222535340</p>
+
+  <div class="account-content-wrapper">
+    <!-- Sidebar -->
+    <div class="account-sidebar">
+      <nav>
+        <ul>
+          <li *ngFor="let item of sidebarItems">
+            <a 
+              [routerLink]="item.route" 
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }">
+              {{ item.label }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="account-main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

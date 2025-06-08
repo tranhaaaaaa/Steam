@@ -1,0 +1,131 @@
+:host {
+  --steam-blue: #66c0f4;
+  --steam-gray: #8f98a0;
+  --steam-light-gray: #c7d5e0;
+  --steam-dark-blue: #1b2838;
+  --steam-mid-blue: #2a475e;
+  --steam-darkest-blue: #171a21;
+}
+
+.preferences-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.content-section {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.section-title {
+  background-color: var(--steam-mid-blue);
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #ffffff;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.section-body {
+  padding: 20px;
+}
+
+.section-body.column-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.subsection-title {
+  color: var(--steam-blue);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.section-body > p {
+  color: var(--steam-gray);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 1fr 80px 80px;
+  text-align: center;
+  color: var(--steam-gray);
+  font-size: 0.8rem;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #3d4450;
+}
+
+.preference-row {
+  display: grid;
+  grid-template-columns: 1fr 80px 80px;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #3d4450;
+}
+.preference-row:last-child {
+  border-bottom: none;
+}
+.preference-row h4 {
+  color: var(--steam-light-gray);
+  font-weight: 400;
+  margin: 0 0 4px 0;
+}
+.preference-row p {
+  font-size: 0.8rem;
+  color: var(--steam-gray);
+  margin: 0;
+}
+.preference-row a {
+  font-size: 0.8rem;
+  color: var(--steam-gray);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.preference-row a:hover {
+  color: white;
+}
+.preference-row input[type="checkbox"] {
+  justify-self: center;
+  width: 18px;
+  height: 18px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: var(--steam-light-gray);
+}
+
+.tag-input-wrapper {
+  display: flex;
+  gap: 10px;
+}
+.tag-input-wrapper input {
+  flex-grow: 1;
+  background-color: var(--steam-darkest-blue);
+  border: 1px solid #3d4450;
+  color: white;
+  padding: 8px;
+  border-radius: 2px;
+}
+.tag-input-wrapper button {
+  background: linear-gradient(to right, #435f7a, #33495e);
+  color: #d2e8f6;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.tag-input-wrapper button:hover {
+  background: linear-gradient(to right, #517291, #3e5870);
+}

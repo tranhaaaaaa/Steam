@@ -1,25 +1,40 @@
+// src/app/modules/dashboard/pages/nft/nft.component.ts
+
 import { Component, OnInit } from '@angular/core';
-import { NftAuctionsTableComponent } from '../../components/nft/nft-auctions-table/nft-auctions-table.component';
-import { NftChartCardComponent } from '../../components/nft/nft-chart-card/nft-chart-card.component';
-import { NftDualCardComponent } from '../../components/nft/nft-dual-card/nft-dual-card.component';
-import { NftHeaderComponent } from '../../components/nft/nft-header/nft-header.component';
-import { NftSingleCardComponent } from '../../components/nft/nft-single-card/nft-single-card.component';
+import { CommonModule } from '@angular/common';
 import { Nft } from '../../models/nft';
+
+// Import các component cho phần giao diện GỐC
+import { NftDualCardComponent } from '../../components/nft/nft-dual-card/nft-dual-card.component';
+import { NftSingleCardComponent } from '../../components/nft/nft-single-card/nft-single-card.component';
+import { CategoryBrowserComponent } from '../../components/nft/category-browser/category-browser.component';
+import { BecauseYouPlayedComponent } from '../../components/nft/because-you-played/because-you-played.component';
+import { CommunityRecommendsComponent } from '../../components/nft/community-recommends/community-recommends.component';
 
 @Component({
   selector: 'app-nft',
+  standalone: true,
   templateUrl: './nft.component.html',
+  styleUrls: ['./nft.component.css'],
+  // Cập nhật mảng imports để chứa TẤT CẢ component cần thiết
   imports: [
-    NftHeaderComponent,
+    CommonModule,
+    // Components cho phần gốc
     NftDualCardComponent,
     NftSingleCardComponent,
-    NftAuctionsTableComponent,
+    // Components cho phần mới
+    CommunityRecommendsComponent,
+    CategoryBrowserComponent,
+    BecauseYouPlayedComponent,
+    
   ],
 })
 export class NftComponent implements OnInit {
+  // Thêm lại mảng dữ liệu 'nft'
   nft: Array<Nft>;
 
   constructor() {
+    // Gán lại dữ liệu cho các card gốc
     this.nft = [
       {
         id: 34356771,

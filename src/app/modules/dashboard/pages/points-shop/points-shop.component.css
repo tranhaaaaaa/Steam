@@ -1,4 +1,3 @@
-/* app/modules/dashboard/pages/points-shop/points-shop.component.css */
 :host {
   --steam-blue: #66c0f4;
   --steam-gray: #8f98a0;
@@ -151,4 +150,14 @@
 
 .sign-in-button:hover {
   filter: brightness(1.1);
+}
+
+.points-icon { 
+  width: 28px;
+  height: 28px;
+}
+
+.price-points-icon { 
+  width: 20px;
+  height: 20px;
 }

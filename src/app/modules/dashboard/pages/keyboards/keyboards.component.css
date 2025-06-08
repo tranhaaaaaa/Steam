@@ -1,4 +1,4 @@
-/* src/app/modules/dashboard/pages/bundles/bundles.component.css */
+/* src/app/modules/dashboard/pages/keyboards/keyboards.component.css */
 
 :host {
   --steam-blue: #66c0f4;
@@ -6,17 +6,16 @@
   --steam-light-gray: #c7d5e0;
   --steam-dark-blue: #1b2838;
   --steam-mid-blue: #2a475e;
-  --steam-darkest-blue: #171a21;
   --steam-border-color: rgba(102, 192, 244, 0.2);
   --steam-green: #a0cf00;
 }
 
-.bundles-container {
+.keyboards-container {
   width: 100%;
 }
 
-.bundles-header {
-  padding: 60px 20px;
+.keyboards-header {
+  padding: 60px 20px 40px;
   text-align: center;
   background-image: url('https://store.akamai.steamstatic.com/public/images/v6/app/points_shop_events_hero_bg.png');
   background-position: center center;
@@ -24,22 +23,14 @@
   background-color: #1a2a3a;
 }
 
-.bundles-title {
+.keyboards-title {
   font-size: 3rem;
   font-weight: 300;
   color: white;
   letter-spacing: 2px;
-  margin-bottom: 10px;
 }
 
-.bundles-subtitle {
-  font-size: 1.1rem;
-  color: var(--steam-light-gray);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.bundles-content {
+.keyboards-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
@@ -47,21 +38,27 @@
 
 .grid-title {
   font-size: 1.2rem;
-  font-weight: 300;
+  font-weight: 400;
   color: white;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--steam-border-color);
   letter-spacing: 1px;
 }
 
-.bundles-grid {
+.grid-subtitle {
+  font-size: 0.9rem;
+  color: var(--steam-gray);
+  margin-top: 5px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--steam-border-color);
+  margin-bottom: 30px;
+}
+
+.keyboards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
-.bundle-card {
+.keyboard-card {
   background: linear-gradient(135deg, #203044, #182331);
   border-radius: 4px;
   overflow: hidden;
@@ -70,58 +67,61 @@
   border: 1px solid transparent;
 }
 
-.bundle-card:hover {
+.keyboard-card:hover {
   border-color: var(--steam-blue);
   transform: translateY(-3px);
 }
 
-.bundle-image-container {
+.image-container {
   position: relative;
-  background-color: var(--steam-darkest-blue);
+  background-color: rgba(0,0,0,0.2);
   padding: 20px;
 }
 
-.bundle-image {
+.keyboard-image {
   width: 100%;
   height: auto;
   display: block;
-}
-
-.game-icon {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 32px;
-  height: 32px;
   border-radius: 3px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.7);
 }
 
-.bundle-info {
-  padding: 15px;
-  background-color: rgba(0,0,0,0.1);
-}
-
-.bundle-title {
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: var(--steam-light-gray);
-  margin: 0 0 10px 0;
-}
-
-.bundle-details {
+.icon-overlay {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  color: var(--steam-light-gray);
 }
 
-.discount-tag {
-  background-color: #4c6b22;
-  color: var(--steam-green);
-  padding: 4px 8px;
-  border-radius: 3px;
-  font-size: 0.9rem;
+.steam-deck-icon {
+  top: 8px;
+  left: 8px;
+}
+
+.keyboard-type-icon {
+  top: 8px;
+  right: 8px;
+}
+
+.info-container {
+  padding: 15px;
+}
+
+.keyboard-title {
+  font-size: 1.1rem;
   font-weight: 500;
+  color: white;
+  margin: 0 0 5px 0;
+}
+
+.keyboard-type {
+  font-size: 0.8rem;
+  color: var(--steam-gray);
+  margin-bottom: 15px;
 }
 
 .price-section {
@@ -143,12 +143,6 @@
 }
 
 .points-icon {
-  width: 20px;
-  height: 20px;
-}
-
-@media (max-width: 768px) {
-  .bundles-grid {
-    grid-template-columns: 1fr;
-  }
+  width: 15px; 
+  height: 15px;
 }

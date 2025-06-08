@@ -1,0 +1,48 @@
+<div class="cookies-container" [formGroup]="cookieForm">
+  <div class="content-section">
+    <h2 class="section-title">Cookie & Duyệt web</h2>
+    <div class="section-body">
+      
+      <!-- Cookie Controls -->
+      <div class="cookie-controls">
+        <h3>Cookie bổ sung</h3>
+        <div class="button-group">
+          <button (click)="rejectAll()" class="action-button-light">Từ chối tất cả</button>
+          <button (click)="acceptAll()" class="action-button-blue">Chấp nhận tất cả</button>
+        </div>
+      </div>
+
+      <!-- Cookie Settings -->
+      <div *ngFor="let cookie of valveCookies" class="cookie-setting-card">
+        <div>
+          <h4>{{ cookie.title }}</h4>
+          <p>{{ cookie.description }}</p>
+          <p class="cookie-names">Cookie: {{ cookie.cookies }}</p>
+        </div>
+        <div class="toggle-switch" (click)="toggleCookie(cookie.key)" [class.active]="cookieForm.get(cookie.key)?.value">
+          <div class="toggle-label">{{ cookieForm.get(cookie.key)?.value ? 'BẬT' : 'TẮT' }}</div>
+          <div class="toggle-handle"></div>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Cookie về chia sẻ media bên thứ ba</h3>
+      <p class="subsection-description">Các cookie này cần thiết để nhúng một số nguồn media bên ngoài lên trang web của chúng tôi</p>
+      
+      <div *ngFor="let cookie of thirdPartyCookies" class="cookie-setting-card">
+        <div>
+          <h4>{{ cookie.title }}</h4>
+          <p>{{ cookie.description }}</p>
+          <p class="cookie-names">
+            {{ cookie.cookies }}
+            <a *ngIf="cookie.privacyPolicyLink" [href]="cookie.privacyPolicyLink" target="_blank" class="privacy-link">Chính sách bảo mật của {{ cookie.title }}</a>
+          </p>
+        </div>
+        <div class="toggle-switch" (click)="toggleCookie(cookie.key)" [class.active]="cookieForm.get(cookie.key)?.value">
+          <div class="toggle-label">{{ cookieForm.get(cookie.key)?.value ? 'BẬT' : 'TẮT' }}</div>
+          <div class="toggle-handle"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

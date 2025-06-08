@@ -1,0 +1,123 @@
+/* src/app/modules/dashboard/pages/account/account-details.component.css */
+
+.content-section {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  margin-bottom: 30px;
+}
+
+.section-title {
+  background-color: #2a475e;
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #ffffff;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title svg-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.section-body {
+  padding: 20px;
+  display: flex;
+  gap: 40px;
+}
+
+.left-panel, .right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.left-panel p, .right-panel p {
+  color: #acb2b8;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.left-panel p strong, .right-panel p strong {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.action-button-light, .action-button-dark {
+  padding: 8px 15px;
+  border-radius: 2px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border: none;
+  width: fit-content;
+}
+
+.action-button-light {
+  background: linear-gradient(to right, #435f7a, #33495e);
+  color: #d2e8f6;
+}
+.action-button-light:hover {
+  background: linear-gradient(to right, #517291, #3e5870);
+}
+
+.action-button-dark {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+.action-button-dark:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.wallet-balance {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #3d4450;
+  color: #66c0f4;
+  font-size: 1rem;
+}
+
+.payment-method-card {
+  background-color: #171a21;
+  padding: 15px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-actions a {
+  color: #66c0f4;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+.card-actions a:hover {
+  color: #ffffff;
+}
+
+.verified-status {
+  color: #a0cf00 !important;
+}
+
+.country-info {
+  margin-top: auto;
+}
+
+.delete-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.delete-section span {
+  font-size: 0.8rem;
+  color: #8f98a0;
+}

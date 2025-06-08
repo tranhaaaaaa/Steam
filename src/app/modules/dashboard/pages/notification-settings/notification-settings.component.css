@@ -1,0 +1,91 @@
+:host {
+  --steam-blue: #66c0f4;
+  --steam-gray: #8f98a0;
+  --steam-light-gray: #c7d5e0;
+  --steam-dark-blue: #1b2838;
+  --steam-mid-blue: #2a475e;
+}
+
+.content-section {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.section-title {
+  background-color: var(--steam-mid-blue);
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #ffffff;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.section-body {
+  padding: 20px;
+}
+
+.section-body p {
+  color: var(--steam-gray);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.subsection-title {
+  color: var(--steam-light-gray);
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #202d39;
+  padding: 12px 15px;
+  border-radius: 3px;
+}
+
+.setting-item span {
+  color: var(--steam-light-gray);
+  font-size: 0.95rem;
+}
+
+.toggle-switch {
+  width: 50px;
+  height: 28px;
+  background-color: #3d4450;
+  border-radius: 14px;
+  position: relative;
+  cursor: pointer;
+  padding: 2px;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.toggle-switch.active {
+  background-color: #4c6b22;
+}
+
+.toggle-handle {
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+}
+
+.toggle-switch.active .toggle-handle {
+  transform: translateX(22px);
+}

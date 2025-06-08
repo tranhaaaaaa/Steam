@@ -1,4 +1,3 @@
-// app/modules/dashboard/dashboard-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
@@ -8,11 +7,37 @@ import { PointsShopComponent } from './pages/points-shop/points-shop.component';
 import { PointsShopLayoutComponent } from './pages/points-shop/points-shop-layout.component';
 import { CommunityComponent } from './components/community/community.component';
 import { BundlesComponent } from './pages/bundles/bundles.component';
+import { KeyboardsComponent } from './pages/keyboards/keyboards.component';
+import { AccountLayoutComponent } from './pages/account/account-layout.component';
+import { AccountDetailsComponent } from './pages/account/account-details.component';
+import { StorePreferencesComponent } from './pages/store-preferences/store-preferences.component';
+import { FamilyManagementComponent } from './pages/family-management/family-management.component';
+import { SecurityDevicesComponent } from './pages/security-devices/security-devices.component';
+import { CookiesBrowsingComponent } from './pages/cookies-browsing/cookies-browsing.component';
+import { NotificationSettingsComponent } from './pages/notification-settings/notification-settings.component';
+import { GatedAccessComponent } from './pages/gated-access/gated-access.component';
+import { LanguagePreferencesComponent } from './pages/language-preferences/language-preferences.component';
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
     children: [
+      {
+        path: 'account',
+        component: AccountLayoutComponent,
+        children: [
+          { path: '', redirectTo: 'details', pathMatch: 'full' },
+          { path: 'details', component: AccountDetailsComponent },
+          // Thêm các route cho các tab khác ở đây sau này
+          { path: 'store-preferences', component: StorePreferencesComponent },
+          { path: 'family-management', component: FamilyManagementComponent },
+          { path: 'security', component: SecurityDevicesComponent },
+          { path: 'cookies', component: CookiesBrowsingComponent },
+          { path: 'notifications', component: NotificationSettingsComponent },
+          { path: 'language', component: LanguagePreferencesComponent },
+          { path: 'gated-access', component: GatedAccessComponent },
+        ]
+      },
       { path: '', redirectTo: 'nfts', pathMatch: 'full' },
       { path: 'nfts', component: NftComponent },
       { path: 'cart', component: CartComponent },
@@ -22,7 +47,7 @@ const routes: Routes = [
         children: [
           { path: '', component: PointsShopComponent },
           { path: 'from-games', component: PointsShopComponent },
-          { path: 'sales-events', component: PointsShopComponent },
+          { path: 'keyboards', component: KeyboardsComponent },
           { path: 'bundles', component: BundlesComponent },
           { path: 'keyboards', component: PointsShopComponent },
           { path: 'startup-movies', component: PointsShopComponent },
@@ -37,6 +62,7 @@ const routes: Routes = [
           { path: 'emoticons', component: PointsShopComponent },
         ]
       },
+      
       { path: 'community', component: CommunityComponent },
       { path: '**', redirectTo: 'errors/404' },
     ],

@@ -37,16 +37,16 @@ export class PointsShopComponent implements OnInit {
   
   featuredSections: PointsSection[] = [
     {
-      title: 'Spring Sale 2025 Items',
+      title: 'Vật phẩm: Ưu đãi mùa xuân 2025',
       type: 'seasonal_items',
       showMoreLink: true,
       itemWidthClass: 'w-item-standard',
       items: [
-        { id: 1, title: 'WILD BEGINNINGS', points: 5000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/5951828a23114f23ab0321c82859389b51465940.png', type: 'game_profile', itemTypeLabel: 'Game Profile' },
-        { id: 2, title: 'SPRING SALE 2025 SPACE', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/7b2961a894a8f3e5e6e3d2c9c7e4a3b1b6f0a9e8.png', type: 'background', itemTypeLabel: 'Profile Background' },
-        { id: 3, title: 'SPRING SALE 2025 GREEN', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/0d5231a4b2e8f6e2c7a6b4d0b1a0c9d8a7b3b0a1.png', type: 'background', itemTypeLabel: 'Profile Background' },
-        { id: 4, title: 'SPRING SALE 2025 PINK', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/e8b1a0c9d8a7b3b0a10d5231a4b2e8f6e2c7a6b4.png', type: 'background', itemTypeLabel: 'Profile Background' },
-        { id: 5, title: 'STEAM SCREAM 2023 TENTACLE', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/4c2670a1c7de9c2b1aeb7653a50f6b48ac3fc269.png', type: 'background', itemTypeLabel: 'Profile Background' },
+        { id: 1, title: 'Khởi đầu hoang dã', points: 5000, image: 'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/3558910/cbbd5177595cf627e66993f6ee5818ce71d0deac.jpg', type: 'game_profile', itemTypeLabel: 'Game Profile' },
+        { id: 2, title: 'Ưu đã mùa xuân 2025', points: 1000, image: 'https://steamcommunity.com/economy/profilebackground/items/3558910/f97177127f867d8763d26d3bf6cbee2d32bc40c7.jpg', type: 'background', itemTypeLabel: 'Profile Background' },
+        { id: 3, title: 'SPRING SALE 2025 GREEN', points: 1000, image: 'https://steamcommunity.com/economy/profilebackground/items/3558910/75522ab719f27cec0b71483c9c9e4195d98ddd75.jpg', type: 'background', itemTypeLabel: 'Profile Background' },
+        { id: 4, title: 'SPRING SALE 2025 PINK', points: 1000, image: 'https://steamcommunity.com/economy/profilebackground/items/3558910/5f2cbf32a1e6f1fc8d61ec0f31d4d1c41d2fb0a3.jpg', type: 'background', itemTypeLabel: 'Profile Background' },
+        { id: 5, title: 'STEAM SCREAM 2023 TENTACLE', points: 1000, image: 'https://steamcommunity.com/economy/profilebackground/items/3558910/ec3ed9034374c6fe9c72cc764bd08abe6ea57c56.jpg', type: 'background', itemTypeLabel: 'Profile Background' },
       ],
     },
     // ... các section dữ liệu khác giữ nguyên như cũ
@@ -56,10 +56,10 @@ export class PointsShopComponent implements OnInit {
       itemWidthClass: 'w-item-sticker',
       showMoreLink: true,
       items: [
-        { id: 6, title: 'HAPPY NEW YEAR 2025', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/4e9d3c8b5d1a4e7c9f6b2e5a8d5e8a2f1c9b6d4a.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
-        { id: 7, title: 'STEAM SNEK 2025', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/c9f6b2e5a8d5e8a2f1c9b6d4a7e3f2c8b5d1a4e7.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
-        { id: 8, title: 'RED ENVELOPE 2025', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/a4e7c9f6b2e5a8d5e8a2f1c9b6d4a7e3f2c8b5d1.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
-        { id: 9, title: 'SNAKE IN A BLANKET', points: 0, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2687520/b5d1a4e7c9f6b2e5a8d5e8a2f1c9b6d4a7e3f2c8.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' }
+        { id: 6, title: 'HAPPY NEW YEAR 2025', points: 1000, image: 'https://steamcommunity.com/economy/profilebackground/items/2603600/9bf3bb3481f2411fe5f4ec879ee0c0a90c59a738.jpg', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
+        { id: 7, title: 'STEAM SNEK 2025', points: 1000, image: 'src="https://steamcommunity.com/economy/profilebackground/items/3558910/f97177127f867d8763d26d3bf6cbee2d32bc40c7.jpg"', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
+        { id: 8, title: 'RED ENVELOPE 2025', points: 1000, image: 'https://steamcommunity.com/economy/profilebackground/items/2855130/dad0cea53e902698072c1fbcdd523bffff90fc55.jpg', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
+        { id: 9, title: 'SNAKE IN A BLANKET', points: 0, image: 'https://steamcommunity.com/economy/profilebackground/items/2842700/24aa3accaaecb97f9b8aa71c03000061009e119a.jpg', type: 'sticker', itemTypeLabel: 'Animated Sticker' }
       ],
     },
     {
@@ -77,17 +77,17 @@ export class PointsShopComponent implements OnInit {
       ],
     },
     {
-      title: 'Popular Animated Stickers',
+      title: 'Hình dán động nổi tiếng',
       subtitle: 'See All (1,842)',
       type: 'animated_stickers',
       itemWidthClass: 'w-item-sticker',
       showMoreLink: true,
       items: [
-        { id: 15, title: 'CAT CAM TALKING', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/570/0e8f7a6b5c4d3e2a1b0c9d8a7b3b0a10d5231a4b.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
-        { id: 16, title: 'AK47', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/730/b0a10d5231a4b2e8f6e2c7a6b4d0b1a0c9d8a7b3.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
-        { id: 17, title: 'CATO_DANCE', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/238460/a7b3b0a10d5231a4b2e8f6e2c7a6b4d0b1a0c9d8.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
-        { id: 18, title: 'BUTT SCRATCHING', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/230410/c7a6b4d0b1a0c9d8a7b3b0a10d5231a4b2e8f6e2.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
-        { id: 19, title: 'WINKWINK', points: 1000, image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/1091500/f6e2c7a6b4d0b1a0c9d8a7b3b0a10d5231a4b2e8.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
+        { id: 15, title: 'CAT CAM TALKING', points: 1000, image: 'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/637310/979bb2133de5a89a3f7a0524f8a1d27163301f6d.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
+        { id: 16, title: 'AK47', points: 1000, image: 'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/805940/d7009aa6251d141048ca3a22545d5c9b85f19289.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
+        { id: 17, title: 'CATO_DANCE', points: 1000, image: 'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/1999520/32c2acde83968cd6d6bfa1ee9b9f11cec89f82c2.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
+        { id: 18, title: 'BUTT SCRATCHING', points: 1000, image: 'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/1260320/cc368c64c6ecad7377f0481e3e4978894e11d854.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
+        { id: 19, title: 'WINKWINK', points: 1000, image: 'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/2873080/6cee956fe98ee42e49c990a3ed5554be6a761a78.png', type: 'sticker', itemTypeLabel: 'Animated Sticker' },
       ],
     },
     {

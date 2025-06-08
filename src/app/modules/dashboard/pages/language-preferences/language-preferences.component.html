@@ -1,0 +1,45 @@
+<div class="preferences-container" [formGroup]="languageForm">
+  <div class="content-section">
+    <h2 class="section-title">Language Preferences</h2>
+    <div class="section-body">
+      
+      <!-- Primary Language -->
+      <div class="preference-group">
+        <h3 class="subsection-title">Primary Language</h3>
+        <p>When possible, display content in this language:</p>
+        <select formControlName="primaryLanguage" class="language-select">
+          <option *ngFor="let lang of primaryLanguages" [value]="lang">{{ lang }}</option>
+        </select>
+      </div>
+
+      <!-- Secondary Languages -->
+      <div class="preference-group">
+        <h3 class="subsection-title">Secondary languages</h3>
+        <p>Also show me content in these languages such as store page descriptions and user reviews if not available in my primary language:</p>
+        <div class="language-grid" formGroupName="secondary">
+          <label *ngFor="let lang of secondaryLanguages" class="checkbox-label">
+            <input type="checkbox" [formControlName]="lang">
+            <span>{{ lang }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Additional Game Content Languages -->
+      <div class="preference-group">
+        <h3 class="subsection-title">Additional Game Content Languages</h3>
+        <p>These languages are not supported for Steam UI, store page descriptions, or user content, but may be supported by content in individual games:</p>
+        <div class="language-grid" formGroupName="additional">
+          <label *ngFor="let lang of additionalLanguages" class="checkbox-label">
+            <input type="checkbox" [formControlName]="lang">
+            <span>{{ lang }}</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="save-button-container">
+        <button (click)="savePreferences()" class="save-button">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>

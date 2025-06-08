@@ -1,0 +1,91 @@
+<div class="preferences-container" [formGroup]="preferencesForm">
+  
+  <!-- Mature Content Filtering -->
+  <div class="content-section">
+    <h2 class="section-title">Mature Content Preferences</h2>
+    <div class="section-body">
+      <h3 class="subsection-title">Mature Content Filtering</h3>
+      <p>Some products and user-generated content on Steam may not be appropriate for all audiences. Tick these boxes to indicate which Store products and Community content you see on Steam.</p>
+      
+      <div class="table-header">
+        <span></span>
+        <span>Store</span>
+        <span>Community</span>
+      </div>
+      <div class="preference-row">
+        <div>
+          <h4>General Mature Content</h4>
+          <p>Mature topics that may not be appropriate for all audiences.</p>
+          <a href="#">View Example Products</a>
+        </div>
+        <input type="checkbox" formControlName="generalMature">
+        <input type="checkbox" formControlName="generalMature">
+      </div>
+      <div class="preference-row">
+        <div>
+          <h4>Frequent Violence or Gore</h4>
+          <p>Games or content that feature extreme violence or gore.</p>
+          <a href="#">View Example Products</a>
+        </div>
+        <input type="checkbox" formControlName="frequentViolence">
+        <input type="checkbox" formControlName="frequentViolence">
+      </div>
+      <div class="preference-row">
+        <div>
+          <h4>Some Nudity or Sexual Content</h4>
+          <p>Games or content that contain some nudity or sexual themes, but not as the primary focus.</p>
+          <a href="#">View Example Products</a>
+        </div>
+        <input type="checkbox" formControlName="someNudity">
+        <input type="checkbox" disabled>
+      </div>
+      <div class="preference-row">
+        <div>
+          <h4>Frequent Nudity or Sexual Content</h4>
+          <p>Games or content that primarily feature nudity or sexual themes. By ticking this box you affirm that you are at least eighteen years old.</p>
+          <a href="#">View Example Products</a>
+        </div>
+        <input type="checkbox" formControlName="frequentNudity">
+        <input type="checkbox" disabled>
+      </div>
+      <div class="preference-row">
+        <div>
+          <h4>Adult Only Sexual Content</h4>
+          <p>Games or content that are sexually explicit or graphic and are intended for adults only. By ticking this box you affirm that you are at least eighteen years old.</p>
+          <a href="#">View Example Products</a>
+        </div>
+        <input type="checkbox" formControlName="adultOnly">
+        <input type="checkbox" disabled>
+      </div>
+    </div>
+  </div>
+
+  <!-- Store Content Preferences -->
+  <div class="content-section">
+    <h2 class="section-title">Store Content Preferences</h2>
+    <div class="section-body column-layout">
+      <div class="checkbox-group">
+        <h3 class="subsection-title">Product Types</h3>
+        <p>Include the following types of products in my store:</p>
+        <label><input type="checkbox" formControlName="showEarlyAccess"> Show Early Access titles</label>
+        <label><input type="checkbox" formControlName="showPrePurchase"> Show Prepurchase offers</label>
+        <label><input type="checkbox" formControlName="showSoftware"> Show Software</label>
+        <label><input type="checkbox" formControlName="showVideos"> Show Videos & Movies</label>
+        <label><input type="checkbox" formControlName="showNotInMyLanguages"> Show titles not in my languages</label>
+        <label><input type="checkbox" formControlName="showVR"> Show Virtual Reality content</label>
+      </div>
+
+      <div class="input-group">
+        <h3 class="subsection-title">Tags To Exclude</h3>
+        <p>Pick up to ten tags. Steam will then filter out games with those tags.</p>
+        <div class="tag-input-wrapper">
+          <input type="text" placeholder="Enter a tag" formControlName="excludedTagInput">
+          <button (click)="addTag()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional sections can be added here following the same pattern -->
+
+</div>
