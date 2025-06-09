@@ -17,6 +17,7 @@ import { CookiesBrowsingComponent } from './pages/cookies-browsing/cookies-brows
 import { NotificationSettingsComponent } from './pages/notification-settings/notification-settings.component';
 import { GatedAccessComponent } from './pages/gated-access/gated-access.component';
 import { LanguagePreferencesComponent } from './pages/language-preferences/language-preferences.component';
+import { ManagerUserComponent } from './pages/manager-user/manager-user.component';
 const routes: Routes = [
   {
     path: '',
@@ -64,6 +65,7 @@ const routes: Routes = [
       },
       
       { path: 'community', component: CommunityComponent },
+      {path:'manager-user',component:ManagerUserComponent},
       { path: '**', redirectTo: 'errors/404' },
     ],
   },

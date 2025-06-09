@@ -1,0 +1,32 @@
+<div class="p-8">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold">Quản lý người dùng</h2>
+    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Thêm người dùng</button>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="py-3 px-6 text-left">ID</th>
+          <th class="py-3 px-6 text-left">Tên</th>
+          <th class="py-3 px-6 text-left">Email</th>
+          <th class="py-3 px-6 text-left">Quyền</th>
+          <th class="py-3 px-6 text-center">Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr *ngFor="let user of users" class="border-b hover:bg-gray-50">
+          <td class="py-3 px-6">{{ user.id }}</td>
+          <td class="py-3 px-6">{{ user.name }}</td>
+          <td class="py-3 px-6">{{ user.email }}</td>
+          <td class="py-3 px-6">{{ user.role }}</td>
+          <td class="py-3 px-6 text-center space-x-2">
+            <button class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600" (click)="editUser(user)">Sửa</button>
+            <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" (click)="deleteUser(user.id)">Xóa</button>
+          </td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+</div>
