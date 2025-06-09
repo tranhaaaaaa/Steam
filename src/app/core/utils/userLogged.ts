@@ -4,15 +4,14 @@ export class UserLogged {
     private readonly TOKENKEY: string = 'token';
     private readonly userIdKey: string = 'userId';
    private readonly userRoleKey: string = 'userRole';
-   private readonly depart : string = 'depart';
-   private readonly departid : string = 'departid';
+   private readonly username : string = 'username';
+   
 
     constructor() {
       this.TOKENKEY = 'token';
       this.userIdKey = 'userId';
       this.userRoleKey = 'userRole'
-      this.depart = 'depart';
-      this.departid = 'departid';
+      this.username = 'username';
     }
     getToken(): string {
         console.log(this.getCookie(this.TOKENKEY));
@@ -37,8 +36,7 @@ export class UserLogged {
     getCurrentUser(): any {
       let userId = this.getCookie(this.userIdKey);
       let token = this.getCookie(this.TOKENKEY); 
-      let depart = this.getCookie(this.depart);
-      let departid = this.getCookie(this.departid);
+      let username = this.getCookie(this.username);
 
       let role = '';
 
@@ -54,8 +52,7 @@ export class UserLogged {
         userId: userId,
         token: token,
         role: role,
-        depart : depart,
-        departid: departid
+        username: username
       };
     }
 
@@ -63,15 +60,13 @@ export class UserLogged {
       token: string,
       userId: string,
        role: string,
-       depart : string,
-       departid : string
+       username : string,
 
     ): void {
       this.setCookie(this.TOKENKEY, token);
       this.setCookie(this.userIdKey, userId);
       this.setCookie(this.userRoleKey,role);
-      this.setCookie(this.depart,depart);
-      this.setCookie(this.departid,departid);
+        this.setCookie(this.username,username)
 
 
 
@@ -90,7 +85,8 @@ export class UserLogged {
     logout(): void {
       this.deleteCookie(this.TOKENKEY);
       this.deleteCookie(this.userIdKey);
-      // this.deleteCookie(this.TypeKey);
+       this.deleteCookie(this.username);
+      this.deleteCookie(this.userRoleKey);
 
       // this.deleteCookie(this.userPermissionKey1);
     }

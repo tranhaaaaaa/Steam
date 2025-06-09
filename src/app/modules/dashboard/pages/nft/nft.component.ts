@@ -10,6 +10,7 @@ import { NftSingleCardComponent } from '../../components/nft/nft-single-card/nft
 import { CategoryBrowserComponent } from '../../components/nft/category-browser/category-browser.component';
 import { BecauseYouPlayedComponent } from '../../components/nft/because-you-played/because-you-played.component';
 import { CommunityRecommendsComponent } from '../../components/nft/community-recommends/community-recommends.component';
+import { NftHeaderComponent } from '../../components/nft/nft-header/nft-header.component';
 
 @Component({
   selector: 'app-nft',
@@ -23,6 +24,7 @@ import { CommunityRecommendsComponent } from '../../components/nft/community-rec
     NftDualCardComponent,
     NftSingleCardComponent,
     // Components cho phần mới
+    NftHeaderComponent,
     CommunityRecommendsComponent,
     CategoryBrowserComponent,
     BecauseYouPlayedComponent,

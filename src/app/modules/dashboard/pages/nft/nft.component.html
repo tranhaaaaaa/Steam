@@ -1,5 +1,6 @@
 
 <div class="nft-page-container">
+    <app-nft-header></app-nft-header>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 mb-8">
     <!-- Dual Card -->
     <div *ngIf="nft.length > 0" nft-dual-card [nft]="nft[0]" class="md:col-span-2"></div>
