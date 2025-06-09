@@ -5,12 +5,13 @@ import { Router, RouterLink } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ThemeService } from '../../../../../core/services/theme.service';
 import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
+import { UserLogged } from 'src/app/core/utils/userLogged';
 
 @Component({
   selector: 'app-profile-menu',
   templateUrl: './profile-menu.component.html',
   styleUrls: ['./profile-menu.component.css'],
-  imports: [CommonModule,ClickOutsideDirective, AngularSvgIconModule],
+  imports: [CommonModule,ClickOutsideDirective, AngularSvgIconModule, RouterLink],
   animations: [
     trigger('openClose', [
       state(
@@ -36,8 +37,11 @@ import { ClickOutsideDirective } from '../../../../../shared/directives/click-ou
 })
 export class ProfileMenuComponent implements OnInit {
   public isOpen = false;
-  cartItemCount = 3; // Hoặc lấy từ CartService
-
+  cartItemCount = 3;
+  public userLogged = new UserLogged()
+  public isLogin = false;
+  public username = '';
+  
 openCart() {
  this.router.navigate(['/dashboard/cart']);
 }
@@ -96,7 +100,12 @@ openCart() {
 
   constructor(public themeService: ThemeService,
     private router: Router
-  ) {}
+  ) {
+     if(this.userLogged.isLogged()){
+      this.isLogin = true;
+      this.username = this.userLogged.getCurrentUser().username;
+    }
+  }
 
   ngOnInit(): void {}
 
@@ -110,7 +119,11 @@ openCart() {
       return { ...theme, mode: mode };
     });
   }
-
+   logout(){
+    this.userLogged.logout()
+  //  this.router.navigate(['/auth/sign-in'])
+    window.location.href = '/auth/sign-in'
+  }
   toggleThemeColor(color: string) {
     this.themeService.theme.update((theme) => {
       return { ...theme, color: color };

@@ -1,6 +1,10 @@
 import { MenuItem } from '../models/menu.model';
+import { UserLogged } from '../utils/userLogged';
 
 export class Menu {
+  public static userLogged = new UserLogged();
+  public static labelThongTin = this.userLogged.isLogged() ? this.userLogged.getCurrentUser().username : 'Thông tin';
+  public static route = this.userLogged.isLogged() ? '/dashboard/account/details' : '/auth/sign-in';
   public static pages: MenuItem[] = [
     
     {
@@ -27,7 +31,7 @@ export class Menu {
           label: 'Tin tức',
           route: '/users',
         },
-        {
+         {
           icon: 'assets/icons/heroicons/outline/users.svg',
           label: 'Thống kê',
           route: '/users',
@@ -66,13 +70,13 @@ export class Menu {
       ],
     },
     {
-      group: 'Thông tin',
+      group: this.labelThongTin,
       separator: true,
       items: [
         {
           icon: 'assets/icons/heroicons/outline/download.svg',
-          label: 'Home',
-          route: '/download',
+          label: 'Trang cá nhân',
+          route: this.route,
         },
         {
           icon: 'assets/icons/heroicons/outline/gift.svg',

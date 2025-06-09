@@ -1,11 +1,11 @@
 <div class="dropdown relative inline-block">
   <!-- Button -->
   <button (click)="onRegisterpage()"
-    class="mr-2 inline-flex rounded-md px-3 py-2 text-sm font-medium bg-green-600 text-white">
+    class="mr-2 inline-flex rounded-md px-3 py-2 text-sm font-medium bg-green-600 text-white" *ngIf="!isLogin">
     <span>Đăng ký</span>
   </button>
 </div>
- <button (click)="onloginPage()"
+ <button (click)="onloginPage()" *ngIf="!isLogin"
     class="mr-2 inline-flex rounded-md px-3 py-2 text-sm font-medium text-white" style="color:white; background-color: rgb(54, 116, 171);">
     <span>Đăng nhập</span>
   </button>
