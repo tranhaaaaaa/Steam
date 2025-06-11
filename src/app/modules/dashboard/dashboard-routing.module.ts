@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { NftComponent } from './pages/nft/nft.component';
@@ -17,6 +17,8 @@ import { CookiesBrowsingComponent } from './pages/cookies-browsing/cookies-brows
 import { NotificationSettingsComponent } from './pages/notification-settings/notification-settings.component';
 import { GatedAccessComponent } from './pages/gated-access/gated-access.component';
 import { LanguagePreferencesComponent } from './pages/language-preferences/language-preferences.component';
+import { ManagerUserComponent } from './pages/manager-user/manager-user.component';
+import { AddUserComponent } from './pages/manager-user/add-user/add-user.component';
 const routes: Routes = [
   {
     path: '',
@@ -41,8 +43,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'nfts', pathMatch: 'full' },
       { path: 'nfts', component: NftComponent },
       { path: 'cart', component: CartComponent },
-      { 
-        path: 'points-shop', 
+      {
+        path: 'points-shop',
         component: PointsShopLayoutComponent,
         children: [
           { path: '', component: PointsShopComponent },
@@ -62,8 +64,29 @@ const routes: Routes = [
           { path: 'emoticons', component: PointsShopComponent },
         ]
       },
-      
+
       { path: 'community', component: CommunityComponent },
+
+      {
+        path: 'manager-user',
+        component: ManagerUserComponent,
+
+        
+        // children: [
+        //   {
+        //     path: 'add-user',
+        //     component: AddUserComponent
+        //   }
+        // ]
+      },
+
+      {
+      path: 'manager-user/add-user',
+      component: AddUserComponent
+      },
+
+
+
       { path: '**', redirectTo: 'errors/404' },
     ],
   },
@@ -73,4 +96,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DashboardRoutingModule {}
+export class DashboardRoutingModule { }

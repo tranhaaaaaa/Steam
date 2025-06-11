@@ -83,16 +83,76 @@ export class DateTimeConverter implements JsonCustomConvert<Date> {
         }
     }
 }
-@JsonObject('Mappingtable')
-export class Mappingtable {
 
-    @JsonProperty('Id', NumberConverter, true)
-    Id: number = undefined as any;
 
-    @JsonProperty('OriginTable', StringConverter, true)
-    OriginTable: string = undefined as any;
+@JsonObject('User')
+export class User {
+  @JsonProperty('id', StringConverter, true)
+  Id: string = '' as any;
 
-    @JsonProperty('NewTable', StringConverter, true)
-    NewTable: string = undefined as any;
+  @JsonProperty('userName', StringConverter, true)
+  UserName: string = '' as any;
 
+  @JsonProperty('normalizedUserName', StringConverter, true)
+  NormalizedUserName: string = '' as any;
+
+  @JsonProperty('email', StringConverter, true)
+  Email: string = '' as any;
+
+  @JsonProperty('normalizedEmail', StringConverter, true)
+  NormalizedEmail: string = '' as any;
+
+  @JsonProperty('emailConfirmed', BooleanConverter, true)
+  EmailConfirmed: boolean = '' as any;
+
+  @JsonProperty('passwordHash', StringConverter, true)
+  PasswordHash: string = '' as any;
+
+  @JsonProperty('securityStamp', StringConverter, true)
+  SecurityStamp: string = '' as any;
+
+  @JsonProperty('concurrencyStamp', StringConverter, true)
+  ConcurrencyStamp: string = '' as any;
+
+  @JsonProperty('phoneNumber', StringConverter, true)
+  PhoneNumber: string = '' as any;
+
+  @JsonProperty('phoneNumberConfirmed', BooleanConverter, true)
+  PhoneNumberConfirmed: boolean = '' as any;
+
+  @JsonProperty('twoFactorEnabled', BooleanConverter, true)
+  TwoFactorEnabled: boolean = '' as any;
+
+  @JsonProperty('lockoutEnd', StringConverter, true)
+  LockoutEnd: string = '' as any;
+
+  @JsonProperty('lockoutEnabled', BooleanConverter, true)
+  LockoutEnabled: boolean = '' as any;
+
+  @JsonProperty('accessFailedCount', NumberConverter, true)
+  AccessFailedCount: number = '' as any;
+
+  @JsonProperty('role', StringConverter, true)   
+  Role: string = '' as any;
+}
+
+
+@JsonObject('AddUser')
+export class AddUser {
+  @JsonProperty('username', StringConverter, true)
+  Username: string = '' as any;
+
+  @JsonProperty('email', StringConverter, true)
+  Email: string = '' as any;
+
+  @JsonProperty('phone', StringConverter, true)
+  Phone: string = '' as any;
+
+  @JsonProperty('password', StringConverter, true)
+  Password: string = '' as any;
+
+  @JsonProperty('role', StringConverter, true)
+  Role: string = '' as any;
+
+  
 }

@@ -1,0 +1,111 @@
+<div class="card-body">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <form (ngSubmit)="addUser()" #userForm="ngForm" class="w-full">
+
+      <!-- First row with 3 fields: Tên đăng nhập, Email, Số điện thoại -->
+      <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Tên đăng nhập -->
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-white">Tên </label>
+          <input
+            type="text"
+            name="username"
+            [(ngModel)]="newUser.Username"
+            required
+            #username="ngModel"
+            class="w-full bg-white p-2 rounded focus:outline-none focus:border-blue-500"
+
+            [class.border-red-500]="username.invalid && username.touched"
+          />
+          <div *ngIf="username.invalid && username.touched" class="text-red-500 text-sm mt-1">
+            Tên đăng nhập là bắt buộc.
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-white">Email</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="newUser.Email"
+            required
+            #email="ngModel"
+            class="w-full bg-white p-2 rounded focus:outline-none focus:border-blue-500"
+            [class.border-red-500]="email.invalid && email.touched"
+          />
+          <div *ngIf="email.invalid && email.touched" class="text-red-500 text-sm mt-1">
+            Vui lòng nhập email hợp lệ.
+          </div>
+        </div>
+
+        <!-- Số điện thoại -->
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-white">Số điện thoại</label>
+          <input
+            type="text"
+            name="phone"
+            [(ngModel)]="newUser.Phone"
+            required
+            #phone="ngModel"
+              class="w-full bg-white p-2 rounded focus:outline-none focus:border-blue-500"
+            [class.border-red-500]="phone.invalid && phone.touched"
+          />
+          <div *ngIf="phone.invalid && phone.touched" class="text-red-500 text-sm mt-1">
+            Vui lòng nhập số điện thoại hợp lệ.
+          </div>
+        </div>
+      </div>
+
+      <!-- Second row with 2 fields: Mật khẩu and Vai trò -->
+      <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Mật khẩu -->
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-white">Mật khẩu</label>
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="newUser.Password"
+            required
+            #password="ngModel"
+            class="w-full border border-gray-300 p-2 rounded bg-white focus:outline-none focus:border-blue-500"
+            [class.border-red-500]="password.invalid && password.touched"
+          />
+          <div *ngIf="password.invalid && password.touched" class="text-red-500 text-sm mt-1">
+            Mật khẩu là bắt buộc.
+          </div>
+        </div>
+
+        <!-- Vai trò -->
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-white">Vai trò</label>
+          <select
+            name="role"
+            [(ngModel)]="newUser.Role"
+            required
+            #role="ngModel"
+            class="w-full border border-gray-300 p-2 rounded bg-white focus:outline-none focus:border-blue-500"
+          >
+            <option value="Staff">Staff</option>
+            <option value="Admin">Admin</option>
+          </select>
+          <div *ngIf="role.invalid && role.touched" class="text-red-500 text-sm mt-1">
+            Vai trò là bắt buộc.
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="lg:col-span-3 mb-4">
+        <button
+          type="submit"
+          [disabled]="userForm.invalid"
+          class="w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+        >
+          Thêm người dùng
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
