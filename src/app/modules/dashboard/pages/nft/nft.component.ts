@@ -1,6 +1,6 @@
 // src/app/modules/dashboard/pages/nft/nft.component.ts
 
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Nft } from '../../models/nft';
 
@@ -11,6 +11,8 @@ import { CategoryBrowserComponent } from '../../components/nft/category-browser/
 import { BecauseYouPlayedComponent } from '../../components/nft/because-you-played/because-you-played.component';
 import { CommunityRecommendsComponent } from '../../components/nft/community-recommends/community-recommends.component';
 import { NftHeaderComponent } from '../../components/nft/nft-header/nft-header.component';
+import { TableComponent } from "../../../uikit/pages/table/table.component";
+import { TableActionComponent } from 'src/app/modules/uikit/pages/table/components/table-action/table-action.component';
 
 @Component({
   selector: 'app-nft',
@@ -28,15 +30,13 @@ import { NftHeaderComponent } from '../../components/nft/nft-header/nft-header.c
     CommunityRecommendsComponent,
     CategoryBrowserComponent,
     BecauseYouPlayedComponent,
-    
-  ],
+],
 })
-export class NftComponent implements OnInit {
-  // Thêm lại mảng dữ liệu 'nft'
+export class NftComponent implements OnInit, AfterViewInit, AfterViewChecked, OnChanges,DoCheck, OnDestroy {
+
   nft: Array<Nft>;
 
   constructor() {
-    // Gán lại dữ liệu cho các card gốc
     this.nft = [
       {
         id: 34356771,
@@ -65,6 +65,24 @@ export class NftComponent implements OnInit {
       },
     ];
   }
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
+  ngDoCheck(): void {
+    console.log("Do check");
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("On changes");
+  }
+  ngAfterViewChecked(): void {
+    console.log("After view checked");
+  }
+  ngAfterViewInit(): void {
+    console.log("After view init");
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  console.log("On init");
+  }
+  
 }

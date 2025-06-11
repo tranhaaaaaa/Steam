@@ -1,4 +1,4 @@
-import { NgClass, NgFor } from '@angular/common';
+import { CommonModule, NgClass, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/core/models/menu.model';
 import { UserLogged } from 'src/app/core/utils/userLogged';
@@ -9,7 +9,7 @@ import { MenuService } from 'src/app/modules/layout/services/menu.service';
     selector: 'app-nft-header',
     templateUrl: './nft-header.component.html',
     standalone: true,
-      imports: [NgFor, NgClass, NavbarSubmenuComponent],
+      imports: [NgFor, NgClass, NavbarSubmenuComponent,CommonModule],
 })
 export class NftHeaderComponent implements OnInit {
   private showMenuClass = ['scale-100', 'animate-fade-in-up', 'opacity-100', 'pointer-events-auto'];
