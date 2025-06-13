@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { UserLogged } from 'src/app/core/utils/userLogged';
 import { ButtonComponent } from 'src/app/shared/components/button/button.component';
 
 @Component({
@@ -15,6 +16,7 @@ import { ButtonComponent } from 'src/app/shared/components/button/button.compone
 })
 export class SignUpComponent implements OnInit {
    registerForm!: FormGroup;
+     public userLogged = new UserLogged()
   constructor(private fb: FormBuilder,
     private service : AuthService,
     private router: Router,
@@ -60,14 +62,24 @@ export class SignUpComponent implements OnInit {
         password: password,
       }
       this.service.register(formData).subscribe(res => {
+        debugger
         console.log(res);
         if(res ==='User registered.') {
-          this.toastrService.success('Đăng ký thanh cong!');
-          this.router.navigate(['auth/sign-in']);
+          // this.toastrService.success('Đăng ký thanh cong!');
+        
         }
       },
       error => {
-        this.toastrService.error('Có lỗi xảy ra!');
+        debugger
+      if(error.error.text=='Đã gửi OTP xác thực đến email. Vui lòng kiểm tra hộp thư.'){
+          this.userLogged.setEmail(email);
+  // document.cookie = `email=${email}; path=/auth/two-steps; expires=${new Date(new Date().getTime() + 30*24*60*60*1000).toUTCString()};`;
+
+          this.router.navigate(['auth/two-steps']);
+      }else{
+         this.toastrService.error('Có lỗi xảy ra!');
+      }
+       
       }
     )
     } else {

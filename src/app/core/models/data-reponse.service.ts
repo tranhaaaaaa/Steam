@@ -8,4 +8,7 @@ import {
 export class DataResponse {
   @JsonProperty('data', Any, true)
   data: any = undefined;
+
+    @JsonProperty('success', Any, true)
+  success: any = undefined;
 }

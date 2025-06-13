@@ -6,6 +6,9 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ThemeService } from '../../../../../core/services/theme.service';
 import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
 import { UserLogged } from 'src/app/core/utils/userLogged';
+import { CartService } from 'src/app/core/services/cart.service';
+import { Cart } from 'src/app/core/models/db.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-profile-menu',
@@ -37,11 +40,13 @@ import { UserLogged } from 'src/app/core/utils/userLogged';
 })
 export class ProfileMenuComponent implements OnInit {
   public isOpen = false;
-  cartItemCount = 3;
+  cartItemCount = 0;
   public userLogged = new UserLogged()
   public isLogin = false;
   public username = '';
+  public listCart : Cart[]=[];
   
+
 openCart() {
  this.router.navigate(['/dashboard/cart']);
 }
@@ -99,7 +104,9 @@ openCart() {
   public themeDirection = ['ltr', 'rtl'];
 
   constructor(public themeService: ThemeService,
-    private router: Router
+    private router: Router,
+    private cartService : CartService,
+    private authService : AuthService
   ) {
      if(this.userLogged.isLogged()){
       this.isLogin = true;
@@ -107,10 +114,26 @@ openCart() {
     }
   }
 
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+      this.cartService.getListCart().subscribe((data) =>{
+        this.listCart = data.data.filter((x:any)=> x.UserId == this.userLogged.getCurrentUser().userId);
+        this.cartItemCount = this.listCart.length;
+    })
+      this.authService.notificationAction$.subscribe(() => {
+      this.handleNotificationAction();
+    });
+    
+  }
+handleNotificationAction(){
+   console.log('Hành động thông báo đã được thực hiện!');
+  this.cartService.getListCart().subscribe((data) =>{
+        this.listCart = data.data.filter((x:any)=> x.UserId == this.userLogged.getCurrentUser().userId);
+        this.cartItemCount = this.listCart.length;
+    })
+}
   public toggleMenu(): void {
     this.isOpen = !this.isOpen;
+  
   }
 
   toggleThemeMode() {

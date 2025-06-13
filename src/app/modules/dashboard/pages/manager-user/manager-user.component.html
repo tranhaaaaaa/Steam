@@ -1,6 +1,6 @@
 <div class="p-8">
   <div class="flex justify-between items-center mb-6">
-    <h2 class="text-2xl font-bold">Quản lý người dùng</h2>
+    <h2 class="text-2xl font-bold" style="color:white">Quản lý người dùng</h2>
     <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Thêm người dùng</button>
   </div>
 
@@ -11,22 +11,36 @@
      
           <th class="py-3 px-6 text-left">Tên</th>
           <th class="py-3 px-6 text-left">Email</th>
-          <th class="py-3 px-6 text-left">Quyền</th>
+          <th class="py-3 px-6 text-left">Số điện thoại</th>
           <th class="py-3 px-6 text-center">Hành động</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of listUser" class="border-b hover:bg-gray-50">
+        <tr *ngFor="let user of paginatedUsers" class="border-b hover:bg-gray-50">
         
           <td class="py-3 px-6">{{ user.UserName }}</td>
           <td class="py-3 px-6">{{ user.Email }}</td>
           <td class="py-3 px-6">{{ user.PhoneNumber }}</td>
           <td class="py-3 px-6 text-center space-x-2">
-            <button class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Sửa</button>
+            <button class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600" (click)="onDetailPages(user)">Sửa</button>
             <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Xóa</button>
           </td>
         </tr>
       </tbody>
     </table>
+    
+  </div>
+  <div class="flex justify-center mt-6">
+    <button 
+      class="bg-gray-500 text-white px-4 py-2 rounded-l-md hover:bg-gray-600"
+      [disabled]="currentPage === 1"
+      (click)="changePage(currentPage - 1)">Trước</button>
+    
+    <span class="px-4 py-2 text-white">Trang {{ currentPage }} / {{ totalPages }}</span>
+
+    <button 
+      class="bg-gray-500 text-white px-4 py-2 rounded-r-md hover:bg-gray-600"
+      [disabled]="currentPage === totalPages"
+      (click)="changePage(currentPage + 1)">Sau</button>
   </div>
 </div>

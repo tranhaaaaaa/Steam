@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Menu } from 'src/app/core/constants/menu';
 import { MenuItem, SubMenuItem } from 'src/app/core/models/menu.model';
+import { UserLogged } from 'src/app/core/utils/userLogged';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class MenuService implements OnDestroy {
   private _subscription = new Subscription();
   private _subscription2 = new Subscription();
   private _subscription3 = new Subscription();
-
+  private userLogged = new UserLogged();
   constructor(private router: Router) {
     /** Set dynamic menu */
     this._pagesMenu2.set(Menu.pages2);
@@ -66,104 +67,100 @@ export class MenuService implements OnDestroy {
     // Steam Points Shop Menu
     this._pagesMenu3.set([
       {
-        group: 'FEATURED',
+        group: 'Quản trị',
         separator: true,
         items: [
           {
             icon: 'assets/icons/heroicons/outline/home.svg',
-            label: 'Featured Home',
-            route: '/dashboard/nfts',
+            label: 'Quản lý người dùng',
+            route: '/dashboard/manager-user',
           },
           {
             icon: 'assets/icons/heroicons/outline/game-controller.svg',
-            label: 'From Your Games',
-            route: '/dashboard/points-shop',
+            label: 'Quản lý danh sách game',
+            route: '/dashboard/manager-game',
           },
           {
             icon: 'assets/icons/heroicons/outline/calendar.svg',
-            label: 'From Sales & Events',
+            label: 'Quản lý danh mục',
             route: '/dashboard/cart',
           },
-          {
-            icon: 'assets/icons/heroicons/outline/collection.svg',
-            label: 'Bundles',
-            route: '/components/table',
-          },
+         
         ],
-      },
-      {
-        group: 'INTERFACE',
-        separator: true,
-        items: [
-          {
-            icon: 'assets/icons/heroicons/outline/keyboard.svg',
-            label: 'Keyboards',
-            route: '/keyboards',
-          },
-          {
-            icon: 'assets/icons/heroicons/outline/play.svg',
-            label: 'Startup Movies',
-            route: '/startup-movies',
-          },
-        ],
-      },
-      {
-        group: 'PROFILE',
-        separator: true,
-        items: [
-          {
-            icon: 'assets/icons/heroicons/outline/user-circle.svg',
-            label: 'Avatars',
-            route: '/avatars',
-          },
-          {
-            icon: 'assets/icons/heroicons/outline/photo.svg',
-            label: 'Backgrounds',
-            route: '/backgrounds',
-          },
-          {
-            icon: 'assets/icons/heroicons/outline/trophy.svg',
-            label: 'Community Awards',
-            route: '/community-awards',
-          },
-          {
-            icon: 'assets/icons/heroicons/outline/star.svg',
-            label: 'Seasonal Badge',
-            route: '/seasonal-badge',
-          },
-          {
-            icon: 'assets/icons/heroicons/outline/identification.svg',
-            label: 'Game Profiles',
-            route: '/game-profiles',
-          },
-          {
-            icon: 'assets/icons/heroicons/outline/sparkles.svg',
-            label: 'Showcases',
-            route: '/showcases',
-          },
-        ],
-      },
-      {
-        group: 'CHAT',
-        separator: false,
-        items: [
-          {
-            icon: 'assets/icons/heroicons/outline/gif.svg',
-            label: 'Animated Stickers',
-            route: '/animated-stickers',
-          },
-          {
-            icon: 'assets/icons/heroicons/outline/chat-bubble-oval-left.svg',
-            label: 'Chat Effects',
-            route: '/chat-effects',
-          },
-          {
-            icon: 'assets/icons/heroicons/outline/face-smile.svg',
-            label: 'Emoticons',
-            route: '/emoticons',
-          },
-        ],
-      },
+      // },
+      // {
+      //   group: 'INTERFACE',
+      //   separator: true,
+      //   items: [
+      //     {
+      //       icon: 'assets/icons/heroicons/outline/keyboard.svg',
+      //       label: 'Keyboards',
+      //       route: '/keyboards',
+      //     },
+      //     {
+      //       icon: 'assets/icons/heroicons/outline/play.svg',
+      //       label: 'Startup Movies',
+      //       route: '/startup-movies',
+      //     },
+      //   ],
+      // },
+      // {
+      //   group: 'PROFILE',
+      //   separator: true,
+      //   items: [
+      //     {
+      //       icon: 'assets/icons/heroicons/outline/user-circle.svg',
+      //       label: 'Avatars',
+      //       route: '/avatars',
+      //     },
+      //     {
+      //       icon: 'assets/icons/heroicons/outline/photo.svg',
+      //       label: 'Backgrounds',
+      //       route: '/backgrounds',
+      //     },
+      //     {
+      //       icon: 'assets/icons/heroicons/outline/trophy.svg',
+      //       label: 'Community Awards',
+      //       route: '/community-awards',
+      //     },
+      //     {
+      //       icon: 'assets/icons/heroicons/outline/star.svg',
+      //       label: 'Seasonal Badge',
+      //       route: '/seasonal-badge',
+      //     },
+      //     {
+      //       icon: 'assets/icons/heroicons/outline/identification.svg',
+      //       label: 'Game Profiles',
+      //       route: '/game-profiles',
+      //     },
+      //     {
+      //       icon: 'assets/icons/heroicons/outline/sparkles.svg',
+      //       label: 'Showcases',
+      //       route: '/showcases',
+      //     },
+      //   ],
+      // },
+      // {
+      //   group: 'CHAT',
+      //   separator: false,
+      //   items: [
+      //     {
+      //       icon: 'assets/icons/heroicons/outline/gif.svg',
+      //       label: 'Animated Stickers',
+      //       route: '/animated-stickers',
+      //     },
+      //     {
+      //       icon: 'assets/icons/heroicons/outline/chat-bubble-oval-left.svg',
+      //       label: 'Chat Effects',
+      //       route: '/chat-effects',
+      //     },
+      //     {
+      //       icon: 'assets/icons/heroicons/outline/face-smile.svg',
+      //       label: 'Emoticons',
+      //       route: '/emoticons',
+      //     },
+      //   ],
+     },
     ]);
 
     let sub3 = this.router.events.subscribe((event) => {

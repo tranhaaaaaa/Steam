@@ -17,18 +17,22 @@ export class UserService extends ApiService{
    
   }
 
-getListUser(): Observable<User[]> {
+getListUser(): Observable<DataResponse> {
   let url = `/admin/User`;
   return super.get(url).pipe(
-    map((res) => {
-      const arrayRes = res as any[]; 
-      let value: Array<User> = this.jsonConvert.deserializeArray(
-        arrayRes, 
-        User
-      );
-      return value;
-    })
-  );
+         map((res) => {
+           const dataRes: DataResponse = this.jsonConvert.deserializeObject(
+             res,
+             DataResponse
+           );
+           let value: Array<User> = this.jsonConvert.deserializeArray(
+             dataRes.data,
+             User
+           );
+           dataRes.data = value;
+           return dataRes;
+         })
+       );
 }
 
   createUser(formData: any): Observable<DataResponse> {
@@ -39,6 +43,11 @@ getListUser(): Observable<User[]> {
       })
     );
   }
-
+getUserById(id: any): Observable<User> {
+  const url = `/admin/User/${id}`;
+  return super.get(url).pipe(
+    map((res) => this.jsonConvert.deserializeObject(res, User))
+  );
+}
 
 }

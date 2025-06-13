@@ -32,7 +32,7 @@ import { TableActionComponent } from 'src/app/modules/uikit/pages/table/componen
     BecauseYouPlayedComponent,
 ],
 })
-export class NftComponent implements OnInit, AfterViewInit, AfterViewChecked, OnChanges,DoCheck, OnDestroy {
+export class NftComponent {
 
   nft: Array<Nft>;
 
@@ -65,24 +65,5 @@ export class NftComponent implements OnInit, AfterViewInit, AfterViewChecked, On
       },
     ];
   }
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
-  ngDoCheck(): void {
-    console.log("Do check");
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log("On changes");
-  }
-  ngAfterViewChecked(): void {
-    console.log("After view checked");
-  }
-  ngAfterViewInit(): void {
-    console.log("After view init");
-  }
 
-  ngOnInit(): void {
-  console.log("On init");
-  }
-  
 }

@@ -1,0 +1,83 @@
+<div class="p-8">
+  <div class="bg-gray-800 text-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-3xl font-bold text-white">Thông tin Game</h2>
+    </div>
+
+    <!-- Form sửa thông tin game -->
+    <form [formGroup]="gameForm">
+      <!-- Cột trên với 3 ô input -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+        <!-- Tên Game -->
+        <div>
+          <label for="Title" class="block text-lg font-medium">Tên Game</label>
+          <input 
+            formControlName="Title" 
+            id="Title" 
+            type="text" 
+            class="mt-2 block w-full p-4 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+            [ngClass]="{'border-red-500': gameForm.get('Title')?.invalid && gameForm.get('Title')?.touched}">
+          <div *ngIf="gameForm.get('Title')?.invalid && gameForm.get('Title')?.touched" class="text-red-500 text-sm">Tên game là bắt buộc</div>
+        </div>
+
+        <!-- Mô tả -->
+        <div>
+          <label for="Description" class="block text-lg font-medium">Mô tả</label>
+          <textarea 
+            formControlName="Description" 
+            id="Description" 
+            rows="4" 
+            class="mt-2 block w-full p-4 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        </div>
+
+        <!-- Giá -->
+        <div>
+          <label for="Price" class="block text-lg font-medium">Giá</label>
+          <input 
+            formControlName="Price" 
+            id="Price" 
+            type="number" 
+            class="mt-2 block w-full p-4 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+            [ngClass]="{'border-red-500': gameForm.get('Price')?.invalid && gameForm.get('Price')?.touched}">
+          <div *ngIf="gameForm.get('Price')?.invalid && gameForm.get('Price')?.touched" class="text-red-500 text-sm">Giá phải là số và là bắt buộc</div>
+        </div>
+      </div>
+
+      <!-- Cột dưới với 2 ô input -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+        <!-- Ảnh Bìa -->
+        <div>
+          <label for="CoverImagePath" class="block text-lg font-medium">Ảnh bìa</label>
+          <input 
+            formControlName="CoverImagePath" 
+            id="CoverImagePath" 
+            type="text" 
+            class="mt-2 block w-full p-4 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <!-- Thể loại -->
+        <div>
+  <label for="Genre" class="block text-lg font-medium">Thể loại</label>
+  <select 
+    formControlName="Genre" 
+    id="Genre" 
+    class="mt-2 block w-full p-4 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+    <option value="" disabled selected>Chọn thể loại</option>
+    <option *ngFor="let category of listCategory" [value]="category.CategoryName">{{ category.CategoryName }}</option>
+  </select>
+</div>
+
+      </div>
+
+      <!-- Nút Lưu -->
+      <div class="flex justify-center">
+        <button 
+          type="submit" 
+          class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300" 
+          [disabled]="gameForm.invalid">
+          Lưu
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

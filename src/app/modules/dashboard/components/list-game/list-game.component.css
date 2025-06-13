@@ -1,0 +1,44 @@
+/* Tailwind already provides responsive utilities for layout */
+@layer utilities {
+  .bg-gray-900 {
+    background-color: #1f2937;
+  }
+
+  .bg-gray-800 {
+    background-color: #2d3748;
+  }
+  
+  .rounded-lg {
+    border-radius: 8px;
+  }
+
+  .shadow-lg {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-white {
+    color: #ffffff;
+  }
+
+  .text-gray-400 {
+    color: #cbd5e0;
+  }
+
+  .text-xs {
+    font-size: 0.75rem;
+  }
+
+  .font-semibold {
+    font-weight: 600;
+  }
+}
+/* Additional custom styling if needed */
+@layer utilities {
+  .group:hover .group-hover\:opacity-100 {
+    opacity: 1;
+  }
+
+  .group-hover\:opacity-30 {
+    opacity: 0.3;
+  }
+}

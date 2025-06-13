@@ -19,6 +19,10 @@ import { GatedAccessComponent } from './pages/gated-access/gated-access.componen
 import { LanguagePreferencesComponent } from './pages/language-preferences/language-preferences.component';
 import { ManagerUserComponent } from './pages/manager-user/manager-user.component';
 import { AddUserComponent } from './pages/manager-user/add-user/add-user.component';
+import { GameComponent } from './components/game/game.component';
+import { ListGameComponent } from './components/list-game/list-game.component';
+import { GameDtComponent } from './components/list-game/game-dt/game-dt.component';
+import { GameDetailComponent } from './components/game/game-detail/game-detail.component';
 const routes: Routes = [
   {
     path: '',
@@ -66,6 +70,7 @@ const routes: Routes = [
       },
 
       { path: 'community', component: CommunityComponent },
+         { path: 'manager-game', component: GameComponent },
 
       {
         path: 'manager-user',
@@ -84,6 +89,23 @@ const routes: Routes = [
       path: 'manager-user/add-user',
       component: AddUserComponent
       },
+       {
+      path: 'list-game',
+      component: ListGameComponent
+      },
+           {
+      path: 'game-detail/:id',
+      component: GameDtComponent
+      },
+        {
+      path: 'detail/:id',
+      component: GameDetailComponent
+      },
+       {
+      path: 'manager-user/user-detail/:id',
+      component: AddUserComponent
+      },
+
 
 
 

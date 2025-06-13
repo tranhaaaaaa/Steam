@@ -72,6 +72,18 @@ export class UserLogged {
 
     }
 
+    setEmail(email: string) {
+      this.setCookie('_email', email);
+    }
+     setUsername(username: string) {
+      this.setCookie('_username', username);
+    }
+      deleteUsername() {
+      this.deleteCookie('_username');
+    }
+    deleteEmail() {
+      this.deleteCookie('_email');
+    }
     saveToken(token: string) {
       this.setCookie(this.TOKENKEY, token);
     }

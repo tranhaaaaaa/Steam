@@ -52,12 +52,19 @@ export class SignInComponent implements OnInit {
     console.log(this.form.value);
     this.service.login(this.form.value).subscribe(res => {
       if (res) {
-        this.userLogged.setCurrentUser(res.token, res.userId,  JSON.stringify(res.roles), res.username);
-        window.location.href = '/';
+        // this.userLogged.setCurrentUser(res.token, res.userId,  JSON.stringify(res.roles), res.username);
+        // window.location.href = '/';
       }
     },
     error => {
-     this.toastService.warning("Thông tin tài khoản hoặc mật khẩu không chính xác!");
+      if(error.error.text =='OTP đã gửi về email!'){
+        this.toastService.success("OTP đã gửi về email!");
+        this.userLogged.setUsername(this.form.value.username);
+        this._router.navigate(['auth/verify-login']);
+      }
+    else{
+       this.toastService.warning("Thông tin tài khoản hoặc mật khẩu không chính xác!");
+    }
     }
     )
    // this._router.navigate(['/']);
