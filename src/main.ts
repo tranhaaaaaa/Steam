@@ -8,6 +8,7 @@ import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 if (environment.production) {
   enableProdMode();
@@ -18,7 +19,7 @@ if (environment.production) {
 }
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserModule, AppRoutingModule, HttpClientModule,ToastrModule.forRoot(),), // 👈 Thêm vào đây
+    importProvidersFrom(BrowserModule, AppRoutingModule, HttpClientModule,ToastrModule.forRoot(),NgOtpInputModule), // 👈 Thêm vào đây
     provideAnimations()
   ],
 }).catch((err) => console.error(err));

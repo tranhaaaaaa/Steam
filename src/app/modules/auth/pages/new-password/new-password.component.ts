@@ -1,23 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { NgOtpInputModule } from 'ng-otp-input';
 import { ToastrService } from 'ngx-toastr';
 import { AddUser } from 'src/app/core/models/db.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserLogged } from 'src/app/core/utils/userLogged';
-import { ButtonComponent } from 'src/app/shared/components/button/button.component';
-
-export interface UserReceive {
+import { ButtonComponent } from 'src/app/shared/components/button/button.component';export interface UserReceive {
   username : string,
   email : string
 }
 @Component({
   selector: 'app-new-password',
   templateUrl: './new-password.component.html',
+  standalone:true,
   styleUrls: ['./new-password.component.css'],
-  imports: [ButtonComponent, CommonModule, FormsModule],
+  imports: [ButtonComponent, CommonModule, FormsModule,NgOtpInputModule],
 })
 export class NewPasswordComponent implements OnInit {
   public userLogged = new UserLogged();
@@ -26,37 +26,38 @@ export class NewPasswordComponent implements OnInit {
   public inputs = Array(6);  // Input fields (6 in total)
 
   otp: string = '';  // Can be used to store the concatenated OTP if needed
-  public inputValues: string[] = [];  // Array to store values from each input field
-
+  @ViewChild('ngOtpInput', { static: false}) ngOtpInput: any;
+  config = {
+    allowNumbersOnly: false,
+    length: 6,
+    isPasswordInput: false,
+    disableAutoFocus: false,
+    placeholder: '',
+    inputStyles: {
+      'width': '50px',
+      'height': '50px'
+    }
+  }
   constructor(private authService : AuthService,
     private router : Router,
     private toastService : ToastrService
   ) {}
-
-  onchange(index: number): void {
-    console.log(`Input at index ${index}: ${this.inputValues[index]}`);
+  onOtpChange(otp: any) {
+    this.otp = otp;
   }
   onSubmit(): void {
     this.authService.getUserByUsername(this.username).subscribe(res => {
         console.log(res.data[0].Email);
  
-    const otp = this.inputValues.join(''); 
     let formData = {
       email: res.data[0].Email,
-      otp: otp
+      otp: this.otp
     }
     this.authService.verifyLogin(formData).subscribe(res => {
       console.log(res);
-       const decodedToken = this.authService.decodeToken(res.token);
-      
-      // Lấy userId, username từ decoded token
-      const userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
-      const username = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
-      const roles = JSON.stringify(res.roles);
-      console.log('User ID:', userId);
-      console.log('Username:', username);
-      // Đặt người dùng hiện tại
-      this.userLogged.setCurrentUser(res.token, userId, roles, username);
+   
+     
+      this.userLogged.setCurrentUser(res.data[0].token, res.data[0].userid, JSON.stringify(res.data[0].roles), res.data[0].username);
 
       // this.userLogged.setCurrentUser(res.token, res.userId,  JSON.stringify(res.roles), res.username);
        this.router.navigate(['/']);
@@ -76,9 +77,6 @@ export class NewPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.username = this.getCookie('_username');
-    console.log('Email from cookie:', this.username);
-
-    this.inputValues = this.inputs.map(() => '');
   }
 
   getCookie(name: string): string | null {
