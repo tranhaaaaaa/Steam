@@ -1,0 +1,64 @@
+<!-- src/app/modules/dashboard/pages/product-detail/product-detail.component.html -->
+<div class="product-page-container">
+  <div class="breadcrumbs">
+    <a href="#">Tất cả trò chơi</a> > <a href="#">Hành động</a> > <a href="#">Loạt sản phẩm NEOWIZ</a> > <span>Lies of P</span>
+  </div>
+  <h1 class="game-title">{{ game.title }}</h1>
+
+  <div class="main-content-grid">
+    <!-- Left Column -->
+    <div class="left-column">
+      <!-- Media Carousel -->
+      <div class="media-carousel">
+        <div class="main-media">
+          <img [src]="game.mainImage" alt="Main game image">
+        </div>
+        <div class="thumbnail-strip">
+          <!-- Thumbnails here -->
+        </div>
+      </div>
+      
+      <!-- About this game -->
+      <div class="about-section">
+        <h2>VỀ TRÒ CHƠI NÀY</h2>
+        <p>You are a puppet created by Geppetto who’s caught in a web of lies with unimaginable monsters and untrustworthy figures standing between you and the events that have befallen the world of Lies of P...</p>
+        <!-- More description -->
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="right-column">
+      <img [src]="game.mainImage" alt="Game capsule" class="capsule-image">
+      <p class="game-description-right">{{ game.description }}</p>
+      
+      <div class="review-summary">
+        <p><strong>ĐÁNH GIÁ GẦN ĐÂY:</strong> <span class="positive">{{ game.reviews.recent }}</span> ({{ game.reviews.recentCount }})</p>
+        <p><strong>ĐÁNH GIÁ CHUNG:</strong> <span class="positive">{{ game.reviews.all }}</span> ({{ game.reviews.allCount }})</p>
+      </div>
+
+      <div class="release-info">
+        <p><strong>NGÀY PHÁT HÀNH:</strong> {{ game.releaseDate }}</p>
+        <p><strong>NHÀ PHÁT TRIỂN:</strong> <a href="#">{{ game.developer }}</a></p>
+        <p><strong>NHÀ PHÁT HÀNH:</strong> <a href="#">{{ game.publisher }}</a></p>
+      </div>
+
+      <div class="tags-container">
+        <a *ngFor="let tag of game.tags" href="#" class="tag">{{ tag }}</a>
+        <a href="#" class="tag plus-tag">+</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Purchase Section -->
+  <div class="purchase-section">
+    <h2>Mua Lies of P</h2>
+    <div class="purchase-box">
+      <div class="discount-badge">{{ game.discount }}%</div>
+      <div class="price-info">
+        <div class="original-price">{{ game.originalPrice }}</div>
+        <div class="final-price">{{ game.price }}</div>
+      </div>
+      <button class="add-to-cart-btn">Thêm vào giỏ</button>
+    </div>
+  </div>
+</div>

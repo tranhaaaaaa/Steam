@@ -23,6 +23,7 @@ import { GameComponent } from './components/game/game.component';
 import { ListGameComponent } from './components/list-game/list-game.component';
 import { GameDtComponent } from './components/list-game/game-dt/game-dt.component';
 import { GameDetailComponent } from './components/game/game-detail/game-detail.component';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 const routes: Routes = [
   {
     path: '',
@@ -46,6 +47,7 @@ const routes: Routes = [
       },
       { path: '', redirectTo: 'nfts', pathMatch: 'full' },
       { path: 'nfts', component: NftComponent },
+      { path: 'product/:id', component: ProductDetailComponent },
       { path: 'cart', component: CartComponent },
       {
         path: 'points-shop',

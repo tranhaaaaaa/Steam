@@ -1,0 +1,70 @@
+/* src/app/modules/dashboard/pages/product-detail/product-detail.component.css */
+:host {
+  display: block;
+  background: #1b2838;
+  color: #c7d5e0;
+  font-family: "Motiva Sans", sans-serif;
+}
+.product-page-container {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.breadcrumbs { font-size: 0.8rem; color: #8f98a0; margin-bottom: 10px; }
+.breadcrumbs a { color: #8f98a0; text-decoration: none; }
+.breadcrumbs a:hover { color: #ffffff; }
+.game-title { font-size: 1.8rem; font-weight: 300; color: #ffffff; margin-bottom: 20px; }
+
+.main-content-grid {
+  display: grid;
+  grid-template-columns: 600px 1fr;
+  gap: 20px;
+}
+.left-column { /* Styles for media, description, etc. */ }
+.right-column { /* Styles for capsule, reviews, tags, etc. */ }
+
+.capsule-image { width: 100%; border-radius: 3px; margin-bottom: 10px; }
+.game-description-right { font-size: 0.85rem; line-height: 1.5; margin-bottom: 15px; }
+.review-summary p { font-size: 0.8rem; color: #8f98a0; }
+.review-summary .positive { color: #66c0f4; }
+.release-info { font-size: 0.8rem; margin-top: 15px; }
+.release-info p { margin-bottom: 3px; }
+.release-info strong { color: #8f98a0; font-weight: 400; }
+.release-info a { color: #66c0f4; text-decoration: none; }
+.tags-container { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 15px; }
+.tag {
+  background-color: rgba(102, 192, 244, 0.2);
+  color: #66c0f4; padding: 4px 8px;
+  border-radius: 2px; font-size: 0.75rem; text-decoration: none;
+}
+.tag:hover { background-color: rgba(102, 192, 244, 0.3); }
+.plus-tag { font-weight: bold; }
+
+.purchase-section { margin-top: 30px; }
+.purchase-section h2 { font-size: 1rem; font-weight: 400; color: white; margin-bottom: 10px; }
+.purchase-box {
+  background: linear-gradient(to right, #2a475e, #1b2838);
+  padding: 15px; border-radius: 3px;
+  display: flex; align-items: center; justify-content: flex-end; gap: 15px;
+}
+.discount-badge {
+  background-color: #4c6b22; color: #a0cf00;
+  padding: 8px 12px; font-size: 1.5rem; font-weight: 500;
+}
+.price-info { text-align: right; }
+.original-price { font-size: 0.8rem; color: #8f98a0; text-decoration: line-through; }
+.final-price { font-size: 1rem; color: #a0cf00; }
+.add-to-cart-btn {
+  background: linear-gradient(to right, #75b022, #588a1b);
+  color: #d2ff9d; border: none; padding: 8px 20px;
+  border-radius: 2px; font-size: 1rem; cursor: pointer;
+}
+.add-to-cart-btn:hover { filter: brightness(1.1); }
+
+.about-section { margin-top: 20px; }
+.about-section h2 {
+  font-size: 1rem; font-weight: 400; color: white;
+  margin-bottom: 10px; padding-bottom: 5px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.about-section p { font-size: 0.9rem; line-height: 1.6; }
