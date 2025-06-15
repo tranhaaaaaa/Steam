@@ -7,7 +7,7 @@
 
   <div class="grid grid-cols-6">
     <!-- Loop through the inputs array and bind each input to a corresponding value in 'inputValues' -->
-    <input
+    <!-- <input
       *ngFor="let input of inputs; let i = index"
       [(ngModel)]="inputValues[i]"
       (change)="onchange(i)"
@@ -15,7 +15,8 @@
       maxlength="1"
       placeholder=""
       class="border-border bg-background text-muted-foreground focus:border-primary h-10 w-10 rounded-md border text-center outline-hidden sm:h-14 sm:w-14"
-    />
+    /> -->
+      <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
   </div>
 
   <!-- Submit Button -->

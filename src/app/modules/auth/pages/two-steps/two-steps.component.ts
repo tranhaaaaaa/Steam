@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from 'src/app/shared/components/button/button.component';
@@ -6,12 +6,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserLogged } from 'src/app/core/utils/userLogged';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 @Component({
   selector: 'app-two-steps',
   templateUrl: './two-steps.component.html',
   styleUrls: ['./two-steps.component.css'],
-  imports: [ButtonComponent, CommonModule, FormsModule],
+  imports: [ButtonComponent, CommonModule, FormsModule,NgOtpInputModule],
 })
 export class TwoStepsComponent implements OnInit {
   public userLogged = new UserLogged();
@@ -19,21 +20,30 @@ export class TwoStepsComponent implements OnInit {
   public inputs = Array(6);  // Input fields (6 in total)
 
   otp: string = '';  // Can be used to store the concatenated OTP if needed
-  public inputValues: string[] = [];  // Array to store values from each input field
-
+  @ViewChild('ngOtpInput', { static: false}) ngOtpInput: any;
+  config = {
+    allowNumbersOnly: false,
+    length: 6,
+    isPasswordInput: false,
+    disableAutoFocus: false,
+    placeholder: '',
+    inputStyles: {
+      'width': '50px',
+      'height': '50px'
+    }
+  }
   constructor(private authService : AuthService,
     private router : Router,
     private toastService : ToastrService
   ) {}
-
-  onchange(index: number): void {
-    console.log(`Input at index ${index}: ${this.inputValues[index]}`);
+  onOtpChange(otp: any) {
+    this.otp = otp;
   }
+
   onSubmit(): void {
-    const otp = this.inputValues.join(''); 
     let formData = {
       email: this.email,
-      otp: otp
+      otp: this.otp
     }
     this.authService.verify(formData).subscribe(res => {
       console.log(res);
@@ -53,9 +63,7 @@ export class TwoStepsComponent implements OnInit {
 
   ngOnInit(): void {
     this.email = this.getCookie('_email');
-    console.log('Email from cookie:', this.email);
 
-    this.inputValues = this.inputs.map(() => '');
   }
 
   getCookie(name: string): string | null {
