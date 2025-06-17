@@ -83,7 +83,12 @@ export class MenuService implements OnDestroy {
           {
             icon: 'assets/icons/heroicons/outline/calendar.svg',
             label: 'Quản lý danh mục',
-            route: '/dashboard/cart',
+            route: '/dashboard/category',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/calendar.svg',
+            label: 'Quản lý hastags',
+            route: '/dashboard/hastags',
           },
          
         ],

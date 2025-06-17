@@ -60,7 +60,8 @@ export class NewPasswordComponent implements OnInit {
       this.userLogged.setCurrentUser(res.data[0].token, res.data[0].userid, JSON.stringify(res.data[0].roles), res.data[0].username);
 
       // this.userLogged.setCurrentUser(res.token, res.userId,  JSON.stringify(res.roles), res.username);
-       this.router.navigate(['/']);
+      //  this.router.navigate(['/']);
+      window.location.href = '/';
        
     },
     error => {

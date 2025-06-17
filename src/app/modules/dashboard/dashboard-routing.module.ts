@@ -23,6 +23,9 @@ import { GameComponent } from './components/game/game.component';
 import { ListGameComponent } from './components/list-game/list-game.component';
 import { GameDtComponent } from './components/list-game/game-dt/game-dt.component';
 import { GameDetailComponent } from './components/game/game-detail/game-detail.component';
+import { Category } from 'src/app/core/models/db.model';
+import { CategoryComponent } from './components/category/category.component';
+import { TagsComponent } from './components/tags/tags.component';
 const routes: Routes = [
   {
     path: '',
@@ -68,7 +71,8 @@ const routes: Routes = [
           { path: 'emoticons', component: PointsShopComponent },
         ]
       },
-
+      { path: 'category', component: CategoryComponent },
+        { path: 'hastags', component: TagsComponent },
       { path: 'community', component: CommunityComponent },
          { path: 'manager-game', component: GameComponent },
 

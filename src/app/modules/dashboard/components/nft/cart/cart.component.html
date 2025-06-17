@@ -3,8 +3,8 @@
   <button
     [ngClass]="
       menu.selected || menu.active
-        ? 'bg-primary text-primary-foreground'
-        : 'text-muted-foreground/50 hover:bg-card hover:text-muted-foreground '
+        ? 'bg-primary text-primary-foreground cursor-pointer'
+        : 'text-muted-foreground/50 hover:bg-card hover:text-muted-foreground cursor-pointer'
     "
     class="mr-2 inline-flex rounded-md px-3 py-2 text-sm font-medium">
     <span>{{ menu.group }}</span>
@@ -38,8 +38,8 @@
               </select>
 
               <div class="text-xs text-gray-400 space-x-2 ml-auto flex-shrink-0">
-                <a  class="hover:underline" (click)="addToCart(item.gameDetails.Id)">Thêm</a>
-                <a class="hover:underline" (click)="delete(item.Id)">Gỡ bỏ</a>
+                <a  class="hover:underline cursor-pointer" (click)="addToCart(item.gameDetails.Id)">Thêm</a>
+                <a class="hover:underline cursor-pointer" (click)="delete(item.Id)">Gỡ bỏ</a>
               </div>
             </div>
           </div>
@@ -48,8 +48,8 @@
 
       <!-- Continue shopping and remove all items buttons -->
       <div class="flex justify-between mt-2">
-        <button class="bg-[#2f323b] text-white px-4 py-2 rounded-md hover:bg-[#3b3f4a]" [routerLink]="['/dashboard/list-game']">Tiếp tục mua sắm</button>
-        <a class="text-sm text-gray-400 hover:underline" (click)="deleteAll()">Gỡ bỏ tất cả sản phẩm</a>
+        <button class="cursor-pointer bg-[#2f323b] text-white px-4 py-2 rounded-md hover:bg-[#3b3f4a]" [routerLink]="['/dashboard/list-game']">Tiếp tục mua sắm</button>
+        <a class="text-sm text-gray-400 hover:underline cursor-pointer" (click)="deleteAll()">Gỡ bỏ tất cả sản phẩm</a>
       </div>
     </div>
     <div class="bg-[#1b2838] p-6 rounded-lg text-white space-y-12">
@@ -59,7 +59,7 @@
           <span class="font-bold text-white">{{ totalPrice | currency: 'VND' }}</span>
         </div>
         <p class="text-xs text-gray-300">Thuế tiêu thụ sẽ được tính trong quá trình thanh toán nếu có</p>
-        <button class="mt-4 w-full bg-gradient-to-r from-[#3d9eff] to-[#2775e6] hover:opacity-90 text-white py-2 rounded-sm font-semibold text-sm">
+        <button class="cursor-pointer mt-4 w-full bg-gradient-to-r from-[#3d9eff] to-[#2775e6] hover:opacity-90 text-white py-2 rounded-sm font-semibold text-sm">
           Tiếp tục tới bước thanh toán
         </button>
       </div>

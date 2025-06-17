@@ -1,8 +1,8 @@
 <div class="p-6 max-w-5xl mx-auto bg-white/90 shadow-2xl rounded-3xl backdrop-blur-md">
-  <h1 class="text-3xl font-extrabold text-gray-800 mb-6">Quản lý hastag #</h1>
+  <h1 class="text-3xl font-extrabold text-gray-800 mb-6">Quản lý danh mục</h1>
 
   <button (click)="openDialog('add')" class="mb-6 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full shadow transition-all cursor-pointer">
-    <span class="text-lg">+</span> Thêm hastag
+    <span class="text-lg">+</span> Thêm danh mục
   </button>
 
   <div class="overflow-x-auto rounded-xl shadow">
@@ -10,17 +10,17 @@
       <thead class="bg-gray-100 text-gray-700 text-base">
         <tr>
           <th class="px-6 py-4">ID</th>
-          <th class="px-6 py-4">Tên tag #</th>
+          <th class="px-6 py-4">Tên danh mục</th>
           <th class="px-6 py-4">Hành động</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tag of listTag" class="border-t border-gray-200 hover:bg-gray-50 transition">
-          <td class="px-6 py-4">{{ tag.Id }}</td>
-          <td class="px-6 py-4">{{ tag.TagName }}</td>
+        <tr *ngFor="let category of listCategory" class="border-t border-gray-200 hover:bg-gray-50 transition">
+          <td class="px-6 py-4">{{ category.Id }}</td>
+          <td class="px-6 py-4">{{ category.CategoryName }}</td>
           <td class="px-6 py-4 space-x-4">
-            <button (click)="openDialog('edit', tag)" class="text-green-600 hover:underline font-medium cursor-pointer">Sửa</button>
-            <button class="text-red-500 hover:underline font-medium cursor-pointer" (click)="deleteTag(tag.Id)">Xóa</button>
+            <button (click)="openDialog('edit', category)" class="text-green-600 hover:underline font-medium cursor-pointer">Sửa</button>
+            <button class="text-red-500 hover:underline font-medium cursor-pointer" (click)="deleteCategory(category.Id)">Xóa</button>
           </td>
         </tr>
       </tbody>
@@ -35,11 +35,11 @@
       {{ dialogMode === 'add' ? 'Thêm danh mục' : 'Cập nhật danh mục' }}
     </h2>
 
-    <form class="space-y-5" #form="ngForm" (ngSubmit)="saveTag(form)">
+    <form class="space-y-5" #form="ngForm" (ngSubmit)="saveCategory(form)">
   
       <div>
-        <label class="block mb-1 font-medium text-gray-700">Tên hastag</label>
-        <input [(ngModel)]="tempTag.name" name="name"
+        <label class="block mb-1 font-medium text-gray-700">Tên danh mục</label>
+        <input [(ngModel)]="tempCategory.name" name="name"
                class="w-full p-3 border rounded-xl focus:outline-none focus:ring focus:ring-blue-300 bg-gray-50" required />
       </div>
 

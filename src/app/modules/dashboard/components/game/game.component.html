@@ -1,34 +1,36 @@
-<div class="container mx-auto p-8">
-  <!-- Tiêu đề -->
-  <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Quản Lý Tài Khoản Game</h2>
+<div class="p-6 max-w-5xl mx-auto bg-white/90 shadow-2xl rounded-3xl backdrop-blur-md">
+  <h1 class="text-3xl font-extrabold text-gray-800 mb-6">Quản lý tài khoản game</h1>
 
-  <!-- Table danh sách tài khoản game -->
-  <div class="overflow-x-auto shadow-lg rounded-lg">
-    <table class="min-w-full table-auto bg-white border border-gray-300 rounded-lg">
-      <thead>
-        <tr class="bg-gray-800 text-white">
-             <th class="px-6 py-4 text-left">Mã SP</th>
-          <th class="px-6 py-4 text-left">Tiêu đề</th>
-          <th class="px-6 py-4 text-left">Giá</th>
-          <th class="px-6 py-4 text-left">Thể Loại Game</th>
-          <th class="px-6 py-4 text-left">Trạng Thái</th>
-          <th class="px-6 py-4 text-left">Hành Động</th>
+<button class="mb-6 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full shadow transition-all cursor-pointer">
+  <span class="text-lg">+</span> Thêm tài khoản
+</button>
+
+  <div class="overflow-x-auto rounded-xl shadow">
+    <table class="min-w-full text-sm text-left text-gray-800">
+      <thead class="bg-gray-100 text-gray-700 text-base">
+        <tr>
+          <th class="px-6 py-4">Mã SP</th>
+          <th class="px-6 py-4">Tiêu đề</th>
+          <th class="px-6 py-4">Giá</th>
+          <th class="px-6 py-4">Thể Loại Game</th>
+          <th class="px-6 py-4">Trạng Thái</th>
+          <th class="px-6 py-4">Hành Động</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let account of listGame" class="hover:bg-gray-100">
-          <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ account.Id }}</td>
-          <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ account.Title }}</td>
-          <td class="px-6 py-4 text-sm text-gray-600">{{ account.Price }}</td>
-          <td class="px-6 py-4 text-sm text-gray-600">{{ account.Genre }}</td>
-          <td class="px-6 py-4 text-sm">
+          <td class="px-6 py-4">{{ account.Id }}</td>
+          <td class="px-6 py-4">{{ account.Title }}</td>
+          <td class="px-6 py-4">{{ account.Price }}</td>
+          <td class="px-6 py-4">{{ account.Genre }}</td>
+          <td class="px-6 py-4">
             <span class="px-3 py-1 rounded-full" [ngClass]="{'bg-green-500 text-white': account.Status === 'string', 'bg-red-500 text-white': account.Status === 'inactive'}">
               {{ account.Status | uppercase }}
             </span>
           </td>
           <td class="px-6 py-4 text-sm">
-            <button (click)="editAccount(account)" class="text-blue-600 hover:text-blue-800 mr-4">Chỉnh Sửa</button>
-            <button (click)="deleteAccount(account.Id)" class="text-red-600 hover:text-red-800">Xóa</button>
+            <button (click)="editAccount(account)" class="text-green-600 hover:underline font-medium cursor-pointer">Sửa |</button>
+            <button (click)="deleteAccount(account.Id)" class="text-red-500 hover:underline font-medium cursor-pointer"> Xóa</button>
           </td>
         </tr>
       </tbody>

@@ -2,7 +2,7 @@
   <!-- Nút giỏ hàng -->
   <button *ngIf="isLogin"
     (click)="openCart()"
-    class="relative flex h-9 w-9 items-center justify-center rounded-md bg-card text-muted-foreground hover:text-primary transition"
+    class="relative flex h-9 w-9 items-center justify-center rounded-md bg-card text-muted-foreground hover:text-primary transition cursor-pointer"
     type="button"
   >
     <span class="sr-only">Open cart</span>
@@ -33,7 +33,7 @@
 
   <!-- Nút profile -->
 <!-- Avatar Button -->
-<button (click)="toggleMenu()" class="bg-card relative flex rounded-full text-sm" type="button" *ngIf="isLogin">
+<button (click)="toggleMenu()" class="bg-card relative flex rounded-full text-sm cursor-pointer" type="button" *ngIf="isLogin">
   <span class="sr-only">Open user menu</span>
   <img
     clickOutside
@@ -60,11 +60,11 @@
  <div class="border-border border-b border-dashed"></div>
 
     <ul class="my-2 mx-2 flex flex-col">
-      <li [routerLink]="['/dashboard/account/details']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold">
+      <li [routerLink]="['/dashboard/account/details']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer">
          <svg-icon src="./assets/icons/heroicons/outline/user-circle.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
         Tài khoản của bạn
       </li>
-        <li [routerLink]="['/auth/sign-in']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold" (click)="logout()">
+        <li [routerLink]="['/auth/sign-in']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer" (click)="logout()">
          <svg-icon src="./assets/icons/heroicons/outline/logout.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
        Đăng xuất
       </li>

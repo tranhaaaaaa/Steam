@@ -40,7 +40,7 @@ export class CartComponent implements OnInit {
   }
  onGetData() {
     this.cartService.getListCart().subscribe(data => {
-      this.listCart = data.data; 
+      this.listCart = data.data.filter((x:any)=> x.UserId == this.userLogged.getCurrentUser().userId); 
       this.mapCartToGameDetails(); 
       console.log(this.listCart);
     });
