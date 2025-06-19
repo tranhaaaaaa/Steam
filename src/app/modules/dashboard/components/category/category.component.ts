@@ -14,8 +14,14 @@ import { UserLogged } from 'src/app/core/utils/userLogged';
 })
 export class CategoryComponent implements OnInit{
   public listCategory : Category[]=[];
+   public searchTerm: string = '';
   public userlogged = new UserLogged();
+  public allCate : Category[]=[];
   public cateDetail : Category = new Category();
+  currentPage: number = 1; 
+    itemsPerPage: number = 5;  
+    totalItems: number = 0;  
+    paginatedUsers: Category[] = []; 
   constructor(private service : CategoryService,
     private toastService : ToastrService
   ) { }
@@ -44,7 +50,44 @@ export class CategoryComponent implements OnInit{
       this.tempCategory = { id: 0, name: '' };
     }
   }
+  //    paginateUsers() {
+  //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  //   const endIndex = startIndex + this.itemsPerPage;
+  //   this.paginatedUsers = this.listCategory.slice(startIndex, endIndex);
+  // }
+changePage(page: number) {
+  if (page < 1 || page > this.totalPages) return;  // Kiểm tra xem trang có hợp lệ không
+  this.currentPage = page;
+  this.updatePagination();  // Cập nhật lại phân trang khi thay đổi trang
+}
 
+  updatePagination() {
+  let filtered = [...this.allCate];
+
+  if (this.searchTerm.trim() !== '') {
+    const keyword = this.searchTerm.trim().toLowerCase();
+    filtered = filtered.filter(tag =>
+      tag.CategoryName?.toLowerCase().includes(keyword)
+    );
+  }
+
+  this.totalItems = filtered.length;  // Cập nhật lại tổng số phần tử
+  this.paginateUsers(filtered);  // Phân trang lại dữ liệu
+}
+
+paginateUsers(filteredList: Category[]) {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  this.paginatedUsers = filteredList.slice(startIndex, endIndex);
+}
+
+    onSearchChange() {
+    this.currentPage = 1;
+    this.updatePagination();
+  }
+ get totalPages(): number {
+    return Math.ceil(this.totalItems / this.itemsPerPage);
+  }
   closeDialog() {
     this.isDialogOpen = false;
   }
@@ -98,8 +141,9 @@ saveCategory(form: NgForm) {
   }
 onGetData(){
   this.service.getListCategory().subscribe(res => {
-    this.listCategory = res.data;
-    console.log(this.listCategory);
+      this.allCate = res.data || [];
+      this.currentPage = 1;
+        this.updatePagination();  
   });
 }
 }

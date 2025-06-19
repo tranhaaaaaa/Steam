@@ -90,6 +90,16 @@ export class MenuService implements OnDestroy {
             label: 'Quản lý hastags',
             route: '/dashboard/hastags',
           },
+           {
+            icon: 'assets/icons/heroicons/outline/calendar.svg',
+            label: 'Quản lý đơn hàng',
+            route: '/dashboard/orders',
+          },
+           {
+            icon: 'assets/icons/heroicons/outline/calendar.svg',
+            label: 'Quản lý hệ thống',
+            route: '/dashboard/system',
+          },
          
         ],
       // },

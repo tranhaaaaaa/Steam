@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { UserLogged } from 'src/app/core/utils/userLogged';
 
 interface AccountSidebarItem {
   label: string;
@@ -18,7 +19,8 @@ interface AccountSidebarItem {
   styleUrls: ['./account-layout.component.css']
 })
 export class AccountLayoutComponent implements OnInit {
-
+  public userLogged = new UserLogged();
+  username: any;
   sidebarItems: AccountSidebarItem[] = [
     { label: 'Account details', route: './details' },
     { label: 'Store preferences', route: './store-preferences' },
@@ -32,5 +34,7 @@ export class AccountLayoutComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+this.username = this.userLogged.getCurrentUser().username;
+   }
 }

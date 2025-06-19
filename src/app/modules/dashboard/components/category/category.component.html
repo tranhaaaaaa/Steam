@@ -1,10 +1,25 @@
 <div class="p-6 max-w-5xl mx-auto bg-white/90 shadow-2xl rounded-3xl backdrop-blur-md">
   <h1 class="text-3xl font-extrabold text-gray-800 mb-6">Quản lý danh mục</h1>
 
-  <button (click)="openDialog('add')" class="mb-6 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full shadow transition-all cursor-pointer">
-    <span class="text-lg">+</span> Thêm danh mục
+  <div class="flex flex-wrap items-center gap-4 mb-6">
+  <button (click)="openDialog('add')"
+          class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full shadow transition-all cursor-pointer">
+    <span class="text-lg">+</span> Thêm hastag
   </button>
 
+  <div class="relative w-full max-w-xs">
+    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+      <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+           viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"></path>
+      </svg>
+    </span>
+    <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()"
+           placeholder="Tìm kiếm theo tên #"
+           style="background-color: white;color:black"
+           class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-white" />
+  </div>
+</div>
   <div class="overflow-x-auto rounded-xl shadow">
     <table class="min-w-full text-sm text-left text-gray-800">
       <thead class="bg-gray-100 text-gray-700 text-base">
@@ -15,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let category of listCategory" class="border-t border-gray-200 hover:bg-gray-50 transition">
+        <tr *ngFor="let category of paginatedUsers" class="border-t border-gray-200 hover:bg-gray-50 transition">
           <td class="px-6 py-4">{{ category.Id }}</td>
           <td class="px-6 py-4">{{ category.CategoryName }}</td>
           <td class="px-6 py-4 space-x-4">
@@ -25,6 +40,19 @@
         </tr>
       </tbody>
     </table>
+  </div>
+   <div class="flex justify-center mt-6">
+    <button 
+      class="bg-gray-500 text-white px-4 py-2 rounded-l-md hover:bg-gray-600"
+      [disabled]="currentPage === 1"
+      (click)="changePage(currentPage - 1)">Trước</button>
+    
+    <span class="px-4 py-2 text-white">Trang {{ currentPage }} / {{ totalPages }}</span>
+
+    <button 
+      class="bg-gray-500 text-white px-4 py-2 rounded-r-md hover:bg-gray-600"
+      [disabled]="currentPage === totalPages"
+      (click)="changePage(currentPage + 1)">Sau</button>
   </div>
 </div>
 

@@ -26,6 +26,7 @@ import { GameDetailComponent } from './components/game/game-detail/game-detail.c
 import { Category } from 'src/app/core/models/db.model';
 import { CategoryComponent } from './components/category/category.component';
 import { TagsComponent } from './components/tags/tags.component';
+import { OrdersComponent } from './components/orders/orders.component';
 const routes: Routes = [
   {
     path: '',
@@ -75,6 +76,8 @@ const routes: Routes = [
         { path: 'hastags', component: TagsComponent },
       { path: 'community', component: CommunityComponent },
          { path: 'manager-game', component: GameComponent },
+         { path:'orders', component: OrdersComponent },
+
 
       {
         path: 'manager-user',
@@ -94,7 +97,7 @@ const routes: Routes = [
       component: AddUserComponent
       },
        {
-      path: 'list-game',
+      path: 'list-game/:name',
       component: ListGameComponent
       },
            {
