@@ -282,7 +282,7 @@ export class GameInfor {
   Description: string = '' as any;
 
   @JsonProperty('price', NumberConverter, true)
-  Price: string = '' as any;
+  Price: number = '' as any;
 
   @JsonProperty('genre', StringConverter, true)
   Genre: string = '' as any;

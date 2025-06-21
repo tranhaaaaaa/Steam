@@ -13,6 +13,8 @@ import { CommunityRecommendsComponent } from '../../components/nft/community-rec
 import { NftHeaderComponent } from '../../components/nft/nft-header/nft-header.component';
 import { TableComponent } from "../../../uikit/pages/table/table.component";
 import { TableActionComponent } from 'src/app/modules/uikit/pages/table/components/table-action/table-action.component';
+import { GameService } from 'src/app/core/services/game.service';
+import { GameInfor } from 'src/app/core/models/db.model';
 
 @Component({
   selector: 'app-nft',
@@ -34,16 +36,18 @@ import { TableActionComponent } from 'src/app/modules/uikit/pages/table/componen
 })
 export class NftComponent {
 
-  nft: Array<Nft>;
-
-  constructor() {
-    this.nft = [
+  nft!: Array<Nft>;
+  public listGame : GameInfor[] = [];
+  constructor(private service : GameService) {
+this.service.getListGame().subscribe((data)=>{
+  this.listGame = data.data;
+     this.nft = [
       {
         id: 34356771,
-        title: 'Girls of the Cartoon Universe',
+        title: this.listGame[0].Title,
         creator: 'Jhon Doe',
         instant_price: 4.222,
-        price: 187.47,
+        price: this.listGame[0].Price,
         ending_in: '06h 52m 47s',
         last_bid: 0.12,
         image: './assets/images/img-01.jpg',
@@ -51,19 +55,21 @@ export class NftComponent {
       },
       {
         id: 34356772,
-        title: 'Pupaks',
-        price: 548.792,
+        title: this.listGame[1].Title,
+        price: this.listGame[1].Price,
         last_bid: 0.35,
         image: './assets/images/img-02.jpg',
       },
       {
         id: 34356773,
-        title: 'Seeing Green collection',
-        price: 234.882,
+        title: this.listGame[2].Title,
+        price: this.listGame[2].Price,
         last_bid: 0.15,
         image: './assets/images/img-03.jpg',
       },
     ];
+})
+ 
   }
 
 }

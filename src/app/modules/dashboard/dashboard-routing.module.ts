@@ -111,6 +111,10 @@ const routes: Routes = [
       path: 'detail/:id',
       component: GameDetailComponent
       },
+         {
+      path: 'new-game',
+      component: GameDetailComponent
+      },
        {
       path: 'manager-user/user-detail/:id',
       component: AddUserComponent

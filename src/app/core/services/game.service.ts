@@ -51,4 +51,15 @@ getGameDetail(id : any): Observable<DataResponse> {
       })
     );
   }
+   createGame(formData : any): Observable<any> {
+    let url = `/api/gamesinfo`;
+    return super.postEntity(url, formData).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
 }

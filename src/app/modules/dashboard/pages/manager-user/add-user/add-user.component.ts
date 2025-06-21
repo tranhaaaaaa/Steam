@@ -27,22 +27,28 @@ export class AddUserComponent implements OnInit{
   ngOnInit(): void {
       this.idUser = this.route.snapshot.paramMap.get('id');
   if (this.idUser) {
-    // this.loadUserDetail(id);
+     this.loadUserDetail(this.idUser);
   }
   }
 
 
   addUser() {
-    console.log('Thêm người dùng:', this.newUser);
-    this.userService.createUser(this.newUser).subscribe((data)=>{
+  
+    if (this.idUser) {
+      this.userService.createUser(this.newUser).subscribe((data)=>{
       this.toastService.success("Thêm người dùng thành công!");
       this.newUser = new AddUser();
       })
+    } else {
+      
+    }
+    }
 
-  }
+  
     loadUserDetail(id: any) {
      this.userService.getUserById(id).subscribe((data)=>{
        this.userdetail  = data.data[0];
+       console.log(this.userdetail);
      })
     }
 }

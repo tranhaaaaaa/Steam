@@ -9,6 +9,7 @@ import { UserLogged } from 'src/app/core/utils/userLogged';
 import { CartService } from 'src/app/core/services/cart.service';
 import { Cart } from 'src/app/core/models/db.model';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-profile-menu',
@@ -45,7 +46,7 @@ export class ProfileMenuComponent implements OnInit {
   public isLogin = false;
   public username = '';
   public listCart : Cart[]=[];
-  
+  email: any;
 
 openCart() {
  this.router.navigate(['/dashboard/cart']);
@@ -106,19 +107,24 @@ openCart() {
   constructor(public themeService: ThemeService,
     private router: Router,
     private cartService : CartService,
-    private authService : AuthService
+    private authService : AuthService,
+    private userService : UserService
   ) {
      if(this.userLogged.isLogged()){
       this.isLogin = true;
       this.username = this.userLogged.getCurrentUser().username;
-    }
+     this.userService.getUserById(this.userLogged.getCurrentUser().userId).subscribe((data) => {
+       this.email = data.data[0].Email;
+     })
+      }
   }
 
   ngOnInit(): void {
       this.cartService.getListCart().subscribe((data) =>{
         this.listCart = data.data.filter((x:any)=> x.UserId == this.userLogged.getCurrentUser().userId);
         this.cartItemCount = this.listCart.length;
-    })
+    });
+    
       this.authService.notificationAction$.subscribe(() => {
       this.handleNotificationAction();
     });

@@ -5,7 +5,7 @@
     </div>
 
     <!-- Form sửa thông tin game -->
-    <form [formGroup]="gameForm">
+    <form [formGroup]="gameForm" (submit)="onSave()">
       <!-- Cột trên với 3 ô input -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
         <!-- Tên Game -->
@@ -43,7 +43,6 @@
         </div>
       </div>
 
-      <!-- Cột dưới với 2 ô input -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
         <!-- Ảnh Bìa -->
         <div>
