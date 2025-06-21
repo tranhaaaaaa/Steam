@@ -47,7 +47,7 @@ export class AuthService extends ApiService{
     );
   }
     verifyLogin(formData : any): Observable<DataResponse> {
-    let url = `/api/auth/verify-login-otp`;
+    let url = `/api/Auth/verify-login-otp`;
     return super.postEntity(url, formData).pipe(
       map((res) => {
         if (res === undefined) {

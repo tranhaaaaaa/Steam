@@ -1,97 +1,91 @@
-<!-- Wrapper chính -->
-<div class="bg-gray-900 p-6 relative z-10">
-  <!-- Phần Trailer và Thông tin Game -->
-  <div class="flex flex-col md:flex-row items-start md:items-center mb-6">
-    
-    <!-- Trailer -->
-    <div class="w-full md:w-2/3">
-      <iframe 
-        src="https://video.fastly.steamstatic.com/store_trailers/256822968/movie480_vp9.webm?t=1614084144" 
-        frameborder="0" 
-        class="w-full h-72" 
-        allowfullscreen>
-      </iframe>
-    </div>
 
-    <!-- Thông tin Game -->
-    <div class="w-full md:w-1/3 md:pl-6 mt-4 md:mt-0">
-      <h2 class="text-3xl text-white">{{ gameDetail?.Title }}</h2>
-      <p class="text-sm text-gray-400 mt-2">{{ gameDetail?.Description }}</p>
-      <div class="mt-4">
-        <span class="block text-xl font-bold text-green-400">{{ gameDetail?.Price | number }} VND</span>
-        <button 
-          class="mt-2 bg-green-600 text-white py-2 px-4 rounded-full w-full" 
-          (click)="openAddToCartDialog(gameDetail?.Id)">
-          Add to Cart
-        </button>
-      </div>
-    </div>
+<div class="product-page-container">
+
+  <div class="breadcrumbs">
+    <a href="#">Tất cả trò chơi</a> > <a href="#">Hành động</a> > <a href="#">Loạt sản phẩm NEOWIZ</a> > <span>Lies of P</span>
   </div>
+  <h1 class="game-title">{{ game.title }}</h1>
 
-  <!-- Game Liên Quan -->
-  <div class="mt-6">
-    <h3 class="text-xl text-white">Related Games</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
-      <div *ngFor="let relatedGame of listGame">
-        <div class="relative bg-gray-800 rounded-lg overflow-hidden shadow-lg group cursor-pointer">
-          <img [src]="relatedGame.InstallerFilePath" alt="{{ relatedGame.Title }}" class="w-full h-56 object-cover">
-          <div class="p-4">
-            <h4 class="text-lg font-semibold text-white">{{ relatedGame.Title }}</h4>
-            <p class="text-gray-400 text-sm">{{ relatedGame.Price | number }} VND</p>
+  <div class="main-content-grid">
+
+    <div class="left-column">
+    
+      <div class="media-carousel" *ngIf="selectedMedia">
+        <div class="main-media">
+          <iframe *ngIf="selectedMedia.type === 'video'" width="600" height="338" [src]="selectedMedia.url | safe"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+          </iframe>
+          <img *ngIf="selectedMedia.type === 'image'" [src]="selectedMedia.url" alt="Main game media">
+        </div>
+        <div class="thumbnail-strip">
+          <div *ngFor="let media of game.media" class="thumbnail" 
+               [class.active]="media === selectedMedia"
+               (click)="selectMedia(media)">
+            <img [src]="media.thumbnailUrl || media.url" alt="Game thumbnail">
+            <div *ngIf="media.type === 'video'" class="play-icon"></div>
           </div>
         </div>
       </div>
+      <div class="action-buttons-container">
+        <button class="action-btn green">Thêm vào danh sách ước</button>
+        <button class="action-btn">Theo dõi</button>
+        <button class="action-btn">Phớt lờ</button>
+      </div>
+      <div class="language-warning">
+        <h3>Không hỗ trợ ngôn ngữ Tiếng Việt</h3>
+        <p>Sản phẩm này không hỗ trợ ngôn ngữ địa phương của bạn. Vui lòng xem lại danh sách ngôn ngữ được hỗ trợ dưới đây trước khi mua.</p>
+      </div>
+
+   
+      <div class="purchase-section">
+        <h2>Mua Lies of P</h2>
+        <div class="purchase-box">
+          <div class="discount-badge">-{{ game.discount }}%</div>
+          <div class="price-info">
+            <div class="original-price">{{ game.originalPrice }}</div>
+            <div class="final-price">{{ game.price }}</div>
+          </div>
+         
+          <button class="add-to-cart-btn" (click)="addToCart(game.id)">Thêm vào giỏ</button>
+        </div>
+      </div>
+
+ 
+      <div class="about-section">
+        <h2>VỀ TRÒ CHƠI NÀY</h2>
+        <p>You are a puppet created by Geppetto who’s caught in a web of lies with unimaginable monsters and untrustworthy figures standing between you and the events that have befallen the world of Lies of P...</p>
+      </div>
+    </div>
+
+
+    <div class="right-column">
+      <img [src]="game.mainImage" alt="Game capsule" class="capsule-image">
+      <p class="game-description-right">{{ game.description }}</p>
+      <div class="review-summary">
+        <p><strong>ĐÁNH GIÁ GẦN ĐÂY:</strong> <span class="positive">{{ game.reviews.recent }}</span> ({{ game.reviews.recentCount }})</p>
+        <p><strong>ĐÁNH GIÁ CHUNG:</strong> <span class="positive">{{ game.reviews.all }}</span> ({{ game.reviews.allCount }})</p>
+      </div>
+      <div class="release-info">
+        <p><strong>NGÀY PHÁT HÀNH:</strong> {{ game.releaseDate }}</p>
+        <p><strong>NHÀ PHÁT TRIỂN:</strong> <a href="#">{{ game.developer }}</a></p>
+        <p><strong>NHÀ PHÁT HÀNH:</strong> <a href="#">{{ game.publisher }}</a></p>
+      </div>
+      <div class="tags-container">
+        <a *ngFor="let tag of game.tags" href="#" class="tag">{{ tag }}</a>
+        <a href="#" class="tag plus-tag">+</a>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Modal - Tách riêng, đặt ở cuối template -->
-<div *ngIf="showAddToCartDialog" class="fixed inset-0 z-50 flex items-center justify-center">
-  
-  <!-- Overlay nền mờ -->
-  <div class="absolute inset-0 bg-black bg-opacity-30 backdrop-blur-md z-40"></div>
-  
-  <!-- Hộp thoại chính -->
-  <div class="relative z-50 bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl w-[420px] shadow-2xl border border-gray-700 animate-fadeIn">
-    
-    <!-- Header -->
-    <div class="flex items-center mb-4">
-      <div class="bg-green-500 rounded-full w-10 h-10 flex items-center justify-center mr-3 shadow-lg">
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-        </svg>
-      </div>
-      <h3 class="text-2xl font-semibold text-white">Đã thêm vào giỏ hàng!</h3>
+<!-- NEW: DIALOG THÊM VÀO GIỎ HÀNG -->
+<div *ngIf="showAddToCartDialog" class="dialog-backdrop" (click)="closeAddToCartDialog()">
+  <div class="dialog-panel" (click)="$event.stopPropagation()">
+    <h3 class="dialog-title">Đã thêm vào giỏ hàng</h3>
+    <p class="dialog-content">Sản phẩm đã được thêm vào giỏ hàng của bạn.</p>
+    <div class="dialog-actions">
+      <button class="dialog-btn secondary" (click)="continueShopping()">Tiếp tục mua sắm</button>
+      <button class="dialog-btn primary" (click)="viewCart()">Xem giỏ hàng</button>
     </div>
-
-    <!-- Nội dung -->
-    <div class="flex items-center mb-4">
-      <img [src]="gameDetail?.CoverImagePath" alt="Game Cover" class="w-20 h-20 object-cover rounded-md mr-4 border border-gray-600">
-      <div>
-        <h4 class="text-lg font-medium text-white">{{ gameDetail?.Title }}</h4>
-        <p class="text-sm text-gray-400">{{ gameDetail?.Price | number }} VND</p>
-      </div>
-    </div>
-
-    <div class="mt-4 space-y-2">
-      <button 
-        class="bg-blue-600 hover:bg-blue-700 transition-colors text-white px-6 py-2 rounded-lg w-full shadow-md"
-        (click)="continueShopping()">
-        Tiếp tục mua sắm
-      </button>
-      <button 
-        class="bg-gray-700 hover:bg-gray-600 transition-colors text-white px-6 py-2 rounded-lg w-full shadow-md"
-        (click)="viewCart()">
-        Xem giỏ hàng
-      </button>
-    </div>
-
-    <!-- Close nút -->
-    <button class="absolute top-3 right-3 text-gray-400 hover:text-white transition" (click)="closeAddToCartDialog()">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-      </svg>
-    </button>
   </div>
 </div>
-

@@ -1,92 +1,121 @@
+
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { GameInfor } from 'src/app/core/models/db.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { CartService } from 'src/app/core/services/cart.service';
-import { GameService } from 'src/app/core/services/game.service';
 import { UserLogged } from 'src/app/core/utils/userLogged';
+
+
+@Pipe({
+  name: 'safe',
+  standalone: true
+})
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) { }
+  transform(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 
 @Component({
   selector: 'app-game-dt',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, SafePipe],
   templateUrl: './game-dt.component.html',
-  styleUrl: './game-dt.component.css'
+  styleUrls: ['./game-dt.component.css']
 })
 export class GameDtComponent implements OnInit {
-  public gameDetail: GameInfor | undefined;
-   showAddToCartDialog: boolean = false; 
-  public listGame : GameInfor[] = [];
-  public userLogged = new UserLogged();
-  constructor(private route: ActivatedRoute, private service: GameService,
-    private cartService : CartService,
-    private toastService : ToastrService,
-    private authService : AuthService,
-    private router : Router
-  ) {}
+
+  selectedMedia: any;
+  userLogged = new UserLogged();
+
+
+  showAddToCartDialog = false;
+
+
+  game = {
+    id: 1627720, // ID của game, ví dụ
+    title: 'Lies of P',
+    description: 'Lies of P is a thrilling soulslike that takes the story of Pinocchio, turns it on its head, and sets it against the darkly elegant backdrop of the Belle Epoque era.',
+    mainImage: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/header.jpg?t=1701916187',
+    media: [
+      { type: 'video', url: 'https://www.youtube.com/embed/tZBuPe3Jg1I?autoplay=1&mute=1', thumbnailUrl: 'https://i.ytimg.com/vi/tZBuPe3Jg1I/hqdefault.jpg' },
+      { type: 'image', url: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/ss_0a93756b553b4481f084666359b37849c7cc72f1.600x338.jpg' },
+      { type: 'image', url: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/ss_d830f3a38f712757271b86c8782705a221d1193d.600x338.jpg' },
+      { type: 'image', url: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/ss_8f0b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b.600x338.jpg' },
+      { type: 'image', url: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/ss_4e6984d7a8b8c5c8e8f8f8f8f8f8f8f8f8f8f8f8.600x338.jpg' },
+    ],
+    tags: ['Dark Souls', 'Hành động', 'Kỳ ảo u ám', 'Đen tối'],
+    reviews: {
+      recent: 'Rất tích cực',
+      recentCount: '1,709',
+      all: 'Rất tích cực',
+      allCount: '39,594'
+    },
+    releaseDate: '18 Thg09, 2023',
+    developer: 'NEOWIZ',
+    publisher: 'NEOWIZ',
+    price: '525.000₫',
+    discount: 50,
+    originalPrice: '1.050.000₫'
+  };
+
+  // NEW: Inject các service cần thiết cho giỏ hàng
+  constructor(
+    private cartService: CartService,
+    private toastService: ToastrService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    const gameId = +this.route.snapshot.paramMap.get('id')!;
-    this.service.getGameDetail(gameId).subscribe(data => {
-      this.gameDetail = data.data;
-      console.log(this.gameDetail);
-    });
-    this.service.getListGame().subscribe(data => {
-      this.listGame = data.data;
-      console.log(this.listGame);
-    })
-  }
-  addToCart(gameId: any) {
-         if(this.userLogged.isLogged()){
-           let formData = {
-            userID : this.userLogged.getCurrentUser().userId,
-            gameID : gameId
-          }
-          this.cartService.addToCart(formData).subscribe(data => {
-            this.authService.triggerNotificationAction();
-            this.toastService.success("Thêm game vào giỏ hàng thành công");
-          })
-         }
-         else{
-          this.router.navigate(['/auth/sign-in']);
-         }
-        
-  }
-   openAddToCartDialog(gameId : any) {
-    if(this.userLogged.isLogged()){
-       this.showAddToCartDialog = true;
-           let formData = {
-            userID : this.userLogged.getCurrentUser().userId,
-            gameID : gameId
-          }
-          this.cartService.addToCart(formData).subscribe(data => {
-            this.authService.triggerNotificationAction();
-            this.toastService.success("Thêm game vào giỏ hàng thành công");
-          })
-         }
-         else{
-          this.router.navigate(['/auth/sign-in']);
-         }
+    if (this.game.media && this.game.media.length > 0) {
+      this.selectedMedia = this.game.media[0];
+    }
    
   }
 
-  // Đóng dialog
-  closeAddToCartDialog() {
+  selectMedia(mediaItem: any): void {
+    this.selectedMedia = mediaItem;
+  }
+
+
+
+  addToCart(gameId: number): void {
+    if (this.userLogged.isLogged()) {
+      const formData = {
+        userID: this.userLogged.getCurrentUser().userId,
+        gameID: gameId
+      };
+      this.cartService.addToCart(formData).subscribe({
+        next: () => {
+          this.authService.triggerNotificationAction(); // Cập nhật icon giỏ hàng
+          this.showAddToCartDialog = true; 
+        },
+        error: (err) => {
+          this.toastService.error('Thêm vào giỏ hàng thất bại. Vui lòng thử lại.', 'Lỗi');
+          console.error(err);
+        }
+      });
+    } else {
+      this.toastService.info('Vui lòng đăng nhập để mua hàng.');
+      this.router.navigate(['/auth/sign-in']);
+    }
+  }
+
+  closeAddToCartDialog(): void {
     this.showAddToCartDialog = false;
   }
 
-  continueShopping() {
-    // this.router.navigate(['/dashboard/cart'])
-
+  continueShopping(): void {
     this.closeAddToCartDialog();
   }
 
-  // Xem giỏ hàng
-  viewCart() {
-    this.router.navigate(['/dashboard/cart'])
-
+  viewCart(): void {
     this.closeAddToCartDialog();
-    // Điều hướng tới giỏ hàng
+    this.router.navigate(['/dashboard/cart']);
   }
 }
