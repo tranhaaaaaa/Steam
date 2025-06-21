@@ -19,7 +19,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <div *ngFor="let game of listGameOfCategory" class="relative bg-gray-800 rounded-lg overflow-hidden shadow-lg group"  (click)="onGameSelect(game.Id)">
         <!-- Game Image -->
-        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/spotlights/efc2dfb00b8dd3aa44779c6e/spotlight_image_english.jpg?t=1749063675" alt="{{ game.CategoryName }}" class="w-full h-56 object-cover transition duration-300 ease-in-out group-hover:opacity-30">
+        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/spotlights/efc2dfb00b8dd3aa44779c6e/spotlight_image_english.jpg?t=1749063675" alt="{{ game.CategoryName }}" class="w-full h-56 object-cover transition duration-300 ease-in-out group-hover:opacity-60">
 
         <!-- Hover Overlay with Details -->
         <div class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">

@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { GameInfor } from 'src/app/core/models/db.model';
 import { GameService } from 'src/app/core/services/game.service';
 
 @Component({
   selector: 'app-game',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,RouterLink],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })

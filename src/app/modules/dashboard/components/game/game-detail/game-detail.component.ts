@@ -2,9 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Category, GameInfor } from 'src/app/core/models/db.model';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { GameService } from 'src/app/core/services/game.service';
+import { GamecategoryService } from 'src/app/core/services/gamecategory.service';
+import { UserLogged } from 'src/app/core/utils/userLogged';
 
 @Component({
   selector: 'app-game-detail',
@@ -20,7 +23,9 @@ export class GameDetailComponent implements OnInit{
   constructor(private gameService : GameService,
      private fb: FormBuilder,
     private route : ActivatedRoute,
-    private categoryService : CategoryService
+    private categoryService : CategoryService,
+    private toastService : ToastrService,
+    private gameCategory : GamecategoryService
   ){
       this.gameForm = this.fb.group({
       Title: ['', Validators.required],
@@ -53,6 +58,36 @@ export class GameDetailComponent implements OnInit{
     }
     else{
       this.game = new GameInfor();
+    }
+  }
+  onSave(){
+    let userLogged = new UserLogged();
+    if(this.idgame){
+      // this.gameService.
+    }else{
+      let formData = {
+        title: this.gameForm.get('Title')?.value,
+        description: this.gameForm.get('Description')?.value,
+        price: this.gameForm.get('Price')?.value,
+        coverImagePath: this.gameForm.get('CoverImagePath')?.value,
+        installerFilePath: this.gameForm.get('CoverImagePath')?.value,
+        createdBy : userLogged.getCurrentUser().userId,
+        status : "Active",
+        genre: this.gameForm.get('Genre')?.value,
+        developerId : userLogged.getCurrentUser().userId
+
+      }
+      this.gameService.createGame(formData).subscribe((data)=>{
+          let formData2 = {
+            gameID : data.data.id,
+            categoryID : this.listCategory.find((category) => category.CategoryName === this.gameForm.get('Genre')?.value)?.Id,
+            createdBy : userLogged.getCurrentUser().userId,
+          }
+         this.gameCategory.createGameCategory(formData2).subscribe((data)=>{
+          this.toastService.success("Thêm mới thành công!");
+          this.onGetData();
+         })
+      })
     }
   }
 }

@@ -10,7 +10,8 @@
             <input
               type="text"
               name="username"
-              [(ngModel)]="newUser.Username"
+              style="color:black;background-color: white;"
+              [(ngModel)]="userdetail.UserName"
               required
               #username="ngModel"
               class="w-full bg-white-100 p-5 text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -27,9 +28,10 @@
             <input
               type="email"
               name="email"
-              [(ngModel)]="newUser.Email"
+              [(ngModel)]="userdetail.Email"
               required
               #email="ngModel"
+              style="color:black;background-color: white;"
               class="w-full bg-white-100 p-5 text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               [class.border-red-500]="email.invalid && email.touched"
             />
@@ -44,9 +46,10 @@
             <input
               type="text"
               name="phone"
-              [(ngModel)]="newUser.Phone"
+              [(ngModel)]="userdetail.PhoneNumber"
               required
               #phone="ngModel"
+              style="color:black;background-color: white;"
               class="w-full bg-white-100 p-5 text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               [class.border-red-500]="phone.invalid && phone.touched"
             />
@@ -56,56 +59,35 @@
           </div>
         </div>
 
-        <!-- Row 2 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <!-- Mật khẩu -->
-          <div>
-            <label class="block mb-2 text-lg font-semibold text-white-800">Mật khẩu</label>
-            <input
-              type="password"
-              name="password"
-              [(ngModel)]="newUser.Password"
-              required
-              #password="ngModel"
-              class="w-full bg-white-100 p-5 text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              [class.border-red-500]="password.invalid && password.touched"
-            />
-            <div *ngIf="password.invalid && password.touched" class="text-red-500 text-sm mt-2">
-              Mật khẩu là bắt buộc.
-            </div>
-          </div>
 
           <!-- Vai trò -->
           <div>
             <label class="block mb-2 text-lg font-semibold text-white-800">Vai trò</label>
             <select
               name="role"
-              [(ngModel)]="newUser.Role"
+              [(ngModel)]="userdetail.Role"
               required
               #role="ngModel"
+              style="color:black;background-color: white;"
               class="w-full bg-white-100 p-5 text-xl rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="Staff">Staff</option>
+              <option value="Staff">User</option>
               <option value="Admin">Admin</option>
             </select>
             <div *ngIf="role.invalid && role.touched" class="text-red-500 text-sm mt-2">
               Vai trò là bắt buộc.
             </div>
           </div>
-        </div>
 
         <!-- Submit -->
-        <div class="mb-4">
+        <div class="mb-20">  </div>
       <button
   type="submit"
   [disabled]="userForm.invalid"
   class="px-6 py-2 text-base bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
 >
-  Thêm người dùng
+Lưu
 </button>
-
-        </div>
-
       </form>
     </div>
 
