@@ -8,7 +8,7 @@
     </div>
   </div>
   <div #carousel class="carousel-wrapper">
-    <div *ngFor="let category of categories" class="category-card" [routerLink]="['/dashboard/list-game']">
+    <div *ngFor="let category of categories" class="category-card" [routerLink]="['/dashboard/list-game', category.name]">
       <img [src]="category.backgroundImage" [alt]="category.name" class="background-image">
       <div class="overlay"></div>
       <span class="category-name">{{ category.name }}</span>

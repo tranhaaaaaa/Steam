@@ -1,40 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GameInfor } from 'src/app/core/models/db.model';
 import { GameService } from 'src/app/core/services/game.service';
 
 @Component({
   selector: 'app-game',
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
 export class GameComponent implements OnInit {
-  accounts = [
-    {
-      id: 1,
-      username: 'gamer123',
-      email: 'gamer123@example.com',
-      gameGenre: 'Action',
-      status: 'active'
-    },
-    {
-      id: 2,
-      username: 'player456',
-      email: 'player456@example.com',
-      gameGenre: 'RPG',
-      status: 'inactive'
-    },
-    {
-      id: 3,
-      username: 'warrior789',
-      email: 'warrior789@example.com',
-      gameGenre: 'Strategy',
-      status: 'active'
-    }
-  ];
-
+   public searchTerm: string = '';
+     currentPage: number = 1; 
+       itemsPerPage: number = 5;  
+       totalItems: number = 0;  
+         public allCate : GameInfor[]=[];
+       paginatedUsers: GameInfor[] = []; 
   constructor(private gameService : GameService,
     private router : Router
   ) {}
@@ -49,13 +32,42 @@ export class GameComponent implements OnInit {
   }
   onGetData(){
     this.gameService.getListGame().subscribe(data => {
-      this.listGame = data.data;
-      console.log(this.listGame);
+ this.allCate = data.data || [];
+      this.currentPage = 1;
+      this.updatePagination();
     })
   }
-  deleteAccount(accountId: number) {
-    // Logic xóa tài khoản game
-    this.accounts = this.accounts.filter(account => account.id !== accountId);
-    console.log('Tài khoản đã được xóa:', accountId);
+   paginateUsers() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedUsers = this.listGame.slice(startIndex, endIndex);
   }
+  changePage(page: number) {
+    this.currentPage = page;
+    this.paginateUsers();  // Cập nhật danh sách người dùng theo trang mới
+  }
+    updatePagination() {
+    let filtered = [...this.allCate];
+
+    if (this.searchTerm.trim() !== '') {
+      const keyword = this.searchTerm.trim().toLowerCase();
+      filtered = filtered.filter(tag =>
+        tag.Title?.toLowerCase().includes(keyword)
+      );
+    }
+
+    this.totalItems = filtered.length;
+
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedUsers = filtered.slice(startIndex, endIndex);
+  }
+    onSearchChange() {
+    this.currentPage = 1;
+    this.updatePagination();
+  }
+ get totalPages(): number {
+    return Math.ceil(this.totalItems / this.itemsPerPage);
+  }
+
 }

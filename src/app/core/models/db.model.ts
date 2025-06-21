@@ -322,7 +322,11 @@ export class GameCategory {
 
   @JsonProperty('game', StringConverter, true)
   Game: string = '';
+    @JsonProperty('gameName', StringConverter, true)
+  GameName: string = '';
 
+    @JsonProperty('categoryName', StringConverter, true)
+  CategoryName: string = '';
   @JsonProperty('categoryID', NumberConverter, true)
   CategoryID: number = 0;
 

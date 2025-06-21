@@ -27,7 +27,7 @@ export class UserLogged {
       }
       try {
         roles.forEach((role: any) => {
-          result.push((role.Name1 as string).trim().toLowerCase());
+          result.push((role as string).trim().toLowerCase());
         });
       } catch (error) {}
       return result;

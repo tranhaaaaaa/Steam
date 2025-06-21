@@ -42,7 +42,7 @@ export class AddUserComponent implements OnInit{
   }
     loadUserDetail(id: any) {
      this.userService.getUserById(id).subscribe((data)=>{
-       this.userdetail  = data;
+       this.userdetail  = data.data[0];
      })
     }
 }

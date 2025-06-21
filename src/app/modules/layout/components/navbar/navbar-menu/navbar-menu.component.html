@@ -1,12 +1,12 @@
 <div class="dropdown relative inline-block">
   <!-- Button -->
   <button (click)="onRegisterpage()"
-    class="mr-2 inline-flex rounded-md px-3 py-2 text-sm font-medium bg-green-600 text-white" *ngIf="!isLogin">
+    class="mr-2 inline-flex rounded-md px-3 py-2 text-sm font-medium bg-green-600 text-white cursor-pointer" *ngIf="!isLogin">
     <span>Đăng ký</span>
   </button>
 </div>
  <button (click)="onloginPage()" *ngIf="!isLogin"
-    class="mr-2 inline-flex rounded-md px-3 py-2 text-sm font-medium text-white" style="color:white; background-color: rgb(54, 116, 171);">
+    class="mr-2 inline-flex rounded-md px-3 py-2 text-sm font-medium text-white cursor-pointer" style="color:white; background-color: rgb(54, 116, 171);">
     <span>Đăng nhập</span>
   </button>
 
@@ -16,15 +16,15 @@
   <button
     [ngClass]="
       menu.selected || menu.active
-        ? 'bg-primary text-primary-foreground'
-        : 'text-muted-foreground/50 hover:bg-card hover:text-muted-foreground '
+        ? 'bg-primary text-primary-foreground cursor-pointer'
+        : 'text-muted-foreground/50 hover:bg-card hover:text-muted-foreground cursor-pointer'
     "
     class="mr-2 inline-flex rounded-md px-3 py-2 text-sm font-medium">
     <span>{{ menu.group }}</span>
   </button>
   <!-- Dropdown  -->
   <div
-    class="dropdown-content absolute top-[100%] min-w-[200px] origin-top-left z-10"
+    class="dropdown-content absolute top-[100%] min-w-[200px] origin-top-left z-10 cursor-pointer"
     navbar-submenu
     [submenu]="menu.items"></div>
 </div>

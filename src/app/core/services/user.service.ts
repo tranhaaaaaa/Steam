@@ -43,11 +43,23 @@ getListUser(): Observable<DataResponse> {
       })
     );
   }
-getUserById(id: any): Observable<User> {
-  const url = `/admin/User/${id}`;
-  return super.get(url).pipe(
-    map((res) => this.jsonConvert.deserializeObject(res, User))
-  );
+getUserById(id: any): Observable<DataResponse> {
+  const url = `/admin/User/id/${id}`;
+ return super.get(url).pipe(
+        map((res) => {
+          const odataRes: DataResponse = this.jsonConvert.deserializeObject(res, DataResponse);
+  
+          if (Array.isArray(odataRes.data)) {
+            odataRes.data = this.jsonConvert.deserializeArray(odataRes.data, User);
+          } else if (odataRes.data) {
+            console.warn("odataRes.data không phải là mảng. Đang chuyển về dạng object của Staff.");
+            odataRes.data = this.jsonConvert.deserializeObject(odataRes.data, User);
+          } else {
+            console.warn("odataRes.data không có dữ liệu.");
+          }
+          return odataRes;
+        })
+      );
 }
 
 }

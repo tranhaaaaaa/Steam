@@ -5,10 +5,11 @@ import { AddUser, User } from 'src/app/core/models/db.model';
 import { UserService } from 'src/app/core/services/user.service';
 import { Nft } from '../../models/nft';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-manager-user',
-  imports: [CommonModule,AngularSvgIconModule],
+  imports: [CommonModule,AngularSvgIconModule,FormsModule],
   templateUrl: './manager-user.component.html',
   styleUrl: './manager-user.component.css'
 })
@@ -20,6 +21,7 @@ currentPage: number = 1;
   itemsPerPage: number = 10;  
   totalItems: number = 0;  
   paginatedUsers: User[] = []; 
+    searchTerm: string = '';
   constructor( private  userService :UserService,
     private router : Router
   ){
@@ -34,10 +36,27 @@ this.totalItems = this.listUser.length;
       this.paginateUsers(); 
    });
   }
-   paginateUsers() {
+  paginateUsers() {
+    let filtered = [...this.listUser];
+
+    // Lọc theo searchTerm (username hoặc email)
+    if (this.searchTerm.trim() !== '') {
+      const lowerTerm = this.searchTerm.toLowerCase();
+      filtered = filtered.filter(user =>
+        user.UserName.toLowerCase().includes(lowerTerm) ||
+        user.Email.toLowerCase().includes(lowerTerm)
+      );
+    }
+
+    this.totalItems = filtered.length;
+    
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedUsers = this.listUser.slice(startIndex, endIndex);
+    this.paginatedUsers = filtered.slice(startIndex, endIndex);
+  }
+    onSearchChange() {
+    this.currentPage = 1; // Reset trang khi tìm kiếm
+    this.paginateUsers();
   }
   onDetailPages(user : User){
     this.router.navigate([`dashboard/manager-user/user-detail/${user.Id}`]);

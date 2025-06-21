@@ -6,6 +6,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { UserLogged } from 'src/app/core/utils/userLogged';
+import { RolepermissionService } from 'src/app/core/services/rolepermission.service';
 // SidebarComponent không cần thiết nên có thể xóa dòng import này
 // import { SidebarComponent } from './components/sidebar/sidebar.component';
 
@@ -19,9 +20,13 @@ import { UserLogged } from 'src/app/core/utils/userLogged';
 export class LayoutComponent implements OnInit {
   public isLog = false;
   public userLogged = new UserLogged();
-  constructor(){
+  public isAdmin :boolean = false;
+  constructor(private permission : RolepermissionService){
     if(this.userLogged.isLogged()){
       this.isLog = true;
+    }
+    if(this.permission.hasRole(["Admin"])){
+      this.isAdmin = true;
     }
   }
   ngOnInit(): void {
