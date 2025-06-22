@@ -32,9 +32,9 @@ export class GameComponent implements OnInit {
   }
   onGetData(){
     this.gameService.getListGame().subscribe(data => {
- this.allCate = data.data || [];
-      this.currentPage = 1;
-      this.updatePagination();
+  this.allCate = data.data || [];
+    this.currentPage = 1;
+    this.updatePagination();
     })
   }
    paginateUsers() {
@@ -43,8 +43,8 @@ export class GameComponent implements OnInit {
     this.paginatedUsers = this.listGame.slice(startIndex, endIndex);
   }
   changePage(page: number) {
-    this.currentPage = page;
-    this.paginateUsers();  // Cập nhật danh sách người dùng theo trang mới
+     this.currentPage = page;
+  this.updatePagination();  
   }
     updatePagination() {
     let filtered = [...this.allCate];

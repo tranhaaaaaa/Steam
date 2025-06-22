@@ -5,13 +5,13 @@
   <div class="carousel-main">
     <!-- Slides -->
     <div class="slides-wrapper">
-      <div *ngFor="let game of games; let i = index" 
+      <div *ngFor="let game of listGame; let i = index" 
            class="carousel-slide" 
            [class.active]="i === currentIndex">
         
         <!-- Main Image -->
-        <div class="main-image-container">
-          <img [src]="game.mainImage" [alt]="game.title" class="main-image">
+        <div class="main-image-container" [routerLink]="['/dashboard/game-detail', game.Id]">
+          <img [src]="game.InstallerFilePath" [alt]="game.Title" class="main-image">
           <div class="play-button-overlay">
             <img src="https://store.akamai.steamstatic.com/public/shared/images/buttons/logo_steam_footer.png" alt="Play" class="play-icon">
           </div>
@@ -19,19 +19,19 @@
 
         <!-- Info Panel -->
         <div class="info-panel">
-          <h3 class="game-title">{{ game.title }}</h3>
+          <h3 class="game-title">{{ game.Title }}</h3>
           <div class="thumbnail-grid">
-            <img *ngFor="let thumb of game.thumbnails" [src]="thumb" alt="thumbnail" class="thumbnail">
+            <!-- <img *ngFor="let thumb of game.thumbnails" [src]="thumb" alt="thumbnail" class="thumbnail"> -->
           </div>
           <div class="release-info">
             <p>Đã ra mắt</p>
             <span class="tag">Bán chạy</span>
           </div>
           <div class="price-info">
-            <span class="discount-badge">-{{ game.discount }}%</span>
+            <span class="discount-badge">-0%</span>
             <div class="price-stack">
-              <span class="original-price">{{ game.originalPrice | currency:'VND' }}</span>
-              <span class="final-price">{{ game.price | currency:'VND' }}</span>
+              <span class="original-price">{{ game.Price | currency:'VND' }}</span>
+              <span class="final-price">{{ game.Price | currency:'VND' }}</span>
             </div>
           </div>
         </div>

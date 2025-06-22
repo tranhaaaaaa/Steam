@@ -119,6 +119,7 @@ export class GameDetailComponent implements OnInit {
         installerFilePath: formData.CoverImagePath,
         createdBy: currentUser.userId,
         status: "Active",
+        genre: formData.Genre,
         developerId: currentUser.userId
       };
 
@@ -140,7 +141,7 @@ export class GameDetailComponent implements OnInit {
       ).subscribe(response => {
         if (response) {
           this.toastService.success('Thêm game mới thành công!');
-          this.router.navigate(['/admin/games']);
+          this.router.navigate(['/dashboard/manager-game']);
         }
       }, error => {
         this.toastService.error('Đã có lỗi xảy ra khi thêm game.', 'Lỗi');

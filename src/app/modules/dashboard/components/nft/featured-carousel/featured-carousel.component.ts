@@ -1,11 +1,14 @@
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GameService } from 'src/app/core/services/game.service';
+import { GameInfor } from 'src/app/core/models/db.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-featured-carousel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './featured-carousel.component.html',
   styleUrls: ['./featured-carousel.component.css']
 })
@@ -13,10 +16,14 @@ export class FeaturedCarouselComponent implements OnInit, OnDestroy {
   @Input() games: any[] = [];
   
   currentIndex = 0;
+  public listGame : GameInfor[] = []
   private intervalId: any;
-
+  constructor(private gameService : GameService) { }
   ngOnInit(): void {
     this.startAutoSlide();
+    this.gameService.getListGame().subscribe(data => {
+      this.listGame = data.data;
+    })
   }
 
   ngOnDestroy(): void {
