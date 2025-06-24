@@ -44,4 +44,15 @@ getListGameCategory(): Observable<DataResponse> {
       })
     );
   }
+       Update(formData : any, id: any): Observable<any> {
+    let url = `/api/gamescategory`;
+    return super.putEntity(url,id, formData).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
 }

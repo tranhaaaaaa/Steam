@@ -43,6 +43,14 @@ getListUser(): Observable<DataResponse> {
       })
     );
   }
+    UpdateUser(formData: any,id: string): Observable<DataResponse> {
+    let url = `/admin/User`;
+    return super.putEntity(url,id,formData).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
 getUserById(id: any): Observable<DataResponse> {
   const url = `/admin/User/id/${id}`;
  return super.get(url).pipe(

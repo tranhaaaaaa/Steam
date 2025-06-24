@@ -22,7 +22,7 @@ export class GameDetailComponent implements OnInit {
   listCategory: Category[] = [];
   idgame: string | null = null;
   userLogged = new UserLogged();
-
+ listHashtags = ['Hành Động', 'Phiêu Lưu', 'Kinh Dị', 'Chiến Thuật', 'Indie', 'VR', 'Online', 'Offline'];
   // Các thuộc tính cần thiết cho giao diện "làm đẹp"
   pageTitle = 'Đang tải...';
   isLoading = true;
@@ -105,11 +105,62 @@ export class GameDetailComponent implements OnInit {
     const formData = this.gameForm.value;
     const currentUser = this.userLogged.getCurrentUser();
 
-    if (this.idgame) {
-      // Logic cập nhật
-      this.toastService.info('Chức năng cập nhật đang được phát triển.');
-      this.isSaving = false;
-    } else {
+   if (this.idgame) {
+  const createPayload = {
+    id:this.idgame,
+    title: formData.Title,
+    description: formData.Description,
+    price: formData.Price,
+    coverImagePath: formData.CoverImagePath,
+    installerFilePath: formData.CoverImagePath,
+    createdBy: currentUser.userId,
+    status: "Active",
+    genre: formData.Genre,
+    developerId: currentUser.userId
+  };
+
+  this.gameService.UpdateGame(createPayload, this.idgame).pipe(
+    switchMap(newGameResponse => {
+      const categoryId = this.listCategory.find(c => c.CategoryName === formData.Genre)?.Id;
+      if (!categoryId) {
+        this.toastService.error('Không tìm thấy thể loại hợp lệ.', 'Lỗi');
+        return of(null);
+      }
+
+      return this.gameCategoryService.getListGameCategory().pipe(
+        switchMap(data1 => {
+          debugger
+          const gameCategory = data1.data.find((x: any) => x.gameID === this.idgame);
+          if (gameCategory) {
+            const gameCategoryPayload = {
+              gameID: newGameResponse.data.id,
+              categoryID: categoryId,
+              createdBy: currentUser.userId,
+            };
+            return this.gameCategoryService.Update(gameCategoryPayload, gameCategory.Id);
+          } else {
+            const gameCategoryPayload = {
+              gameID: newGameResponse.data.id,
+              categoryID: categoryId,
+              createdBy: currentUser.userId,
+            };
+            return this.gameCategoryService.createGameCategory(gameCategoryPayload);
+          }
+        })
+      );
+    }),
+    finalize(() => this.isSaving = false)
+  ).subscribe(response => {
+    if (response) {
+      this.toastService.success('Cập nhật thành công!');
+      this.router.navigate(['/dashboard/manager-game']);
+    }
+  }, error => {
+    this.toastService.error('Đã có lỗi xảy ra khi thêm game.', 'Lỗi');
+    console.error(error);
+  });
+}
+ else {
       // Logic tạo mới
       const createPayload = {
         title: formData.Title,

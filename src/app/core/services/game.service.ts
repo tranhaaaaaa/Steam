@@ -62,4 +62,12 @@ getGameDetail(id : any): Observable<DataResponse> {
       })
     );
   }
+      UpdateGame(formData: any,id: string): Observable<DataResponse> {
+      let url = `/api/gamesinfo`;
+      return super.putEntity(url,parseInt(id),formData).pipe(
+        map((res) => {
+          return res;
+        })
+      );
+    }
 }
