@@ -278,6 +278,7 @@ export class GameInfor {
   @JsonProperty('title', StringConverter, true)
   Title: string = '' as any;
 
+  // UPDATED: Đổi tên và thêm các trường mới
   @JsonProperty('description', StringConverter, true)
   Description: string = '' as any;
 
@@ -290,14 +291,23 @@ export class GameInfor {
   @JsonProperty('coverImagePath', StringConverter, true)
   CoverImagePath: string = '' as any;
 
-   @JsonProperty('status', StringConverter, true)
+
+  @JsonProperty('mediaUrls', StringConverter, true) 
+  MediaUrls: string = '' as any;
+
+  @JsonProperty('discountPercent', NumberConverter, true)
+  DiscountPercent: number = 0;
+
+  @JsonProperty('saleEndDate', DateTimeConverter, true)
+  SaleEndDate: Date | null = null;
+
+  @JsonProperty('status', StringConverter, true)
   Status: string = '' as any;
 
-   @JsonProperty('createdBy', StringConverter, true)
+  @JsonProperty('createdBy', StringConverter, true)
   CreatedBy: string = '' as any;
 
-  
-   @JsonProperty('createdAt', DateTimeConverter, true)
+  @JsonProperty('createdAt', DateTimeConverter, true)
   CreatedAt: Date = '' as any;
   
   @JsonProperty('developerId', StringConverter, true)
@@ -306,9 +316,10 @@ export class GameInfor {
   @JsonProperty('installerFilePath', StringConverter, true)
   InstallerFilePath: string = '' as any;
 
-    @JsonProperty('gameTags', GameTagArrayConverter, true)
+  @JsonProperty('gameTags', GameTagArrayConverter, true)
   GameTags: GameTag[] = [];
-    @JsonProperty('reviews', ReviewArrayConverter, true)
+
+  @JsonProperty('reviews', ReviewArrayConverter, true)
   Reviews: Review[] = [];
 }
 

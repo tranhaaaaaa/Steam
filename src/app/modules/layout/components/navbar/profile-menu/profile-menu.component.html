@@ -32,20 +32,19 @@
   </button>
 
   <!-- Nút profile -->
-<!-- Avatar Button -->
-<button (click)="toggleMenu()" class="bg-card relative flex rounded-full text-sm cursor-pointer" type="button" *ngIf="isLogin">
-  <span class="sr-only">Open user menu</span>
-  <img
-    clickOutside
-    (clickOutside)="isOpen = false"
-    class="size-9 shrink-0 rounded-md"
-    src="https://avatars.githubusercontent.com/u/12519008?v=4"
-    alt=""
-  />
-</button>
+  <button (click)="toggleMenu()" class="bg-card relative flex rounded-full text-sm cursor-pointer" type="button" *ngIf="isLogin">
+    <span class="sr-only">Open user menu</span>
+    <img
+      clickOutside
+      (clickOutside)="isOpen = false"
+      class="size-9 shrink-0 rounded-md"
+      src="https://avatars.githubusercontent.com/u/12519008?v=4"
+      alt="User Avatar"
+    />
+  </button>
 
-<!-- Dropdown Menu -->
- <div
+  <!-- Dropdown Menu -->
+  <div
     [@openClose]="isOpen ? 'open' : 'closed'"
     class="bg-background shadow-custom border-muted absolute z-20 mt-70 w-60 origin-top-right transform rounded-md border border-dashed py-4 ring-1 ring-transparent ring-opacity-5 transition focus:outline-hidden ltr:right-0 rtl:left-0">
     <div class="flext-row flex items-center px-4 pb-4">
@@ -54,25 +53,23 @@
       </div>
       <div class="text-foreground overflow-hidden px-2 text-sm font-semibold">
         {{username}}
-      <p class="text-muted-foreground truncate text-ellipsis text-xs font-semibold" title="{{email}}">
-  {{email}}
-</p>
-
+        <p class="text-muted-foreground truncate text-ellipsis text-xs font-semibold" title="{{email}}">
+          {{email}}
+        </p>
       </div>
     </div>
- <div class="border-border border-b border-dashed"></div>
+    <div class="border-border border-b border-dashed"></div>
 
     <ul class="my-2 mx-2 flex flex-col">
-      <li [routerLink]="['/dashboard/account/details']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer">
+      <!-- ĐÃ SỬA LẠI ĐỂ TRỎ ĐẾN TRANG PROFILE -->
+      <li [routerLink]="['/dashboard/profile']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer">
          <svg-icon src="./assets/icons/heroicons/outline/user-circle.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
-        Tài khoản của bạn
+        Hồ sơ của tôi
       </li>
-        <li [routerLink]="['/auth/sign-in']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer" (click)="logout()">
+      <li [routerLink]="['/auth/sign-in']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer" (click)="logout()">
          <svg-icon src="./assets/icons/heroicons/outline/logout.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
        Đăng xuất
       </li>
-  
     </ul>
-</div>
-
+  </div>
 </div>

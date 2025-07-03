@@ -29,6 +29,7 @@ import { Category } from 'src/app/core/models/db.model';
 import { CategoryComponent } from './components/category/category.component';
 import { TagsComponent } from './components/tags/tags.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 const routes: Routes = [
   {
     path: '',
@@ -40,6 +41,7 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'details', pathMatch: 'full' },
           { path: 'details', component: AccountDetailsComponent },
+          
           // Thêm các route cho các tab khác ở đây sau này
           { path: 'store-preferences', component: StorePreferencesComponent },
           { path: 'family-management', component: FamilyManagementComponent },
@@ -50,6 +52,7 @@ const routes: Routes = [
           { path: 'gated-access', component: GatedAccessComponent },
         ]
       },
+      { path: 'profile', component: ProfileComponent },
       { path: '', redirectTo: 'nfts', pathMatch: 'full' },
       { path: 'nfts', component: NftComponent },
       { path: 'product/:id', component: ProductDetailComponent },

@@ -1,0 +1,106 @@
+<div class="profile-page-container">
+  
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div class="profile-header-content">
+      <!-- Avatar -->
+      <div class="avatar-container">
+        <img [src]="userProfile.avatarUrl" [alt]="userProfile.username" class="avatar-image">
+      </div>
+      
+      <!-- User Info -->
+      <div class="user-info">
+        <h1 class="username">{{ userProfile.username }}</h1>
+        <p class="real-name">{{ userProfile.realName }} <span class="country-flag">🇻🇳</span> {{ userProfile.country }}</p>
+        <p class="motto">{{ userProfile.motto }}</p>
+      </div>
+
+      <!-- Level & Badge -->
+      <div class="level-info">
+        <div class="level-box">
+          <span class="level-label">Cấp</span>
+          <span class="level-number">{{ userProfile.level }}</span>
+        </div>
+        <div class="featured-badge">
+          <img [src]="featuredBadge.imageUrl" [alt]="featuredBadge.title" class="badge-image">
+          <div class="badge-details">
+            <p>{{ featuredBadge.title }}</p>
+            <span>{{ featuredBadge.xp }} XP</span>
+          </div>
+        </div>
+        <button class="edit-profile-btn">Sửa hồ sơ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content-grid">
+    <!-- Left Column: Recent Activity -->
+    <div class="left-column">
+      <div class="section-header">
+        <h3>Hoạt động gần đây</h3>
+        <span>12,4 giờ hai tuần qua</span>
+      </div>
+      
+      <div class="activity-feed">
+        <div *ngFor="let activity of recentActivity" class="activity-card">
+          <img [src]="activity.bannerUrl" [alt]="activity.gameTitle" class="game-banner">
+          <div class="activity-details">
+            <div class="game-info">
+              <h4>{{ activity.gameTitle }}</h4>
+              <p>{{ activity.playtime }}</p>
+              <p>{{ activity.lastPlayed }}</p>
+            </div>
+            <div class="achievement-progress">
+              <p>Tiến trình thành tựu <span>{{ activity.achievementsUnlocked }} trên {{ activity.achievementsTotal }}</span></p>
+              <div class="progress-bar-container">
+                <div class="progress-bar" [style.width.%]="getAchievementProgress(activity.achievementsUnlocked, activity.achievementsTotal)"></div>
+              </div>
+              <div class="achievement-icons">
+                <img *ngFor="let icon of activity.achievementIcons" [src]="icon" alt="achievement">
+                <div class="achievement-more" *ngIf="activity.achievementsTotal > activity.achievementIcons.length">
+                  +{{ activity.achievementsTotal - activity.achievementIcons.length }}
+                </div>
+              </div>
+            </div>
+            <div *ngIf="activity.review" class="review-section">
+              <svg-icon src="assets/icons/heroicons/solid/thumb-up.svg"></svg-icon>
+              <span>{{ activity.review.text }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Sidebar -->
+    <div class="right-column">
+      <div class="sidebar-section">
+        <p class="online-status">{{ userProfile.status }}</p>
+      </div>
+      
+      <div class="sidebar-section">
+        <h4 class="sidebar-title">Huy hiệu <span>{{ profileBadges.length }}</span></h4>
+        <div class="badges-grid">
+          <img *ngFor="let badge of profileBadges" [src]="badge.imageUrl" [alt]="badge.name" class="badge-icon">
+        </div>
+      </div>
+
+      <div class="sidebar-section links-section">
+        <h4 class="sidebar-title">Trò chơi <span>13</span></h4>
+        <ul>
+          <li><a href="#">Kho đồ</a></li>
+          <li><a href="#">Ảnh chụp</a></li>
+          <li><a href="#">Video</a></li>
+          <li><a href="#">Nội dung Workshop</a></li>
+          <li><a href="#">Đánh giá <span>1</span></a></li>
+          <li><a href="#">Hướng dẫn</a></li>
+          <li><a href="#">Tác phẩm <span>1</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h4 class="sidebar-title">Bạn bè <span>7</span></h4>
+      </div>
+    </div>
+  </div>
+</div>

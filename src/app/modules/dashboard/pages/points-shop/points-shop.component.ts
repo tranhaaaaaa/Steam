@@ -1,4 +1,4 @@
-// app/modules/dashboard/pages/points-shop/points-shop.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AngularSvgIconModule } from 'angular-svg-icon';
