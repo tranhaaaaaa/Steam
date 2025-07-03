@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { CartService } from 'src/app/core/services/cart.service';
 import { UserLogged } from 'src/app/core/utils/userLogged';
+import { GameService } from 'src/app/core/services/game.service';
+import { GameInfor } from 'src/app/core/models/db.model';
 
 
 @Pipe({
@@ -62,20 +64,27 @@ export class GameDtComponent implements OnInit {
     discount: 50,
     originalPrice: '1.050.000₫'
   };
-
+  public gameDetail = new GameInfor();
+  public idgame : any;
   // NEW: Inject các service cần thiết cho giỏ hàng
   constructor(
     private cartService: CartService,
     private toastService: ToastrService,
     private authService: AuthService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    private gameService : GameService
+  ) { 
+    this.idgame = this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit(): void {
     if (this.game.media && this.game.media.length > 0) {
       this.selectedMedia = this.game.media[0];
     }
-   
+    this.gameService.getGameDetail(this.idgame).subscribe(res => {
+      this.gameDetail = res.data;
+    });
   }
 
   selectMedia(mediaItem: any): void {

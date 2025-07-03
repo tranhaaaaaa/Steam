@@ -1,45 +1,36 @@
+<!-- src/app/modules/dashboard/components/nft/featured-carousel/featured-carousel.component.html -->
 
 <div class="carousel-container" *ngIf="games.length > 0">
   <h2 class="section-title">TIÊU BIỂU & NÊN XEM</h2>
   
   <div class="carousel-main">
-    <!-- Wrapper cho tất cả các slide -->
     <div class="slides-wrapper">
       
-      <!-- Lặp qua từng game để tạo một slide -->
+
       <div *ngFor="let game of games; let i = index" 
            class="carousel-slide" 
            [class.active]="i === currentIndex">
         
-        <!-- CỘT TRÁI: Ảnh chính của game -->
-        <div class="main-image-container">
+        <!-- Ảnh chính có routerLink -->
+        <div class="main-image-container" [routerLink]="['/dashboard/game-detail', game.id]">
           <img [src]="game.mainImage" [alt]="game.title" class="main-image">
           <div class="play-button-overlay">
             <img src="https://store.akamai.steamstatic.com/public/shared/images/buttons/logo_steam_footer.png" alt="Play" class="play-icon">
           </div>
         </div>
 
-        <!-- CỘT PHẢI: Panel thông tin chi tiết -->
+        <!-- Panel thông tin -->
         <div class="info-panel">
           <h3 class="game-title">{{ game.title }}</h3>
-          
-          <!-- Mô tả game (đã thêm theo yêu cầu) -->
           <p class="game-description">{{ game.description }}</p>
-
-          <!-- Lưới 4 ảnh thumbnail -->
           <div class="thumbnail-grid">
             <img *ngFor="let thumb of game.thumbnails" [src]="thumb" alt="thumbnail" class="thumbnail">
           </div>
-          
-          <!-- Thông tin phát hành -->
           <div class="release-info">
             <p>Đã ra mắt</p>
             <span class="tag">Bán chạy</span>
           </div>
-          
-          <!-- Thông tin giá và khuyến mãi -->
           <div class="price-info">
-            <!-- Chỉ hiển thị khối giảm giá nếu discount > 0 -->
             <ng-container *ngIf="game.discount > 0">
               <span class="discount-badge">-{{ game.discount }}%</span>
               <div class="price-stack">
@@ -47,7 +38,6 @@
                 <span class="final-price">{{ game.price | currency:'VND' }}</span>
               </div>
             </ng-container>
-            <!-- Hiển thị giá thường nếu không có giảm giá -->
             <ng-container *ngIf="!game.discount || game.discount === 0">
                <div class="regular-price-wrapper">
                   <span class="final-price">{{ game.price | currency:'VND' }}</span>
@@ -58,13 +48,12 @@
       </div>
     </div>
 
-    <!-- Nút điều hướng: Lùi lại -->
+    <!-- Nút điều hướng -->
     <button class="nav-arrow prev" (click)="prevSlide()">❮</button>
-    <!-- Nút điều hướng: Tới -->
     <button class="nav-arrow next" (click)="nextSlide()">❯</button>
   </div>
 
-  <!-- Các dấu chấm chỉ vị trí slide -->
+  <!-- Dấu chấm điều hướng -->
   <div class="nav-dots">
     <span *ngFor="let slide of games; let i = index" 
           class="dot" 

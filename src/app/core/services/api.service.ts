@@ -61,7 +61,7 @@ export class ApiService {
 
   protected putEntity(
     entitySet: string,
-    id: number,
+    id: any,
     body: Object = {}
   ): Observable<any> {
     const headers: any = {

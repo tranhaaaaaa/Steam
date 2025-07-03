@@ -1,4 +1,3 @@
-// src/app/modules/dashboard/components/game/game-detail/game-detail.component.ts
 
 import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -24,7 +23,7 @@ export class GameDetailComponent implements OnInit {
   listCategory: Category[] = [];
   idgame: string | null = null;
   userLogged = new UserLogged();
-
+ listHashtags = ['Hành Động', 'Phiêu Lưu', 'Kinh Dị', 'Chiến Thuật', 'Indie', 'VR', 'Online', 'Offline'];
   // Các thuộc tính cần thiết cho giao diện "làm đẹp"
   pageTitle = 'Đang tải...';
   isLoading = true;
@@ -117,7 +116,6 @@ export class GameDetailComponent implements OnInit {
     this.isSaving = true;
     const formValues = this.gameForm.value;
     const currentUser = this.userLogged.getCurrentUser();
-
     // Chuyển đổi chuỗi MediaUrls từ form thành mảng các URL sạch
     const mediaUrls = (formValues.MediaUrls || '')
       .split(',')
@@ -130,6 +128,7 @@ export class GameDetailComponent implements OnInit {
       this.isSaving = false;
     } else {
       // Logic tạo mới game
+
       const createPayload = {
         title: formValues.Title,
         description: formValues.Description,
@@ -138,6 +137,7 @@ export class GameDetailComponent implements OnInit {
         installerFilePath: formValues.CoverImagePath, // Tạm thời dùng chung ảnh bìa
         createdBy: currentUser.userId,
         status: "Active",
+
         developerId: currentUser.userId,
         // Thêm dữ liệu mới vào payload
         mediaUrls: JSON.stringify(mediaUrls), // Gửi dưới dạng chuỗi JSON để lưu vào DB

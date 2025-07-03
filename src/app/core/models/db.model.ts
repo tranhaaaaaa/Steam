@@ -1,4 +1,4 @@
-import { JsonObject, JsonProperty, JsonConverter, JsonConvert, JsonCustomConvert } from 'json2typescript';
+import { JsonObject, JsonProperty, JsonConverter, JsonConvert, JsonCustomConvert, Any } from 'json2typescript';
 
 @JsonConverter
 export class NumberConverter implements JsonCustomConvert<number> {
@@ -246,8 +246,8 @@ export class User {
   @JsonProperty('accessFailedCount', NumberConverter, true)
   AccessFailedCount: number = '' as any;
 
-  @JsonProperty('role', StringConverter, true)   
-  Role: string = '' as any;
+  @JsonProperty('roles', Any, true)   
+  Role: any = '' as any;
 }
 
 

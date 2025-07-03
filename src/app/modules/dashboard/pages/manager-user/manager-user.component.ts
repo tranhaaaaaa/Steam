@@ -32,6 +32,7 @@ currentPage: number = 1;
   onGetData(){
    this.userService.getListUser().subscribe((data)=> {
    this.listUser = data.data;
+    console.log(this.listUser);
 this.totalItems = this.listUser.length;  
       this.paginateUsers(); 
    });

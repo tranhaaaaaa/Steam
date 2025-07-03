@@ -20,7 +20,7 @@
   gap: 28px;
 }
 .left-column { display: flex; flex-direction: column; gap: 20px; }
-.right-column { /* Styles for capsule, reviews, tags, etc. */ }
+/* .right-column { /* Styles for capsule, reviews, tags, etc.} 
 
 /* Media Carousel Styles */
 .media-carousel { width: 600px; }

@@ -4,7 +4,7 @@
   <div class="breadcrumbs">
     <a href="#">Tất cả trò chơi</a> > <a href="#">Hành động</a> > <a href="#">Loạt sản phẩm NEOWIZ</a> > <span>Lies of P</span>
   </div>
-  <h1 class="game-title">{{ game.title }}</h1>
+  <h1 class="game-title">{{ gameDetail.Title }}</h1>
 
   <div class="main-content-grid">
 
@@ -43,10 +43,10 @@
           <div class="discount-badge">-{{ game.discount }}%</div>
           <div class="price-info">
             <div class="original-price">{{ game.originalPrice }}</div>
-            <div class="final-price">{{ game.price }}</div>
+            <div class="final-price">{{ gameDetail.Price }}</div>
           </div>
          
-          <button class="add-to-cart-btn" (click)="addToCart(game.id)">Thêm vào giỏ</button>
+          <button class="add-to-cart-btn" (click)="addToCart(gameDetail.Id)">Thêm vào giỏ</button>
         </div>
       </div>
 
@@ -59,7 +59,7 @@
 
 
     <div class="right-column">
-      <img [src]="game.mainImage" alt="Game capsule" class="capsule-image">
+      <img [src]="gameDetail.InstallerFilePath" alt="Game capsule" class="capsule-image">
       <p class="game-description-right">{{ game.description }}</p>
       <div class="review-summary">
         <p><strong>ĐÁNH GIÁ GẦN ĐÂY:</strong> <span class="positive">{{ game.reviews.recent }}</span> ({{ game.reviews.recentCount }})</p>

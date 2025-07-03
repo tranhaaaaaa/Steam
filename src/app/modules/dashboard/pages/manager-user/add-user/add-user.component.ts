@@ -34,14 +34,17 @@ export class AddUserComponent implements OnInit{
 
   addUser() {
   
-    if (this.idUser) {
-      this.userService.createUser(this.newUser).subscribe((data)=>{
-      this.toastService.success("Thêm người dùng thành công!");
-      this.newUser = new AddUser();
+    
+      let formData = {
+        username : this.userdetail.UserName,
+        role : this.userdetail.Role,
+      }
+      console.log(formData);
+      console.log(this.idUser);
+      this.userService.UpdateUser(formData,this.idUser).subscribe((data)=>{
+          this.toastService.success("Cập nhật người dùng thành công!");
       })
-    } else {
-      
-    }
+    // }
     }
 
   

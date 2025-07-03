@@ -1,26 +1,35 @@
+// src/app/modules/dashboard/components/nft/featured-carousel/featured-carousel.component.ts
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router'; // Giữ lại import này
 
 @Component({
   selector: 'app-featured-carousel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink], // Giữ lại RouterLink ở đây
   templateUrl: './featured-carousel.component.html',
   styleUrls: ['./featured-carousel.component.css']
 })
 export class FeaturedCarouselComponent implements OnInit, OnDestroy {
-  @Input() games: any[] = [];
+  // Chỉ giữ lại @Input() để nhận dữ liệu từ component cha.
+  // Component này không cần biết GameService là gì.
+  @Input() games: any[] = []; 
   
   currentIndex = 0;
   private intervalId: any;
 
+  // Xóa GameService khỏi constructor
+  constructor() { } 
+
   ngOnInit(): void {
-    this.startAutoSlide();
+    // Chỉ bắt đầu auto-slide khi có dữ liệu được truyền vào
+    if (this.games.length > 0) {
+      this.startAutoSlide();
+    }
   }
 
   ngOnDestroy(): void {
-    // Dọn dẹp interval khi component bị hủy để tránh memory leak
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
@@ -29,7 +38,7 @@ export class FeaturedCarouselComponent implements OnInit, OnDestroy {
   startAutoSlide(): void {
     this.intervalId = setInterval(() => {
       this.nextSlide();
-    }, 5000); // Tự động chuyển slide sau mỗi 5 giây
+    }, 5000);
   }
 
   resetInterval(): void {
@@ -38,11 +47,13 @@ export class FeaturedCarouselComponent implements OnInit, OnDestroy {
   }
 
   prevSlide(): void {
+    if (this.games.length === 0) return; // Bảo vệ chống lỗi khi mảng rỗng
     this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.games.length - 1;
     this.resetInterval();
   }
 
   nextSlide(): void {
+    if (this.games.length === 0) return; // Bảo vệ chống lỗi khi mảng rỗng
     this.currentIndex = this.currentIndex < this.games.length - 1 ? this.currentIndex + 1 : 0;
     this.resetInterval();
   }
