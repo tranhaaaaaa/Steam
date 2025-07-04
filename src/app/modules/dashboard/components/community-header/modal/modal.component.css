@@ -1,0 +1,40 @@
+:host {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-box {
+  background: #1b2838;
+  color: white;
+  border-radius: 8px;
+  padding: 24px;
+  max-height: 90vh;
+  overflow-y: auto;
+  max-width: 800px;
+  width: 100%;
+}
+/* Scrollbar tổng thể */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track (nền của scrollbar) */
+::-webkit-scrollbar-track {
+  background: #1b2838; /* hoặc transparent nếu muốn ẩn */
+}
+
+/* Thumb (phần kéo) */
+::-webkit-scrollbar-thumb {
+  background-color: #5c5c5c; /* màu xám */
+  border-radius: 4px;
+}
+
+/* Hover thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}

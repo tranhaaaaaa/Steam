@@ -1,0 +1,43 @@
+<div class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
+  <div class="w-full max-w-4xl bg-[#1b2838] text-white rounded p-6 relative overflow-y-auto max-h-[90vh]">
+    <!-- Close Button -->
+    <button (click)="onClose()" class="absolute top-2 right-3 text-gray-300 text-xl hover:text-white">&times;</button>
+
+    <!-- Thông tin game -->
+    <h2 class="text-xl font-bold">{{ game.Title }}</h2>
+    <p class="text-sm text-gray-400 mb-4">Ngày đăng: {{ game.CreatedAt | date }}</p>
+    <img [src]="game.CoverImagePath" class="w-full mb-4 rounded" />
+    <p class="whitespace-pre-line text-sm leading-relaxed mb-6">{{ game.Description }}</p>
+
+    <!-- Comment Section -->
+    <div class="border-t border-[#2a475e] pt-6">
+      <h3 class="text-[#66c0f4] font-semibold text-lg mb-3">
+        Bình luận về "{{ game.Title }}"
+      </h3>
+
+      <!-- Input Section -->
+      <div class="flex items-start space-x-3 bg-[#101821] p-4 rounded mb-4">
+        <img src="assets/avatar.png" alt="avatar" class="w-10 h-10 rounded-full object-cover mt-1" />
+        <textarea
+          [(ngModel)]="newComment"
+          placeholder="Viết bình luận"
+          class="flex-1 bg-[#1b2838] text-white p-3 rounded resize-none outline-none border border-[#2a475e] focus:border-[#66c0f4]"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- Follow Checkbox -->
+      <div class="flex items-center space-x-2 mb-6 text-sm">
+        <input type="checkbox" id="follow" class="accent-[#66c0f4]" [(ngModel)]="followDiscussion" />
+        <label for="follow" class="text-white">Đăng ký theo dõi thảo luận</label>
+      </div>
+
+      <!-- Danh sách bình luận -->
+      <div *ngIf="comments.length === 0" class="text-gray-400 text-sm">0 bình luận</div>
+      <div *ngFor="let c of comments" class="mb-3 bg-[#0e151d] p-3 rounded text-sm text-white border border-[#2a475e]">
+        <p class="text-sm font-semibold">{{ c.user }}</p>
+        <p class="text-sm mt-1">{{ c.text }}</p>
+      </div>
+    </div>
+  </div>
+</div>

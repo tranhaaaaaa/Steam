@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { GameService } from 'src/app/core/services/game.service';
+import { GameInfor } from 'src/app/core/models/db.model';
 
 @Component({
   selector: 'app-special-offers',
@@ -9,6 +11,14 @@ import { RouterLink } from '@angular/router';
   templateUrl: './special-offers.component.html',
   styleUrls: ['./special-offers.component.css']
 })
-export class SpecialOffersComponent {
+export class SpecialOffersComponent implements OnInit{
+  constructor(private service : GameService){}
+  public listGame : GameInfor[]=[];
+  ngOnInit(): void {
+ this.service.getListGame().subscribe((data)=>{
+  this.listGame = data.data;
+ })
+  }
   @Input() games: any[] = [];
+
 }

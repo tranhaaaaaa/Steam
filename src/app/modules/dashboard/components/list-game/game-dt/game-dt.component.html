@@ -31,19 +31,19 @@
         <button class="action-btn">Theo dõi</button>
         <button class="action-btn">Phớt lờ</button>
       </div>
-      <div class="language-warning">
+      <!-- <div class="language-warning">
         <h3>Không hỗ trợ ngôn ngữ Tiếng Việt</h3>
         <p>Sản phẩm này không hỗ trợ ngôn ngữ địa phương của bạn. Vui lòng xem lại danh sách ngôn ngữ được hỗ trợ dưới đây trước khi mua.</p>
-      </div>
+      </div> -->
 
    
       <div class="purchase-section">
-        <h2>Mua Lies of P</h2>
+        <h2>Mua {{ gameDetail.Title }}</h2>
         <div class="purchase-box">
-          <div class="discount-badge">-{{ game.discount }}%</div>
+          <div class="discount-badge">-{{ game.discount | number}}%</div>
           <div class="price-info">
             <div class="original-price">{{ game.originalPrice }}</div>
-            <div class="final-price">{{ gameDetail.Price }}</div>
+            <div class="final-price">{{ gameDetail.Price  | number}}VND</div>
           </div>
          
           <button class="add-to-cart-btn" (click)="addToCart(gameDetail.Id)">Thêm vào giỏ</button>
@@ -53,7 +53,7 @@
  
       <div class="about-section">
         <h2>VỀ TRÒ CHƠI NÀY</h2>
-        <p>You are a puppet created by Geppetto who’s caught in a web of lies with unimaginable monsters and untrustworthy figures standing between you and the events that have befallen the world of Lies of P...</p>
+        <p>{{ gameDetail.Description }}</p>
       </div>
     </div>
 
@@ -66,9 +66,9 @@
         <p><strong>ĐÁNH GIÁ CHUNG:</strong> <span class="positive">{{ game.reviews.all }}</span> ({{ game.reviews.allCount }})</p>
       </div>
       <div class="release-info">
-        <p><strong>NGÀY PHÁT HÀNH:</strong> {{ game.releaseDate }}</p>
-        <p><strong>NHÀ PHÁT TRIỂN:</strong> <a href="#">{{ game.developer }}</a></p>
-        <p><strong>NHÀ PHÁT HÀNH:</strong> <a href="#">{{ game.publisher }}</a></p>
+        <p><strong>NGÀY PHÁT HÀNH:</strong> {{ gameDetail.CreatedAt | date }}</p>
+        <!-- <p><strong>NHÀ PHÁT TRIỂN:</strong> <a href="#">{{ gameDetail.developer }}</a></p>
+        <p><strong>NHÀ PHÁT HÀNH:</strong> <a href="#">{{ game.publisher }}</a></p> -->
       </div>
       <div class="tags-container">
         <a *ngFor="let tag of game.tags" href="#" class="tag">{{ tag }}</a>

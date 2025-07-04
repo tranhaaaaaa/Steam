@@ -3,6 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { UserLogged } from 'src/app/core/utils/userLogged';
 
 // Định nghĩa cấu trúc dữ liệu (giữ nguyên)
 interface UserProfile {
@@ -48,10 +49,10 @@ interface GameActivity {
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
+   userLogged = new UserLogged();
   // Dữ liệu giả cho hồ sơ người dùng
   userProfile: UserProfile = {
-    username: 'VuvitGaming',
+    username: this.userLogged.getCurrentUser().username,
     realName: 'Nguyễn Thái Long Vũ',
     country: 'Viet Nam',
     // UPDATED: Avatar ngẫu nhiên từ Picsum, seed 'vuvitgaming' để ảnh không đổi mỗi lần tải lại
@@ -82,8 +83,8 @@ export class ProfileComponent implements OnInit {
     {
       gameTitle: 'Sekiro™: Shadows Die Twice',
       bannerUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/814380/header.jpg',
-      playtime: '66 giờ được ghi nhận',
-      lastPlayed: 'chơi lần cuối lúc 27 Thg06',
+      playtime: '',
+      lastPlayed: '',
       achievementsUnlocked: 34,
       achievementsTotal: 34,
       // UPDATED: Các icon thành tựu ngẫu nhiên và khác nhau
@@ -98,8 +99,8 @@ export class ProfileComponent implements OnInit {
     {
       gameTitle: 'ELDEN RING',
       bannerUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg',
-      playtime: '293 giờ được ghi nhận',
-      lastPlayed: 'chơi lần cuối lúc 27 Thg06',
+      playtime: '',
+      lastPlayed: '',
       achievementsUnlocked: 42,
       achievementsTotal: 42,
       // UPDATED: Các icon thành tựu ngẫu nhiên và khác nhau
@@ -130,8 +131,8 @@ export class ProfileComponent implements OnInit {
     {
       gameTitle: 'Wallpaper Engine',
       bannerUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/431960/header.jpg',
-      playtime: '80 giờ được ghi nhận',
-      lastPlayed: 'chơi lần cuối lúc 25 Thg06',
+      playtime: '',
+      lastPlayed: '',
       achievementsUnlocked: 5,
       achievementsTotal: 17,
       // UPDATED: Các icon thành tựu ngẫu nhiên và khác nhau
@@ -148,7 +149,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  // Hàm tiện ích để tính toán phần trăm tiến trình thành tựu
   getAchievementProgress(unlocked: number, total: number): number {
     if (total === 0) {
       return 0;

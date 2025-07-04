@@ -128,7 +128,7 @@ export class GameDetailComponent implements OnInit {
       this.isSaving = false;
     } else {
       // Logic tạo mới game
-
+      
       const createPayload = {
         title: formValues.Title,
         description: formValues.Description,
@@ -136,7 +136,9 @@ export class GameDetailComponent implements OnInit {
         coverImagePath: formValues.CoverImagePath,
         installerFilePath: formValues.CoverImagePath, // Tạm thời dùng chung ảnh bìa
         createdBy: currentUser.userId,
-        status: "Active",
+        isActive: true,
+        status: "active",
+        genre : formValues.Genre,
 
         developerId: currentUser.userId,
         // Thêm dữ liệu mới vào payload

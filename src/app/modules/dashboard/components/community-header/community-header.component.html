@@ -13,9 +13,47 @@
 </div>
 
 <!-- Nội dung theo từng tab -->
-<div *ngIf="selectedTab === 'Tất cả'" class="text-white">
-  <p class="text-lg">🧩 Đây là nội dung tổng hợp từ tất cả các mục.</p>
+<div *ngIf="selectedTab === 'Tất cả'" class="text-white space-y-4">
+
+  <!-- Hàng trên: ảnh lớn + đánh giá -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    
+    <!-- Ảnh lớn (main-card) -->
+    <div class="lg:col-span-2 bg-[#171a21] border border-[#2a475e] rounded overflow-hidden"  (click)="onOpenGame(game.Id)">
+      <img [src]="game.CoverImagePath" alt="Mirage Models" class="w-full">
+      <div class="p-3">
+        <p class="text-sm text-[#66c0f4]">{{game.Title}}</p>
+        <p class="text-base">Counter-Strike 2</p>
+      </div>
+    </div>
+
+    <!-- Đánh giá (side-panel) -->
+    <div class="bg-[#171a21] border border-[#2a475e] p-4 rounded text-sm">
+      <p class="mb-1">892 người thấy bài đánh giá này hữu ích</p>
+      <p class="mb-1">530 người thấy bài đánh giá này hài hước</p>
+      <p class="text-[#66c0f4] font-bold text-base mt-2">👍 Tích cực</p>
+      <!-- <p class="text-xs mb-2">38.4 giờ được ghi nhận</p> -->
+      <p class="mb-2">
+       {{game.Description}}
+      </p>
+      <p class="text-gray-400 text-xs">Đăng ngày: {{game.CreatedAt | date : 'dd/MM/yyyy'}}</p>
+    </div>
+  </div>
+
+  <!-- Hàng dưới: 2 ảnh nhỏ -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    
+    <div class="bg-[#171a21] border border-[#2a475e] rounded overflow-hidden" *ngFor="let item of listGame" (click)="onOpenGame(item.Id)">
+      <img [src]="item.CoverImagePath" alt="Zoey Alt" class="w-full">
+      <div class="p-3">
+        <p>{{item.Title}}</p>
+        <p class="text-sm text-gray-400">{{item.Description}}</p>
+      </div>
+    </div>
+  </div>
+
 </div>
+
 
 <div *ngIf="selectedTab === 'Tranh ảnh'" class="grid grid-cols-3 gap-4 text-white">
   <!-- Đánh giá -->
@@ -75,3 +113,8 @@
 <div *ngIf="selectedTab === 'Đánh giá'" class="text-white">
   <p>📝 Đánh giá từ người dùng về các game, sản phẩm.</p>
 </div>
+<app-modal
+  *ngIf="isModalOpen"
+  [gameId]="gameId"
+  (close)="closeModal()">
+</app-modal>
