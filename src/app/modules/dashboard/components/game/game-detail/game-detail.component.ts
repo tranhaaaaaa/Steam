@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Category, GameInfor } from 'src/app/core/models/db.model';
+import { Category, Discount, GameInfor } from 'src/app/core/models/db.model';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { GameService } from 'src/app/core/services/game.service';
 import { GamecategoryService } from 'src/app/core/services/gamecategory.service';
@@ -20,6 +20,7 @@ import { finalize, switchMap, of } from 'rxjs';
 })
 export class GameDetailComponent implements OnInit {
   gameForm!: FormGroup;
+  public listDiscount : Discount[] = []
   listCategory: Category[] = [];
   idgame: string | null = null;
   userLogged = new UserLogged();
@@ -28,6 +29,7 @@ export class GameDetailComponent implements OnInit {
   pageTitle = 'Đang tải...';
   isLoading = true;
   isSaving = false;
+  public discountId : any;
 
   constructor(
     private gameService: GameService,
@@ -47,10 +49,9 @@ export class GameDetailComponent implements OnInit {
       CoverImagePath: ['', Validators.required],
       Genre: ['', Validators.required],
       
-      // Các trường mới theo yêu cầu
-      MediaUrls: [''], // Dạng chuỗi, admin nhập URL cách nhau bằng dấu phẩy
-      DiscountPercent: [0, [Validators.min(0), Validators.max(100)]],
-      SaleEndDate: [null]
+      MediaUrls: [''], 
+      // DiscountPercent: [0, [Validators.min(0), Validators.max(100)]],
+      // SaleEndDate: [null]
     });
   }
 
@@ -66,8 +67,9 @@ export class GameDetailComponent implements OnInit {
   loadInitialData(): void {
     this.isLoading = true;
     this.pageTitle = this.idgame ? 'Chỉnh sửa thông tin Game' : 'Thêm Game Mới';
-
-    // Luôn lấy danh sách thể loại để điền vào dropdown
+    this.gameService.getListDiscount().subscribe(data => {
+      this.listDiscount = data;
+    })
     this.categoryService.getListCategory().subscribe({
       next: (categoryData) => {
         this.listCategory = categoryData.data;
@@ -76,7 +78,6 @@ export class GameDetailComponent implements OnInit {
           this.gameService.getGameDetail(this.idgame).subscribe({
             next: (gameData) => {
               const game = gameData.data;
-              // Chuyển đổi mảng media (nếu có) thành chuỗi để patch vào form
               const mediaUrlsString = Array.isArray(game.MediaUrls) ? game.MediaUrls.join(', ') : '';
               
               this.gameForm.patchValue({
@@ -86,14 +87,14 @@ export class GameDetailComponent implements OnInit {
               this.isLoading = false; 
             },
             error: (err) => {
-              this.toastService.error('Không thể tải thông tin game.', 'Lỗi');
+              this.toastService.error('Không thể tải thông tin.', 'Lỗi');
               console.error(err);
               this.isLoading = false;
             }
           });
         } else {
           
-          this.isLoading = false; // Tắt loading ngay
+          this.isLoading = false; 
         }
       },
       error: (err) => {
@@ -102,6 +103,10 @@ export class GameDetailComponent implements OnInit {
         this.isLoading = false; // Vẫn tắt loading để form hiện ra
       }
     });
+  }
+  onChangeDiscount(value: any){
+    this.discountId = value.target.value;
+    console.log(this.discountId);
   }
 onSave() {
   if (this.gameForm.invalid) {
@@ -114,27 +119,11 @@ onSave() {
   const formValues = this.gameForm.value;
   const currentUser = this.userLogged.getCurrentUser();
 
-  // Chuyển đổi chuỗi MediaUrls từ form thành mảng các URL sạch
+ 
   const mediaUrls = (formValues.MediaUrls || '')
     .split(',')
     .map((url: string) => url.trim())
-    .filter((url: string) => url); // Lọc bỏ các chuỗi rỗng
-
-  // Tạo đối tượng media từ mảng mediaUrls
-
-  // console.log("mediaedimedia",media);
-  // Tạo đối tượng discount (nếu có)
-  // const activeDiscounts = formValues.DiscountPercent > 0 ? [{
-  //   id: 0,
-  //   code: 'DISCOUNT_CODE', // Mã giảm giá có thể tạo động
-  //   description: 'Giảm giá cho game',
-  //   value: formValues.DiscountPercent,
-  //   isPercent: true,
-  //   startDate: new Date().toISOString(),
-  //   endDate: formValues.SaleEndDate || new Date().toISOString(),
-  //   isActive: true,
-  //   createdAt: new Date().toISOString()
-  // }] : [];
+    .filter((url: string) => url); 
 
   const createPayload = {
     id: 0, 
@@ -166,7 +155,7 @@ onSave() {
       };
       return this.gameCategoryService.createGameCategory(gameCategoryPayload);
     }),
-    finalize(() => this.isSaving = false) // Luôn tắt spinner nút lưu, dù thành công hay thất bại
+    finalize(() => this.isSaving = false) 
   ).subscribe({
     next: (response) => {
       if (response) {
@@ -185,6 +174,7 @@ onSave() {
              }
              this.gameService.createGameMedia(formData, response.data.id).subscribe();
          }
+         this.gameService.createGameDiscount(response.data.id, this.discountId).subscribe();
 
         this.router.navigate(['/dashboard/manager-game']); 
       }

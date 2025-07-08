@@ -107,6 +107,17 @@ getGameDetail(id : any): Observable<DataResponse> {
       })
     );
   }
+     createGameDiscount(id:any,idDiscount:any): Observable<any> {
+    let url = `/api/gamesdiscount/assign/${id}/${idDiscount}`;
+    return super.postEntity(url).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
      UpdateGame(formData: any,id: string): Observable<DataResponse> {
       let url = `/api/gamesinfo`;
       return super.putEntity(url,parseInt(id),formData).pipe(

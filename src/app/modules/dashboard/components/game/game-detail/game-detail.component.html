@@ -98,25 +98,18 @@
               <div *ngIf="f['Genre'].invalid && f['Genre'].touched" class="text-red-400 text-sm mt-1">Vui lòng chọn thể loại.</div>
             </div>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
-              <label for="DiscountPercent" class="block text-lg font-medium">Phần trăm giảm giá (%)</label>
-              <input 
-                formControlName="DiscountPercent" 
-                id="DiscountPercent" 
-                type="number" 
-                class="mt-2 block w-full p-3 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <label class="block text-lg font-medium">Loại giảm giá</label>
+              <select 
+                class="mt-2 block w-full p-3 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" (change)="onChangeDiscount($event)">
+                <option value="" disabled>-- Chọn loại giảm giá --</option>
+                <option *ngFor="let category of listDiscount" [value]="category.id">{{ category.code }} - {{ category.value }}%</option>
+              </select>
+              
             </div>
-            <div>
-              <label for="SaleEndDate" class="block text-lg font-medium">Ngày kết thúc giảm giá</label>
-              <input 
-                formControlName="SaleEndDate" 
-                id="SaleEndDate" 
-                type="date" 
-                class="mt-2 block w-full p-3 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" 
-                style="color-scheme: dark;">
-            </div>
-          </div>
+        <div>
+          
+        </div>
         </div>
       </div>
 
