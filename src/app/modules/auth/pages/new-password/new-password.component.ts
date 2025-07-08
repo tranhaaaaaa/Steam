@@ -7,6 +7,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { ToastrService } from 'ngx-toastr';
 import { AddUser } from 'src/app/core/models/db.model';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { UserLogged } from 'src/app/core/utils/userLogged';
 import { ButtonComponent } from 'src/app/shared/components/button/button.component';export interface UserReceive {
   username : string,
@@ -40,17 +41,22 @@ export class NewPasswordComponent implements OnInit {
   }
   constructor(private authService : AuthService,
     private router : Router,
+    private userService : UserService,
     private toastService : ToastrService
   ) {}
   onOtpChange(otp: any) {
     this.otp = otp;
   }
   onSubmit(): void {
-    this.authService.getUserByUsername(this.username).subscribe(res => {
-        console.log(res.data[0].Email);
- 
+    // this.authService.getUserByUsername(this.username).subscribe(res => {
+    //     console.log(res.data[0].Email);
+      this.userService.getListUser().subscribe((data) => {
+        const x = data.data.filter((x: any) => x.UserName == this.username);
+        this.email = x[0].Email;
+        console.log(this.email);
+    
     let formData = {
-      email: res.data[0].Email,
+      email: this.email,
       otp: this.otp
     }
     this.authService.verifyLogin(formData).subscribe(res => {

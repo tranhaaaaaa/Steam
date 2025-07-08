@@ -98,20 +98,6 @@
               <div *ngIf="f['Genre'].invalid && f['Genre'].touched" class="text-red-400 text-sm mt-1">Vui lòng chọn thể loại.</div>
             </div>
           </div>
-<!-- Hashtags (đa lựa chọn) -->
-          <!-- <div class="sm:col-span-2">
-            <label for="Hashtags" class="block text-lg font-medium">Hashtags</label>
-            <select 
-              id="Hashtags" 
-              multiple 
-              formControlName="Hashtags" 
-              class="mt-2 block w-full p-3 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
-              <option *ngFor="let tag of listHashtags" [value]="tag">{{ tag }}</option>
-            </select>
-            <small class="text-gray-400">Giữ Ctrl (hoặc Command trên Mac) để chọn nhiều hashtag</small>
-          </div> -->
-
-          <!-- Khuyến mãi -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <label for="DiscountPercent" class="block text-lg font-medium">Phần trăm giảm giá (%)</label>

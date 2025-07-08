@@ -441,3 +441,74 @@ export class Review {
   @JsonProperty('createdAt', DateTimeConverter, true)
   CreatedAt: Date = new Date();
 }
+@JsonObject('Thread')
+export class Thread {
+  @JsonProperty('id', NumberConverter, true)
+  Id: number = 0;
+
+  @JsonProperty('threadTitle', StringConverter, true)
+  ThreadTitle: string = '';
+
+  @JsonProperty('threadDescription', StringConverter, true)
+  ThreadDescription: string = '';
+
+  @JsonProperty('createdBy', StringConverter, true)
+  CreatedBy: string = '';
+
+  @JsonProperty('upvoteCount', NumberConverter, true)
+  upvoteCount: number = 0;
+
+  @JsonProperty('createdAt', DateTimeConverter, true)
+  CreatedAt: Date = new Date();
+}
+@JsonObject('ThreadReply')
+export class ThreadReply {
+  @JsonProperty('id', NumberConverter, true)
+  Id: number = 0;
+
+  @JsonProperty('threadID', NumberConverter, true)
+  ThreadID: number = 0;
+
+    @JsonProperty('upvoteCount', NumberConverter, true)
+  UpvoteCount: number = 0;
+
+
+  @JsonProperty('threadComment', StringConverter, true)
+  ThreadComment: string = '';
+
+  @JsonProperty('createdBy', StringConverter, true)
+  CreatedBy: string = '';
+
+  @JsonProperty('createdAt', DateTimeConverter, true)
+  CreatedAt: Date = new Date();
+}
+@JsonObject('Discount')
+export class Discount {
+
+  @JsonProperty('id', NumberConverter, true)
+  id: number = 0;
+
+  @JsonProperty('code', StringConverter, true)
+  code: string = '';
+
+  @JsonProperty('description', StringConverter, true)
+  description: string = '';
+
+  @JsonProperty('value', NumberConverter, true)
+  value: number = 0;
+
+  @JsonProperty('isPercent', Boolean, true)
+  isPercent: boolean = true;
+
+  @JsonProperty('startDate', DateTimeConverter, true)
+  startDate: Date = new Date();
+
+  @JsonProperty('endDate', DateTimeConverter, true)
+  endDate: Date = new Date();
+
+  @JsonProperty('isActive', Boolean, true)
+  isActive: boolean = true;
+
+  @JsonProperty('createdAt', DateTimeConverter, true)
+  createdAt: Date = new Date();
+}

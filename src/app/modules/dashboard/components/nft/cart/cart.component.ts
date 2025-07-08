@@ -8,6 +8,7 @@ import { MenuItem } from 'src/app/core/models/menu.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { CartService } from 'src/app/core/services/cart.service';
 import { GameService } from 'src/app/core/services/game.service';
+import { ThreadService } from 'src/app/core/services/thread.service';
 import { UserLogged } from 'src/app/core/utils/userLogged';
 import { NavbarSubmenuComponent } from 'src/app/modules/layout/components/navbar/navbar-submenu/navbar-submenu.component';
 import { MenuService } from 'src/app/modules/layout/services/menu.service';
@@ -31,7 +32,8 @@ export class CartComponent implements OnInit {
     private cartService : CartService,
     private gameService : GameService,
     private toastrService : ToastrService,
-    private authService : AuthService
+    private authService : AuthService,
+    private threadService : ThreadService
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +68,45 @@ export class CartComponent implements OnInit {
     }
   });
   }
+onPayment() {
+  // Lấy thông tin người dùng
+  const userId = this.userLogged.getCurrentUser().userId;
+
+  // Tính toán tổng giá trị
+  let totalAmount = 0;
+  for (let i = 0; i < this.cartWithGames.length; i++) {
+    totalAmount += this.cartWithGames[i].gameDetails.Price;
+  }
+
+  // Lấy thời gian hiện tại
+  const currentDate = new Date().toISOString();
+
+  // Cấu trúc thông tin đơn hàng
+  const orderInfo = {
+    id: 0, // Đây là id tự động của đơn hàng, có thể được tạo khi lưu vào cơ sở dữ liệu
+    userID: userId,
+    totalAmount: totalAmount,
+    status: "Pending", 
+  };
+  this.threadService.oreder(orderInfo).subscribe(orderResponse => {
+    const orderDetails = this.cartWithGames.map(item => ({
+    id: 0, // ID tự động của chi tiết đơn hàng
+    orderID: orderResponse.data.id, // Đặt ID đơn hàng cho các chi tiết này
+    gameID: item.gameDetails.Id,
+    unitPrice: item.gameDetails.Price,
+    createdAt: currentDate
+  }));
+    orderDetails.forEach(detail => {
+      this.threadService.orederdetail(detail).subscribe(() => {
+       
+      });
+      this.toastrService.success("Thanh toán thanh cong!");
+    });
+
+   this.deleteAll();
+  });
+}
+
   addToCart(gameId: any) {
     let formData = {
       userID : this.userLogged.getCurrentUser().userId,

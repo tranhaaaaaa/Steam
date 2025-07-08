@@ -59,8 +59,8 @@
           <span class="font-bold text-white">{{ totalPrice | currency: 'VND' }}</span>
         </div>
         <p class="text-xs text-gray-300">Thuế tiêu thụ sẽ được tính trong quá trình thanh toán nếu có</p>
-        <button class="cursor-pointer mt-4 w-full bg-gradient-to-r from-[#3d9eff] to-[#2775e6] hover:opacity-90 text-white py-2 rounded-sm font-semibold text-sm">
-          Tiếp tục tới bước thanh toán
+        <button class="cursor-pointer mt-4 w-full bg-gradient-to-r from-[#3d9eff] to-[#2775e6] hover:opacity-90 text-white py-2 rounded-sm font-semibold text-sm" (click)="onPayment()">
+          Thanh toán
         </button>
       </div>
 
@@ -71,19 +71,6 @@
         <p class="text-gray-400 text-xs leading-5">Để biết đầy đủ các điều khoản và điều kiện, vui lòng đọc Thỏa thuận người đăng ký Steam</p>
       </div>
 
-      <!-- Follow Creator -->
-      <!-- <div class="bg-[#171a21] p-4 rounded-md flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <img [src]="creatorImage" class="w-12 h-12 rounded-sm object-cover" alt="LEVEL5">
-          <div>
-            <p class="font-semibold text-sm">{{ creatorName }}</p>
-            <button class="mt-1 px-3 py-1 bg-[#2f89cb] hover:bg-[#349eff] rounded-sm text-xs font-medium" (click)="followCreator()">Theo dõi</button>
-          </div>
-        </div>
-        <div class="text-right">
-          <p class="text-xs text-gray-300">{{ creatorFollowers }}<br>người theo dõi</p>
-        </div> -->
-      <!-- </div> -->
     </div>
 
   </div>

@@ -72,7 +72,6 @@ export class GameDetailComponent implements OnInit {
       next: (categoryData) => {
         this.listCategory = categoryData.data;
 
-        // Nếu là trang sửa, lấy tiếp chi tiết game
         if (this.idgame) {
           this.gameService.getGameDetail(this.idgame).subscribe({
             next: (gameData) => {
@@ -84,16 +83,16 @@ export class GameDetailComponent implements OnInit {
                 ...game,
                 MediaUrls: mediaUrlsString
               });
-              this.isLoading = false; // Tắt loading khi đã có đủ dữ liệu
+              this.isLoading = false; 
             },
             error: (err) => {
               this.toastService.error('Không thể tải thông tin game.', 'Lỗi');
               console.error(err);
-              this.isLoading = false; // Vẫn tắt loading để form hiện ra
+              this.isLoading = false;
             }
           });
         } else {
-          // Nếu là trang thêm mới, không cần làm gì thêm
+          
           this.isLoading = false; // Tắt loading ngay
         }
       },
@@ -104,79 +103,99 @@ export class GameDetailComponent implements OnInit {
       }
     });
   }
-
-  // Hàm xử lý khi nhấn nút Lưu
-  onSave(): void {
-    if (this.gameForm.invalid) {
-      this.toastService.error('Vui lòng điền đầy đủ các trường bắt buộc.', 'Lỗi');
-      this.gameForm.markAllAsTouched(); // Hiển thị lỗi validation cho người dùng
-      return;
-    }
-
-    this.isSaving = true;
-    const formValues = this.gameForm.value;
-    const currentUser = this.userLogged.getCurrentUser();
-    // Chuyển đổi chuỗi MediaUrls từ form thành mảng các URL sạch
-    const mediaUrls = (formValues.MediaUrls || '')
-      .split(',')
-      .map((url: string) => url.trim())
-      .filter((url: string) => url); // Lọc bỏ các chuỗi rỗng
-
-    if (this.idgame) {
-      // Logic cập nhật game (bạn có thể thêm sau)
-      this.toastService.info('Chức năng cập nhật đang được phát triển.');
-      this.isSaving = false;
-    } else {
-      // Logic tạo mới game
-      
-      const createPayload = {
-        title: formValues.Title,
-        description: formValues.Description,
-        price: formValues.Price,
-        coverImagePath: formValues.CoverImagePath,
-        installerFilePath: formValues.CoverImagePath, // Tạm thời dùng chung ảnh bìa
-        createdBy: currentUser.userId,
-        isActive: true,
-        status: "active",
-        genre : formValues.Genre,
-
-        developerId: currentUser.userId,
-        // Thêm dữ liệu mới vào payload
-        mediaUrls: JSON.stringify(mediaUrls), // Gửi dưới dạng chuỗi JSON để lưu vào DB
-        discountPercent: formValues.DiscountPercent,
-        saleEndDate: formValues.SaleEndDate
-      };
-
-      // Sử dụng switchMap để xử lý chuỗi API một cách sạch sẽ
-      this.gameService.createGame(createPayload).pipe(
-        switchMap(newGameResponse => {
-          const categoryId = this.listCategory.find(c => c.CategoryName === formValues.Genre)?.Id;
-          if (!categoryId) {
-            this.toastService.error('Không tìm thấy thể loại hợp lệ.', 'Lỗi');
-            return of(null); // Trả về observable null để dừng chuỗi
-          }
-          const gameCategoryPayload = {
-            gameID: newGameResponse.data.id,
-            categoryID: categoryId,
-            createdBy: currentUser.userId,
-          };
-          return this.gameCategoryService.createGameCategory(gameCategoryPayload);
-        }),
-        finalize(() => this.isSaving = false) // Luôn tắt spinner nút lưu, dù thành công hay thất bại
-      ).subscribe({
-        next: (response) => {
-          if (response) {
-            this.toastService.success('Thêm game mới thành công!');
-            this.router.navigate(['/dashboard/manager-game']); // Chuyển về trang danh sách
-          }
-        },
-        error: (err) => {
-          this.toastService.error('Đã có lỗi xảy ra khi thêm game.', 'Lỗi');
-          console.error(err);
-        }
-      });
-    }
+onSave() {
+  if (this.gameForm.invalid) {
+    this.toastService.error('Vui lòng điền đầy đủ các trường bắt buộc.', 'Lỗi');
+    this.gameForm.markAllAsTouched(); // Hiển thị lỗi validation cho người dùng
+    return;
   }
+
+  this.isSaving = true;
+  const formValues = this.gameForm.value;
+  const currentUser = this.userLogged.getCurrentUser();
+
+  // Chuyển đổi chuỗi MediaUrls từ form thành mảng các URL sạch
+  const mediaUrls = (formValues.MediaUrls || '')
+    .split(',')
+    .map((url: string) => url.trim())
+    .filter((url: string) => url); // Lọc bỏ các chuỗi rỗng
+
+  // Tạo đối tượng media từ mảng mediaUrls
+
+  // console.log("mediaedimedia",media);
+  // Tạo đối tượng discount (nếu có)
+  // const activeDiscounts = formValues.DiscountPercent > 0 ? [{
+  //   id: 0,
+  //   code: 'DISCOUNT_CODE', // Mã giảm giá có thể tạo động
+  //   description: 'Giảm giá cho game',
+  //   value: formValues.DiscountPercent,
+  //   isPercent: true,
+  //   startDate: new Date().toISOString(),
+  //   endDate: formValues.SaleEndDate || new Date().toISOString(),
+  //   isActive: true,
+  //   createdAt: new Date().toISOString()
+  // }] : [];
+
+  const createPayload = {
+    id: 0, 
+    title: formValues.Title,
+    description: formValues.Description,
+    price: formValues.Price,
+    coverImagePath: formValues.CoverImagePath,
+    installerFilePath: formValues.CoverImagePath, 
+    createdBy: currentUser.userId,
+    isActive: true,
+    status: 'active',
+    genre: formValues.Genre,
+    developerId: currentUser.userId,
+    // media: media,
+    // activeDiscounts: activeDiscounts
+  };
+
+  this.gameService.createGame(createPayload).pipe(
+    switchMap(newGameResponse => {
+      const categoryId = this.listCategory.find(c => c.CategoryName === formValues.Genre)?.Id;
+      if (!categoryId) {
+        this.toastService.error('Không tìm thấy thể loại hợp lệ.', 'Lỗi');
+        return of(null); 
+      }
+      const gameCategoryPayload = {
+        gameID: newGameResponse.data.id,
+        categoryID: categoryId,
+        createdBy: currentUser.userId,
+      };
+      return this.gameCategoryService.createGameCategory(gameCategoryPayload);
+    }),
+    finalize(() => this.isSaving = false) // Luôn tắt spinner nút lưu, dù thành công hay thất bại
+  ).subscribe({
+    next: (response) => {
+      if (response) {
+        this.toastService.success('Thêm game mới thành công!');
+          const media = mediaUrls.map((url: string) => ({
+            id: 0,
+            gameId: response.data.id, 
+            mediaURL: url
+  }));
+         for (let index = 0; index < media.length; index++) {
+          const element = media[index];
+             let formData = {
+               id: 0,
+               gameId:response.data.id,
+               mediaURL: element.mediaURL
+             }
+             this.gameService.createGameMedia(formData, response.data.id).subscribe();
+         }
+
+        this.router.navigate(['/dashboard/manager-game']); 
+      }
+    },
+    error: (err) => {
+      this.toastService.error('Đã có lỗi xảy ra khi thêm game.', 'Lỗi');
+      console.error(err);
+    }
+  });
+}
+
 
   // Hàm cho nút "Quay lại"
   goBack(): void {

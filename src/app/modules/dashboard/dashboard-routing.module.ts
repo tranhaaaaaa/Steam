@@ -30,6 +30,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { TagsComponent } from './components/tags/tags.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { DiscountComponent } from './components/discount/discount.component';
 const routes: Routes = [
   {
     path: '',
@@ -53,6 +54,8 @@ const routes: Routes = [
         ]
       },
       { path: 'profile', component: ProfileComponent },
+      { path: 'discount', component: DiscountComponent },
+
       { path: '', redirectTo: 'nfts', pathMatch: 'full' },
       { path: 'nfts', component: NftComponent },
       { path: 'product/:id', component: ProductDetailComponent },

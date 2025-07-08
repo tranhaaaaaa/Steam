@@ -1,0 +1,127 @@
+<div class="p-6 max-w-5xl mx-auto bg-white/90 shadow-2xl rounded-3xl backdrop-blur-md">
+  <h1 class="text-3xl font-extrabold text-gray-800 mb-6">Quản lý giảm giá</h1>
+
+  <div class="flex flex-wrap items-center gap-4 mb-6">
+    <button (click)="openDialog('add')"
+            class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full shadow transition-all cursor-pointer">
+      <span class="text-lg">+</span> Thêm giảm giá
+    </button>
+
+    <div class="relative w-full max-w-xs">
+      <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"></path>
+        </svg>
+      </span>
+      <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()"
+             placeholder="Tìm kiếm theo mã giảm giá"
+             style="background-color: white;color:black"
+             class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-white" />
+    </div>
+  </div>
+
+  <div class="overflow-x-auto rounded-xl shadow">
+    <table class="min-w-full text-sm text-left text-gray-800">
+      <thead class="bg-gray-100 text-gray-700 text-base">
+        <tr>
+          <th class="px-6 py-4">ID</th>
+          <th class="px-6 py-4">Mã giảm giá</th>
+          <th class="px-6 py-4">Mô tả</th>
+          <th class="px-6 py-4">Giá trị(%)</th>
+          <th class="px-6 py-4">Trạng thái</th>
+
+          <th class="px-6 py-4">Ngày bắt đầu</th>
+          <th class="px-6 py-4">Ngày kết thúc</th>
+          <th class="px-6 py-4">Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let discount of listDiscount.slice((currentPage - 1) * 10, currentPage * 10)" class="border-t border-gray-200 hover:bg-gray-50 transition">
+          <td class="px-6 py-4">{{ discount.id }}</td>
+          <td class="px-6 py-4">{{ discount.code }}</td>
+          <td class="px-6 py-4">{{ discount.description }}</td>
+          <td class="px-6 py-4">{{ discount.value }}</td>
+           <td class="px-6 py-4">{{ discount.isActive ? 'Hoạt động' : 'Ngưng hoạt động' }}</td>
+
+          <td class="px-6 py-4">{{ discount.startDate | date:'short' }}</td> <!-- Hiển thị startDate -->
+          <td class="px-6 py-4">{{ discount.endDate | date:'short' }}</td> <!-- Hiển thị endDate -->
+          <td class="px-6 py-4 space-x-4">
+            <button (click)="openDialog('edit', discount)" class="text-green-600 hover:underline font-medium cursor-pointer">Sửa</button>
+            <button (click)="deleteDiscount(discount.id)" class="text-red-500 hover:underline font-medium cursor-pointer">Xóa</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex justify-center mt-6">
+    <button class="bg-gray-500 text-white px-4 py-2 rounded-l-md hover:bg-gray-600"
+            [disabled]="currentPage === 1"
+            (click)="changePage(currentPage - 1)">Trước</button>
+
+    <span class="px-4 py-2 text-white">Trang {{ currentPage }} / {{ totalPages }}</span>
+
+    <button class="bg-gray-500 text-white px-4 py-2 rounded-r-md hover:bg-gray-600"
+            [disabled]="currentPage === totalPages"
+            (click)="changePage(currentPage + 1)">Sau</button>
+  </div>
+</div>
+<!-- DIALOG -->
+<div *ngIf="isDialogOpen" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl p-8 w-full max-w-lg shadow-xl relative animate-fade-in">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">
+      {{ dialogMode === 'add' ? 'Thêm giảm giá' : 'Cập nhật giảm giá' }}
+    </h2>
+
+    <form class="space-y-5" #form="ngForm" (ngSubmit)="saveDiscount(form)">
+      <div>
+        <label class="block mb-1 font-medium text-gray-700">Mã giảm giá</label>
+        <input [(ngModel)]="tempDiscount.code" name="code"
+               class="w-full p-3 border rounded-xl focus:outline-none focus:ring focus:ring-blue-300 bg-gray-50" required />
+      </div>
+
+      <div>
+        <label class="block mb-1 font-medium text-gray-700">Mô tả</label>
+        <input [(ngModel)]="tempDiscount.description" name="description"
+               class="w-full p-3 border rounded-xl focus:outline-none focus:ring focus:ring-blue-300 bg-gray-50" required />
+      </div>
+
+      <div>
+        <label class="block mb-1 font-medium text-gray-700">Giá trị(%)</label>
+        <input [(ngModel)]="tempDiscount.value" name="value" type="number"
+               class="w-full p-3 border rounded-xl focus:outline-none focus:ring focus:ring-blue-300 bg-gray-50" required />
+      </div>
+<div>
+  <label class="block mb-1 font-medium text-gray-700">Trạng thái</label>
+  <select [(ngModel)]="tempDiscount.isActive" name="isActive"
+          class="w-full p-3 border rounded-xl focus:outline-none focus:ring focus:ring-blue-300 bg-gray-50" required>
+    <option [ngValue]="true">Hoạt động</option>
+    <option [ngValue]="false">Ngưng hoạt động</option>
+  </select>
+</div>
+
+      <!-- Thêm startDate và endDate -->
+      <div>
+        <label class="block mb-1 font-medium text-gray-700">Ngày bắt đầu</label>
+        <input [(ngModel)]="tempDiscount.startDate" name="startDate" type="datetime-local"
+               class="w-full p-3 border rounded-xl focus:outline-none focus:ring focus:ring-blue-300 bg-gray-50" required />
+      </div>
+
+      <div>
+        <label class="block mb-1 font-medium text-gray-700">Ngày kết thúc</label>
+        <input [(ngModel)]="tempDiscount.endDate" name="endDate" type="datetime-local"
+               class="w-full p-3 border rounded-xl focus:outline-none focus:ring focus:ring-blue-300 bg-gray-50" required />
+      </div>
+
+      <div class="flex justify-end gap-3 pt-4">
+        <button type="button" (click)="closeDialog()"
+                class="px-4 py-2 border rounded-xl text-gray-700 hover:bg-gray-100">Hủy</button>
+        <button type="submit"
+                class="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 shadow-md">
+          {{ dialogMode === 'add' ? 'Thêm' : 'Lưu' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
