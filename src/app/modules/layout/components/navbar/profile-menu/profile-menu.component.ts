@@ -153,6 +153,11 @@ handleNotificationAction(){
   //  this.router.navigate(['/auth/sign-in'])
     window.location.href = '/auth/sign-in'
   }
+     history(){
+    // this.userLogged.logout()
+  //  this.router.navigate(['/auth/sign-in'])
+    window.location.href = '/dashboard/order-history'
+  }
   toggleThemeColor(color: string) {
     this.themeService.theme.update((theme) => {
       return { ...theme, color: color };

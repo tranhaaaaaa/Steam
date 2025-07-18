@@ -25,7 +25,7 @@ export class LayoutComponent implements OnInit {
     if(this.userLogged.isLogged()){
       this.isLog = true;
     }
-    if(this.permission.hasRole(["Admin"])){
+    if(this.permission.hasRole(["Admin"]) || this.permission.hasRole(["Staff"])){
       this.isAdmin = true;
     }
   }

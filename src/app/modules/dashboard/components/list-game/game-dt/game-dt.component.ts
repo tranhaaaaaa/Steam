@@ -25,7 +25,7 @@ export class SafePipe implements PipeTransform {
 @Component({
   selector: 'app-game-dt',
   standalone: true,
-  imports: [CommonModule, SafePipe],
+  imports: [CommonModule,SafePipe],
   templateUrl: './game-dt.component.html',
   styleUrls: ['./game-dt.component.css']
 })
@@ -39,12 +39,12 @@ export class GameDtComponent implements OnInit {
 
 
   game = {
-    id: 1627720, // ID của game, ví dụ
+    id: 1627720, 
     title: 'Lies of P',
     description: 'Lies of P is a thrilling soulslike that takes the story of Pinocchio, turns it on its head, and sets it against the darkly elegant backdrop of the Belle Epoque era.',
     mainImage: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/header.jpg?t=1701916187',
     media: [
-      { type: 'video', url: 'https://www.youtube.com/embed/tZBuPe3Jg1I?autoplay=1&mute=1', thumbnailUrl: 'https://i.ytimg.com/vi/tZBuPe3Jg1I/hqdefault.jpg' },
+      { type: 'video', url: 'https://www.youtube.com/embed/opu4T76MUps?autoplay=1&mute=1', thumbnailUrl: 'https://i.ytimg.com/vi/opu4T76MUps/hqdefault.jpg' },
       { type: 'image', url: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/ss_0a93756b553b4481f084666359b37849c7cc72f1.600x338.jpg' },
       { type: 'image', url: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/ss_d830f3a38f712757271b86c8782705a221d1193d.600x338.jpg' },
       { type: 'image', url: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/ss_8f0b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b.600x338.jpg' },
@@ -79,17 +79,22 @@ export class GameDtComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.game.media && this.game.media.length > 0) {
-      this.selectedMedia = this.game.media[0];
-    }
+     this.selectedMedia = this.game.media[0];
     this.gameService.getGameDetail(this.idgame).subscribe(res => {
       this.gameDetail = res.data;
+        // if(this.gameDetail.Media.length > 0){
+        //    this.selectedMedia = this.gameDetail.Media[0].MediaURL;
+        // }
+         this.gameService.getGameDiscountId(this.idgame).subscribe(resdiscount => {
+          console.log("resdiscount",resdiscount);
+         })
     });
   }
 
   selectMedia(mediaItem: any): void {
     this.selectedMedia = mediaItem;
   }
+
 
 
 

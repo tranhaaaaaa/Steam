@@ -94,6 +94,17 @@ export class GameCategoryArrayConverter implements JsonCustomConvert<GameCategor
         return jsonConvert.deserializeArray(data, GameCategory);
     }
 }
+@JsonConverter
+export class MediaArrayConverter implements JsonCustomConvert<Media[]> {
+    serialize(data: Media[]): any {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.serializeArray(data);
+    }
+    deserialize(data: any): Media[] {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.deserializeArray(data, Media);
+    }
+}
 
 @JsonConverter
 export class GameCategoryConverter implements JsonCustomConvert<GameCategory> {
@@ -184,6 +195,17 @@ export class TagArrayConverter implements JsonCustomConvert<Tag[]> {
     deserialize(data: any): Tag[] {
         const jsonConvert = new JsonConvert();
         return jsonConvert.deserializeArray(data, Tag);
+    }
+}
+@JsonConverter
+export class OrderDetailsArrayConverter implements JsonCustomConvert<OrderDetails[]> {
+    serialize(data: OrderDetails[]): any {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.serializeArray(data);
+    }
+    deserialize(data: any): OrderDetails[] {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.deserializeArray(data, OrderDetails);
     }
 }
 
@@ -295,6 +317,9 @@ export class GameInfor {
   @JsonProperty('mediaUrls', StringConverter, true) 
   MediaUrls: string = '' as any;
 
+    @JsonProperty('isActive', BooleanConverter, true) 
+  IsActive: boolean = false;
+
   @JsonProperty('discountPercent', NumberConverter, true)
   DiscountPercent: number = 0;
 
@@ -321,6 +346,8 @@ export class GameInfor {
 
   @JsonProperty('reviews', ReviewArrayConverter, true)
   Reviews: Review[] = [];
+   @JsonProperty('media',MediaArrayConverter , true)
+  Media: Media[] = [];
 }
 
 @JsonObject('GameCategory')
@@ -364,6 +391,18 @@ export class Category {
 
   @JsonProperty('createdBy', StringConverter, true)
   CreatedBy: string = '';
+}
+@JsonObject('Media')
+export class Media {
+  @JsonProperty('id', NumberConverter, true)
+  Id: number = 0;
+
+  @JsonProperty('gameID', NumberConverter, true)
+  CategoryName: number = 0;
+
+
+  @JsonProperty('mediaURL', StringConverter, true)
+  MediaURL: string = '';
 }
 
 @JsonObject('GameTag')
@@ -511,4 +550,51 @@ export class Discount {
 
   @JsonProperty('createdAt', DateTimeConverter, true)
   createdAt: Date = new Date();
+}
+@JsonObject('StoreOrder')
+export class StoreOrder {
+  @JsonProperty('id', NumberConverter, true)
+  Id: number = 0;
+
+  @JsonProperty('userID', StringConverter, true)
+  UserId: string = '';
+
+  @JsonProperty('orderDate', DateTimeConverter, true)
+  OrderDate: Date = new Date();
+
+  @JsonProperty('totalAmount', NumberConverter, true)
+  TotalAmount: number = undefined as any;
+
+    @JsonProperty('status', StringConverter, true)
+  Status: string = undefined as any;
+
+    @JsonProperty('phoneNumber', StringConverter, true)
+  PhoneNumber: string = undefined as any;
+
+    @JsonProperty('email', StringConverter, true)
+  Email: string = undefined as any;
+
+    @JsonProperty('orderDetails', OrderDetailsArrayConverter, true)
+  OrderDetails: OrderDetails[]=[];
+}
+
+@JsonObject('OrderDetails')
+export class OrderDetails {
+  @JsonProperty('id', NumberConverter, true)
+  Id: number = 0;
+
+  @JsonProperty('unitPrice', NumberConverter, true)
+  UnitPrice: number = 0;
+
+  @JsonProperty('createdAt', DateTimeConverter, true)
+  CreatedAt: Date = new Date();
+
+     @JsonProperty('gameName', StringConverter, true)
+  GameName: string = undefined as any;
+
+  @JsonProperty('orderID', NumberConverter, true)
+  OrderID: number = undefined as any;
+
+    @JsonProperty('gameID', NumberConverter, true)
+  GameId: number = undefined as any;
 }

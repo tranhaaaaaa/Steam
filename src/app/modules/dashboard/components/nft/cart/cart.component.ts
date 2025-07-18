@@ -100,8 +100,8 @@ onPayment() {
       this.threadService.orederdetail(detail).subscribe(() => {
        
       });
-      this.toastrService.success("Thanh toán thanh cong!");
     });
+      this.toastrService.success("Đặt đơn thành công!");
 
    this.deleteAll();
   });

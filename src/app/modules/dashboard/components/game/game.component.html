@@ -33,13 +33,15 @@
         <tr *ngFor="let account of paginatedUsers" class="hover:bg-gray-100">
           <td class="px-6 py-4">{{ account.Id }}</td>
           <td class="px-6 py-4">{{ account.Title }}</td>
-          <td class="px-6 py-4">{{ account.Price }}</td>
+          <td class="px-6 py-4">{{ account.Price | number}} VND</td>
           <td class="px-6 py-4">{{ account.Genre }}</td>
-          <td class="px-6 py-4">
-            <span class="px-3 py-1 rounded-full" [ngClass]="{'bg-green-500 text-white': account.Status === 'string', 'bg-red-500 text-white': account.Status === 'inactive'}">
-              {{ account.Status | uppercase }}
-            </span>
-          </td>
+         <td class="px-6 py-4">
+  <label class="switch">
+    <input type="checkbox" [(ngModel)]="account.IsActive" (change)="toggleStatus(account)">
+    <span class="slider"></span>
+  </label>
+</td>
+
           <td class="px-6 py-4 text-sm">
             <button (click)="editAccount(account)" class="text-green-600 hover:underline font-medium cursor-pointer">Sửa |</button>
             <button class="text-red-500 hover:underline font-medium cursor-pointer"> Xóa</button>

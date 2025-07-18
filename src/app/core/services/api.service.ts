@@ -91,4 +91,5 @@ export class ApiService {
       .delete(`${environment.apiUrl}${entitySet}/${id}`, options)
       .pipe(catchError(this.formatErrors));
   }
+  
 }

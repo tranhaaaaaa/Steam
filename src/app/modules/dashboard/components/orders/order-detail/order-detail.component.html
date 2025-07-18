@@ -1,1 +1,38 @@
-<p>order-detail works!</p>
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-2xl shadow-lg">
+
+
+
+  <div class="mt-6">
+    <h3 class="text-xl font-semibold mb-3">Danh sách game</h3>
+    <div *ngFor="let game of listOrders.OrderDetails" class="border-b py-4">
+      <div class="flex justify-between items-start">
+        <div class="w-3/4">
+          <p class="text-lg font-medium">{{ game.GameName }}</p>
+          <!-- <p class="text-gray-600">{{ game.UnitPrice }}</p> -->
+          <p class="text-green-600">{{ game.UnitPrice | number }}đ</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-6"></div>
+  <h2 class="text-2xl font-bold mb-4">Chi tiết đơn hàng #{{ listOrders.Id }}</h2>
+  <p class="mb-2"><b>Ngày đặt:</b> {{ listOrders.OrderDate | date : 'dd/MM/yyyy hh:mm a'}}</p>
+  <p class="mb-4"><b>Tổng tiền:</b> {{ listOrders.TotalAmount| number }}đ</p>
+  <p class="mb-4"><b>Email người mua hàng:</b> {{ listOrders.Email}}</p>
+  <p class="mb-4"><b>SDT:</b> {{ listOrders.Email}}</p>
+
+  <div class="mt-8 text-center">
+    <button
+      class="bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-3 rounded-xl shadow-md transition"
+     
+    >
+      Xác nhận & cho phép tải game
+    </button>
+     <button style="margin-left: 15px;"
+      class="bg-blue-500 hover:bg-violet-600 text-white font-bold px-8 py-3 rounded-xl shadow-md transition"
+     
+    >
+      Từ chối cho phép tải game
+    </button>
+  </div>
+</div>

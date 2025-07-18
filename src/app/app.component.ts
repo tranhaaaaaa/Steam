@@ -11,7 +11,7 @@ import { UserLogged } from './core/utils/userLogged';
   imports: [RouterOutlet, ResponsiveHelperComponent, NgxSonnerToaster],
 })
 export class AppComponent {
-  title = 'Angular Tailwind';
+  title = 'Steam';
 public userLogged = new UserLogged();
   constructor(public themeService: ThemeService,
     private route: Router

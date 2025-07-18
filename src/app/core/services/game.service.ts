@@ -17,7 +17,7 @@ export class GameService extends ApiService{
   }
 
 getListGame(): Observable<DataResponse> {
-  let url = `/api/GamesInfo/model`;
+  let url = `/api/GamesInfo/dto`;
   return super.get(url).pipe(
       map((res) => {
         const dataRes: DataResponse = this.jsonConvert.deserializeObject(
@@ -57,7 +57,7 @@ getListDiscount(): Observable<Discount[]> {
 
 
 getGameDetail(id : any): Observable<DataResponse> {
-    const url = `/api/GamesInfo/model/${id}`;
+    const url = `/api/GamesInfo/dto/${id}`;
  return super.get(url).pipe(
       map((res) => {
         const odataRes: DataResponse = this.jsonConvert.deserializeObject(res, DataResponse);
@@ -74,8 +74,49 @@ getGameDetail(id : any): Observable<DataResponse> {
       })
     );
   }
+
+  getGameDiscountId(id : any): Observable<DataResponse> {
+    const url = `/api/GamesDiscount/${id}`;
+ return super.get(url).pipe(
+      map((res) => {
+        const odataRes: DataResponse = this.jsonConvert.deserializeObject(res, DataResponse);
+
+        if (Array.isArray(odataRes.data)) {
+          odataRes.data = this.jsonConvert.deserializeArray(odataRes.data, Discount);
+        } else if (odataRes.data) {
+          console.warn("odataRes.data không phải là mảng. Đang chuyển về dạng object của Staff.");
+          odataRes.data = this.jsonConvert.deserializeObject(odataRes.data, Discount);
+        } else {
+          console.warn("odataRes.data không có dữ liệu.");
+        }
+        return odataRes;
+      })
+    );
+  }
    createGame(formData : any): Observable<any> {
     let url = `/api/gamesinfo`;
+    return super.postEntity(url, formData).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
+     active(formData : any,id:any): Observable<any> {
+    let url = `/api/gamesinfo/${id}/active`;
+    return super.postEntity(url, formData).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
+   inactive(formData : any,id:any): Observable<any> {
+    let url = `/api/gamesinfo/${id}/deactive`;
     return super.postEntity(url, formData).pipe(
       map((res) => {
         if (res === undefined) {
@@ -138,6 +179,14 @@ getGameDetail(id : any): Observable<DataResponse> {
         deleteDiscount(id: any): Observable<DataResponse> {
     let url = `/api/GamesDiscount`;
     return super.deleteEntity(url,id).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+         deleteGameMedia(idgame: any,idmedia: any): Observable<DataResponse> {
+    let url = `/api/games/${idgame}/media`;
+    return super.deleteEntity(url,idmedia).pipe(
       map((res) => {
         return res;
       })

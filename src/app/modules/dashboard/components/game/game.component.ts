@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { GameInfor } from 'src/app/core/models/db.model';
 import { GameService } from 'src/app/core/services/game.service';
 
@@ -19,7 +20,8 @@ export class GameComponent implements OnInit {
          public allCate : GameInfor[]=[];
        paginatedUsers: GameInfor[] = []; 
   constructor(private gameService : GameService,
-    private router : Router
+    private router : Router,
+    private toastService : ToastrService
   ) {}
   public listGame : GameInfor[] = [];
   ngOnInit(): void {
@@ -69,5 +71,21 @@ export class GameComponent implements OnInit {
  get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
+  toggleStatus(account: any) {
+    console.log(account);
+  if (account.isActive === 'active') {
+    account.Status = 'inactive';
+      this.gameService.inactive(account,account.Id).subscribe(res => {
+        this.toastService.success("Cập nhật trạng thái game thành công!");
+      })
+
+  } else {
+    account.Status = 'active';
+     this.gameService.active(account,account.Id).subscribe(res => {
+        this.toastService.success("Cập nhật trạng thái game thành công!");
+      })
+  }
+}
+
 
 }

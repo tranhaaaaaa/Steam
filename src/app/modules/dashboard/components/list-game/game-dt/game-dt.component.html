@@ -9,8 +9,7 @@
   <div class="main-content-grid">
 
     <div class="left-column">
-    
-      <div class="media-carousel" *ngIf="selectedMedia">
+ <div class="media-carousel" *ngIf="selectedMedia">
         <div class="main-media">
           <iframe *ngIf="selectedMedia.type === 'video'" width="600" height="338" [src]="selectedMedia.url | safe"
             frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
@@ -21,7 +20,7 @@
           <div *ngFor="let media of game.media" class="thumbnail" 
                [class.active]="media === selectedMedia"
                (click)="selectMedia(media)">
-            <img [src]="media.thumbnailUrl || media.url" alt="Game thumbnail">
+            <img [src]="gameDetail.InstallerFilePath || media.url" alt="Game thumbnail">
             <div *ngIf="media.type === 'video'" class="play-icon"></div>
           </div>
         </div>

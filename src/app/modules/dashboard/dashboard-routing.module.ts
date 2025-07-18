@@ -31,6 +31,8 @@ import { TagsComponent } from './components/tags/tags.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { DiscountComponent } from './components/discount/discount.component';
+import { OrderDetailComponent } from './components/orders/order-detail/order-detail.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
 const routes: Routes = [
   {
     path: '',
@@ -82,10 +84,13 @@ const routes: Routes = [
         ]
       },
       { path: 'category', component: CategoryComponent },
+      { path: 'order-history', component: OrderHistoryComponent },
+
         { path: 'hastags', component: TagsComponent },
       { path: 'community', component: CommunityComponent },
          { path: 'manager-game', component: GameComponent },
          { path:'orders', component: OrdersComponent },
+         { path:'orders/order-details/:id', component: OrderDetailComponent },
 
 
       {
