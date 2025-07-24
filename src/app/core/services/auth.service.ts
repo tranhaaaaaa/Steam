@@ -57,6 +57,39 @@ export class AuthService extends ApiService{
       })
     );
   }
+      forgotPass(formData : any): Observable<DataResponse> {
+    let url = `/api/Auth/forgot-password`;
+    return super.postEntity(url, formData).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
+        verifypass(formData : any): Observable<DataResponse> {
+    let url = `/api/Auth/reset-password`;
+    return super.postEntity(url, formData).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
+          changePass(formData : any): Observable<DataResponse> {
+    let url = `/api/profile/change-password`;
+    return super.postEntity(url, formData).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
 getUserByUsername(email: string): Observable<DataResponse> {
     const url = `/admin/User/name/${email}`;
  return super.get(url).pipe(

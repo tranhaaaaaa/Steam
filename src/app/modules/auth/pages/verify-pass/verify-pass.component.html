@@ -1,0 +1,97 @@
+<form [formGroup]="verifyForm" (ngSubmit)="onSubmit()" class="my-10 space-y-6">
+  <div class="text-center">
+    <h2 class="text-foreground mb-1 text-3xl font-semibold">
+      Xác Thực Mật Khẩu <span class="text-primary">Mới</span>
+    </h2>
+    <p class="text-muted-foreground text-sm">Vui lòng nhập mã OTP và mật khẩu mới để đặt lại.</p>
+  </div>
+
+  <div class="space-y-3 text-left">
+    <!-- Email -->
+    <div class="relative">
+      <input
+        type="email"
+        formControlName="email"
+        class="peer block w-full p-3 bg-white text-black border rounded"
+        placeholder=" "
+      />
+      <label
+        for="email"
+        class="bg-background text-muted-foreground peer-focus:text-primary absolute top-2 z-10 origin-[0] -translate-y-4 scale-95 transform px-2 text-sm duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2 ltr:left-1 rtl:right-1"
+      >
+        Địa chỉ Email
+      </label>
+      <div *ngIf="verifyForm.get('email')?.touched && verifyForm.get('email')?.invalid" class="text-red-500 text-sm mt-1">
+        <div *ngIf="verifyForm.get('email')?.errors?.['required']">Vui lòng nhập email.</div>
+        <div *ngIf="verifyForm.get('email')?.errors?.['email']">Định dạng email không hợp lệ.</div>
+      </div>
+    </div>
+
+    <!-- OTP -->
+    <div class="relative">
+      <input
+        type="text"
+        formControlName="otp"
+        class="peer block w-full p-3 bg-white text-black border rounded"
+        placeholder=" "
+      />
+      <label
+        for="otp"
+        class="bg-background text-muted-foreground peer-focus:text-primary absolute top-2 z-10 origin-[0] -translate-y-4 scale-95 transform px-2 text-sm duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2 ltr:left-1 rtl:right-1"
+      >
+        Mã OTP
+      </label>
+      <div *ngIf="verifyForm.get('otp')?.touched && verifyForm.get('otp')?.invalid" class="text-red-500 text-sm mt-1">
+        <div *ngIf="verifyForm.get('otp')?.errors?.['required']">Vui lòng nhập mã OTP.</div>
+      </div>
+    </div>
+
+    <!-- Mật khẩu mới -->
+    <div class="relative">
+      <input
+        type="password"
+        formControlName="newPassword"
+        class="peer block w-full p-3 bg-white text-black border rounded"
+        placeholder=" "
+      />
+      <label
+        for="newPassword"
+        class="bg-background text-muted-foreground peer-focus:text-primary absolute top-2 z-10 origin-[0] -translate-y-4 scale-95 transform px-2 text-sm duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2 ltr:left-1 rtl:right-1"
+      >
+        Mật khẩu mới
+      </label>
+      <div *ngIf="verifyForm.get('newPassword')?.touched && verifyForm.get('newPassword')?.invalid" class="text-red-500 text-sm mt-1">
+        <div *ngIf="verifyForm.get('newPassword')?.errors?.['required']">Vui lòng nhập mật khẩu mới.</div>
+        <div *ngIf="verifyForm.get('newPassword')?.errors?.['minlength']">Mật khẩu tối thiểu 6 ký tự.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nút xác nhận và hủy -->
+  <div class="flex justify-between space-x-2">
+    <div class="w-full">
+      <app-button
+        full
+        impact="bold"
+        tone="primary"
+        shape="rounded"
+        size="medium"
+        [disabled]="verifyForm.invalid"
+      >
+        Xác nhận
+      </app-button>
+    </div>
+    <div class="w-full">
+      <app-button
+        routerLink="/auth/sign-in"
+        full
+        impact="bold"
+        tone="light"
+        shape="rounded"
+        size="medium"
+      >
+        Hủy
+      </app-button>
+    </div>
+  </div>
+</form>

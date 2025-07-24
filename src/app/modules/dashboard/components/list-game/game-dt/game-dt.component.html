@@ -11,17 +11,15 @@
     <div class="left-column">
  <div class="media-carousel" *ngIf="selectedMedia">
         <div class="main-media">
-          <iframe *ngIf="selectedMedia.type === 'video'" width="600" height="338" [src]="selectedMedia.url | safe"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-          </iframe>
-          <img *ngIf="selectedMedia.type === 'image'" [src]="selectedMedia.url" alt="Main game media">
+    
+          <img [src]="selectedMedia.MediaURL" alt="Main game media">
         </div>
         <div class="thumbnail-strip">
-          <div *ngFor="let media of game.media" class="thumbnail" 
-               [class.active]="media === selectedMedia"
+          <div *ngFor="let media of gameDetail.Media" class="thumbnail" 
+               [class.active]="media.Id === selectedMedia.Id"
                (click)="selectMedia(media)">
-            <img [src]="gameDetail.InstallerFilePath || media.url" alt="Game thumbnail">
-            <div *ngIf="media.type === 'video'" class="play-icon"></div>
+            <img [src]="media.MediaURL" alt="Game thumbnail">
+            <div class="play-icon"></div>
           </div>
         </div>
       </div>
@@ -39,10 +37,12 @@
       <div class="purchase-section">
         <h2>Mua {{ gameDetail.Title }}</h2>
         <div class="purchase-box">
-          <div class="discount-badge">-{{ game.discount | number}}%</div>
+          <div class="discount-badge">-{{ gameDetail.Discounts[0].value | number}}%</div>
           <div class="price-info">
-            <div class="original-price">{{ game.originalPrice }}</div>
-            <div class="final-price">{{ gameDetail.Price  | number}}VND</div>
+            <!-- <div class="original-price">{{ game. }}</div> -->
+              
+             <div class="original-price">{{ gameDetail.Price  | number}}VND</div>
+            <div class="final-price"> {{ (gameDetail.Price * (1 - gameDetail.Discounts[0].value / 100)) | currency:'VND' }}</div>
           </div>
          
           <button class="add-to-cart-btn" (click)="addToCart(gameDetail.Id)">Thêm vào giỏ</button>

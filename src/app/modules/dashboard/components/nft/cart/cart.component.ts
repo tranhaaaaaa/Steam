@@ -8,6 +8,7 @@ import { MenuItem } from 'src/app/core/models/menu.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { CartService } from 'src/app/core/services/cart.service';
 import { GameService } from 'src/app/core/services/game.service';
+import { PaymentService } from 'src/app/core/services/payment.service';
 import { ThreadService } from 'src/app/core/services/thread.service';
 import { UserLogged } from 'src/app/core/utils/userLogged';
 import { NavbarSubmenuComponent } from 'src/app/modules/layout/components/navbar/navbar-submenu/navbar-submenu.component';
@@ -27,15 +28,50 @@ export class CartComponent implements OnInit {
    totalPrice: number = 0;
    public userLogged = new UserLogged();
    public cartWithGames: any[] = [];
+   public odId : any;
+   public total : any;
   constructor(public menuService: MenuService,
     private router : Router,
     private cartService : CartService,
     private gameService : GameService,
     private toastrService : ToastrService,
     private authService : AuthService,
-    private threadService : ThreadService
+    private threadService : ThreadService,
+    private paymentService : PaymentService
   ) {}
+isPaymentDialogOpen = false;
 
+  // Mở dialog thanh toán
+  openPaymentDialog(): void {
+    this.isPaymentDialogOpen = true;
+  }
+
+  // Đóng dialog thanh toán
+  closePaymentDialog(): void {
+    this.isPaymentDialogOpen = false;
+  }
+
+  // Thanh toán bằng VNPay
+  payWithVNPay(): void {
+    console.log('Thanh toán bằng VNPay');
+    this.closePaymentDialog(); // Đóng dialog sau khi chọn
+    // Bạn có thể gọi API hoặc điều hướng đến trang thanh toán VNPay ở đây
+  }
+
+  // Thanh toán bằng MoMo
+  payWithMoMo(): void {
+    console.log('Thanh toán bằng MoMo');
+    this.onPayment();
+    let formData = {
+      orderId : this.odId.toString(),
+      amount : this.total
+    }
+    // this.paymentService.paymentMomo(formData).subscribe((data ) => {
+    //     this.router.navigate([data.]);
+    // })
+    this.closePaymentDialog(); // Đóng dialog sau khi chọn
+    // Bạn có thể gọi API hoặc điều hướng đến trang thanh toán MoMo ở đây
+  }
   ngOnInit(): void {
     this.onGetData();
   
@@ -96,9 +132,11 @@ onPayment() {
     unitPrice: item.gameDetails.Price,
     createdAt: currentDate
   }));
+       this.odId = orderResponse.data.id;
+       this.total = totalAmount;
     orderDetails.forEach(detail => {
       this.threadService.orederdetail(detail).subscribe(() => {
-       
+
       });
     });
       this.toastrService.success("Đặt đơn thành công!");

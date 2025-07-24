@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { JsonConvert } from 'json2typescript';
 import { environment } from 'src/environments/environment';
+import { UserLogged } from '../utils/userLogged';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +55,11 @@ export class ApiService {
   //post
   protected postEntity(entitySet: string, body: Object = {}): Observable<any> {
     const options: any = {};
+     const headers: any = {
+    Accept: 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded',
+  };
+  options['headers'] = this.getHeaders();
     return this.http
       .post(`${environment.apiUrl}${entitySet}`, body, options)
       .pipe(catchError(this.formatErrors));
@@ -72,6 +78,31 @@ export class ApiService {
       .put(`${environment.apiUrl}${entitySet}/${id}`, body, headers)
       .pipe(catchError(this.formatErrors));
   }
+   protected getHeaders(): Object {
+    let header: any = {
+      Accept: 'application/json',
+    };
+    let userLogged: UserLogged = new UserLogged();
+    if (userLogged.isLogged()) {
+      header['Authorization'] = 'Bearer ' + userLogged.getToken();
+    }
+    return header;
+  }
+protected putEntityCustom(
+  entitySet: string,
+  body: Object = {}
+): Observable<any> {
+  const options: any = {};
+  const headers: any = {
+    Accept: 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded',
+  };
+  options['headers'] = this.getHeaders(); // lấy headers kèm Authorization nếu có
+  return this.http
+    .put(`${environment.apiUrl}${entitySet}`, body, options)
+    .pipe(catchError(this.formatErrors));
+}
+
   protected patchEntity(
     entitySet: string,
     id: number,

@@ -63,7 +63,7 @@
           </div>
 
           <!-- Thư viện ảnh & video -->
-          <div>
+          <!-- <div>
             <label for="MediaUrls" class="block text-lg font-medium">URL Ảnh & Video (cách nhau bởi dấu phẩy)</label>
             <textarea 
               formControlName="MediaUrls" 
@@ -71,7 +71,62 @@
               rows="4" 
               class="mt-2 block w-full p-3 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" 
               placeholder="https://.../anh1.jpg, https://.../video1.mp4, ..."></textarea>
-          </div>
+          </div> -->
+<div>
+  <!-- File input -->
+  <input
+    type="file" 
+    (change)="fileChange($event)"
+    #input
+    class="file-upload-btn"
+    multiple
+  />
+
+  <!-- Display placeholder text when no files are uploaded -->
+  <input
+    *ngIf="!uploadedFiles.length"
+    type="text"
+    class="form-control"
+    placeholder="Choose a file..."
+    readonly
+  />
+
+  <!-- Display uploaded file names -->
+  <div *ngIf="uploadedFiles.length">
+    <ul>
+      <li *ngFor="let file of uploadedFiles; let i = index" class="flex items-center w-full mb-2">
+        
+        <!-- Display file name -->
+        <input
+          type="text"
+          [value]="file.mediaURL"
+          class="form-control w-full"
+          readonly
+          placeholder="Choose a file..."
+        />
+
+        <!-- Delete icon (SVG) -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 cursor-pointer ml-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          (click)="removeFile(i)"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
 
           <!-- Giá & Thể loại -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -103,10 +158,11 @@
               <select 
                 class="mt-2 block w-full p-3 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" (change)="onChangeDiscount($event)">
                 <option value="" disabled>-- Chọn loại giảm giá --</option>
-                <option *ngFor="let category of listDiscount" [value]="category.id">{{ category.code }} - {{ category.value }}%</option>
+                <option *ngFor="let category of listDiscount" [value]="category.id" [selected]="category.id === discountId">{{ category.code }} - {{ category.value }}%</option>
               </select>
               
             </div>
+            
         <div>
           
         </div>

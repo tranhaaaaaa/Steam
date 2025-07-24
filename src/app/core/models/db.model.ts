@@ -210,6 +210,18 @@ export class OrderDetailsArrayConverter implements JsonCustomConvert<OrderDetail
 }
 
 @JsonConverter
+export class DiscountArrayConverter implements JsonCustomConvert<Discount[]> {
+    serialize(data: Discount[]): any {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.serializeArray(data);
+    }
+    deserialize(data: any): Discount[] {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.deserializeArray(data, Discount);
+    }
+}
+
+@JsonConverter
 export class TagConverter implements JsonCustomConvert<Tag> {
     serialize(data: Tag): any {
         const jsonConvert = new JsonConvert();
@@ -234,6 +246,9 @@ export class User {
 
   @JsonProperty('email', StringConverter, true)
   Email: string = '' as any;
+  
+  @JsonProperty('profilePicture', StringConverter, true)
+  profilePicture: string = '' as any;
 
   @JsonProperty('normalizedEmail', StringConverter, true)
   NormalizedEmail: string = '' as any;
@@ -348,6 +363,8 @@ export class GameInfor {
   Reviews: Review[] = [];
    @JsonProperty('media',MediaArrayConverter , true)
   Media: Media[] = [];
+  @JsonProperty('activeDiscounts',DiscountArrayConverter , true)
+  Discounts: Discount[] = [];
 }
 
 @JsonObject('GameCategory')

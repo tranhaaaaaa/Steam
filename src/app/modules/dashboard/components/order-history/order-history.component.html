@@ -1,4 +1,4 @@
-<div class="p-6 max-w-5xl mx-auto bg-white/90 shadow-2xl rounded-3xl backdrop-blur-md">
+<div class="p-6 max-w-5xl mx-auto bg-white/90 shadow-2xl rounded-3xl backdrop-blur-md" style="background: linear-gradient(to bottom, #3d224a, #1b2838 500px);">
   <h1 class="text-3xl font-extrabold text-gray-800 mb-6">Lịch Sử Đơn Hàng</h1>
   
   <!-- Kiểm tra nếu không có đơn hàng -->
@@ -7,18 +7,19 @@
   </div>
 
   <!-- Bảng Lịch sử Đơn Hàng -->
-  <table *ngIf="listOrder.length > 0" class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg transition-transform transform hover:scale-105">
-    <thead class="bg-gray-100 text-gray-700 text-base">
+  <table *ngIf="listOrder.length > 0" class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg transition-transform transform hover:scale-105" style="background: linear-gradient(to bottom, #3d224a, #1b2838 500px);">
+    <thead class="bg-gray-100 text-gray-700 text-base" style="background: linear-gradient(to bottom, #3d224a, #1b2838 500px);">
       <tr>
-        <th class="px-6 py-4">Mã Đơn Hàng</th>
-        <th class="px-6 py-4">Ngày Mua</th>
-        <th class="px-6 py-4">Số Tiền</th>
-        <th class="px-6 py-4">Trạng Thái</th>
-        <th class="px-6 py-4">Hành Động</th>
+        <th class="px-6 py-4" style="color:white">Mã Đơn Hàng</th>
+        <th class="px-6 py-4" style="color:white">Ngày Mua</th>
+        <th class="px-6 py-4" style="color:white">Số Tiền</th>
+        <th class="px-6 py-4" style="color:white">Trạng Thái</th>
+        <th class="px-6 py-4" style="color:white">Hành Động</th>
+
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let order of listOrder" class="border-t border-gray-200 hover:bg-gray-50 transition">
+      <tr *ngFor="let order of listOrder" class="border-t border-gray-200 hover:bg-gray-500 transition">
         <td class="px-6 py-4">{{ order.Id }}</td>
         <td class="px-6 py-4">{{ order.OrderDate | date: 'dd/MM/yyyy HH:mm a' }}</td>
         <td class="px-6 py-4">{{ order.TotalAmount | number }} đ</td>
@@ -35,6 +36,7 @@
         <td class="px-6 py-4 space-x-4">
           <button (click)="viewDetails(order)" class="text-green-600 hover:underline font-medium cursor-pointer">Xem Chi Tiết</button>
         </td>
+       
       </tr>
     </tbody>
   </table>
@@ -56,31 +58,31 @@
 <!-- Modal Chi Tiết Đơn Hàng -->
 <!-- Modal Chi Tiết Đơn Hàng -->
 <div *ngIf="isDialogOpen" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-  <div class="bg-white rounded-2xl p-8 w-full max-w-lg shadow-xl relative animate-fade-in">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">Chi Tiết Đơn Hàng</h2>
+  <div class="bg-white rounded-2xl p-8 w-full max-w-lg shadow-xl relative animate-fade-in" style="background: linear-gradient(to bottom, #3d224a, #1b2838 500px);">
+    <h2 class="text-2xl font-bold text-gray-100 mb-6">Chi Tiết Đơn Hàng</h2>
 
     <div class="space-y-5">
       <div>
-        <label class="block mb-1 font-medium text-gray-700">Mã Đơn Hàng</label>
-        <input [(ngModel)]="tempOrder.Id" name="OrderId" disabled
+        <label class="block mb-1 font-medium text-gray-100">Mã Đơn Hàng</label>
+        <input [(ngModel)]="tempOrder.Id" name="OrderId" disabled style="color:black"
                class="w-full p-3 border rounded-xl focus:outline-none focus:ring focus:ring-blue-300 bg-gray-50" />
       </div>
 
       <div>
-        <label class="block mb-1 font-medium text-gray-700">Ngày Mua</label>
-        <input [value]="tempOrder.OrderDate | date: 'dd/MM/yyyy HH:mm a'" name="OrderDate" disabled
+        <label class="block mb-1 font-medium text-gray-100">Ngày Mua</label>
+        <input [value]="tempOrder.OrderDate | date: 'dd/MM/yyyy HH:mm a'" name="OrderDate" disabled style="color:black"
                class="w-full p-3 border rounded-xl focus:outline-none focus:ring focus:ring-blue-300 bg-gray-50" />
       </div>
 
       <div>
-        <label class="block mb-1 font-medium text-gray-700">Số Tiền</label>
-        <input [value]="tempOrder.TotalAmount | number" name="TotalAmount" disabled
+        <label class="block mb-1 font-medium text-gray-100">Số Tiền</label>
+        <input [value]="tempOrder.TotalAmount | number" name="TotalAmount" disabled style="color:black"
                class="w-full p-3 border rounded-xl focus:outline-none focus:ring focus:ring-blue-300 bg-gray-50" />
       </div>
 
      <div>
-  <label class="block mb-1 font-medium text-gray-700">Trạng Thái</label>
-  <input  name="Status" disabled
+  <label class="block mb-1 font-medium text-gray-100">Trạng Thái</label>
+  <input  name="Status" disabled style="color:black"
          class="w-full p-3 border rounded-xl focus:outline-none focus:ring focus:ring-blue-300 bg-gray-50" 
          [value]="getStatusText(tempOrder.Status)" />
 </div>
@@ -107,7 +109,7 @@
 
     <div class="flex justify-end gap-3 pt-4">
       <button type="button" (click)="closeDialog()"
-              class="px-4 py-2 border rounded-xl text-gray-700 hover:bg-gray-100">Đóng</button>
+              class="px-4 py-2 border rounded-xl text-gray-100 hover:bg-gray-700">Đóng</button>
     </div>
   </div>
 </div>

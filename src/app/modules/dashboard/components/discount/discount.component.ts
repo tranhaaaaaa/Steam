@@ -32,7 +32,7 @@ export class DiscountComponent implements OnInit {
   // Lấy dữ liệu giảm giá từ API
   onGetData() {
     this.gameService.getListDiscount().subscribe(data => {
-      this.listDiscount = data;
+      this.listDiscount = data.data;
       this.totalPages = Math.ceil(this.listDiscount.length / 10); // Giả sử 10 mục mỗi trang
       this.changePage(this.currentPage); // Cập nhật phân trang khi lấy dữ liệu mới
     });

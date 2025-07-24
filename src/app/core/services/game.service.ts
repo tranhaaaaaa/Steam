@@ -33,26 +33,23 @@ getListGame(): Observable<DataResponse> {
       })
     );
 }
-getListDiscount(): Observable<Discount[]> {
+getListDiscount(): Observable<DataResponse> {
   let url = `/api/GamesDiscount`;
-  return super.get(url).pipe(
-    map((res) => {
-      // Log dữ liệu trả về từ API để kiểm tra kiểu dữ liệu
-      console.log('API response:', res);
+ return super.get(url).pipe(
+      map((res) => {
+        const odataRes: DataResponse = this.jsonConvert.deserializeObject(res, DataResponse);
 
-      // Kiểm tra xem res có phải là một mảng không
-      if (!Array.isArray(res)) {
-        throw new Error('Dữ liệu không phải là mảng hợp lệ');
-      }
-
-      return res as Discount[];
-    }),
-    catchError((error) => {
-      // Xử lý lỗi nếu có
-      console.error('Có lỗi xảy ra khi lấy dữ liệu:', error);
-      return of([]); // Trả về mảng trống nếu có lỗi
-    })
-  );
+        if (Array.isArray(odataRes.data)) {
+          odataRes.data = this.jsonConvert.deserializeArray(odataRes.data, Discount);
+        } else if (odataRes.data) {
+          console.warn("odataRes.data không phải là mảng. Đang chuyển về dạng object của Staff.");
+          odataRes.data = this.jsonConvert.deserializeObject(odataRes.data, Discount);
+        } else {
+          console.warn("odataRes.data không có dữ liệu.");
+        }
+        return odataRes;
+      })
+    );
 }
 
 
@@ -138,7 +135,7 @@ getGameDetail(id : any): Observable<DataResponse> {
     );
   }
      createGameMedia(formData : any,id:any): Observable<any> {
-    let url = `/api/games/${id}/media`;
+    let url = `/api/games/${id}/media/upload`;
     return super.postEntity(url, formData).pipe(
       map((res) => {
         if (res === undefined) {
@@ -179,6 +176,14 @@ getGameDetail(id : any): Observable<DataResponse> {
         deleteDiscount(id: any): Observable<DataResponse> {
     let url = `/api/GamesDiscount`;
     return super.deleteEntity(url,id).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+      deleteGameDiscount(gameid: any,discountId: any): Observable<DataResponse> {
+    let url = `/api/GamesDiscount/remove/${gameid}`;
+    return super.deleteEntity(url,discountId).pipe(
       map((res) => {
         return res;
       })

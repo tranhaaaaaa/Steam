@@ -11,4 +11,6 @@ export class DataResponse {
 
     @JsonProperty('success', Any, true)
   success: any = undefined;
+  @JsonProperty('message', Any, true)
+  message: any = undefined;
 }

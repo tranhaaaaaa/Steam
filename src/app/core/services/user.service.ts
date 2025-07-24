@@ -43,9 +43,25 @@ getListUser(): Observable<DataResponse> {
       })
     );
   }
+    changepass(formData: any): Observable<DataResponse> {
+    let url = `/api/profile/change-password`;
+    return super.postEntity(url, formData).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
     UpdateUser(formData: any,id: string): Observable<DataResponse> {
     let url = `/admin/User`;
     return super.putEntity(url,id,formData).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+     updateProfile(formData: any,id: number ): Observable<DataResponse> {
+    let url = `/admin/user/update/${id}`;
+    return super.putEntityCustom(url,formData).pipe(
       map((res) => {
         return res;
       })

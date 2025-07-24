@@ -38,7 +38,7 @@ export class GameComponent implements OnInit {
     this.currentPage = 1;
     this.updatePagination();
     })
-  }
+  }  
    paginateUsers() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;

@@ -6,21 +6,36 @@
       <img [src]="game.InstallerFilePath" [alt]="game.Title" class="game-image">
       <div class="price-section">
         <!-- Hiển thị khi có giảm giá -->
-        <ng-container *ngIf="game.DiscountPercent">
+        <ng-container *ngIf="game.Discounts">
           <div class="discount-block">
-            <div class="discount-badge">-{{ game.Price * game.DiscountPercent* 100 }}%</div>
+            <div class="discount-badge">-{{ game.Discounts[0].value || 0 }}%</div>
             <div class="price-stack">
-              <div class="original-price">{{ game.Price * game.DiscountPercent* 100 | currency:'VND' }}</div>
-              <div class="final-price">{{ game.Price | currency:'VND' }}</div>
+            <!-- Nếu có giảm giá -->
+<ng-container *ngIf="game.Discounts[0].value > 0">
+  <div class="original-price">
+    {{ game.Price | currency:'VND' }}
+  </div>
+  <div class="final-price">
+    {{ (game.Price * (1 - game.Discounts[0].value / 100)) | currency:'VND' }}
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!game.Discounts?.[0]?.value">
+  <div class="regular-price">
+    {{ game.Price | currency:'VND' }}
+  </div>
+</ng-container>
+
+              <!-- <div class="final-price">{{ game.Price | currency:'VND' }}</div> -->
             </div>
           </div>
         </ng-container>
         <!-- Hiển thị khi không giảm giá -->
-        <ng-container *ngIf="!game.DiscountPercent || game.DiscountPercent === 0">
+        <!-- <ng-container *ngIf="!game.DiscountPercent || game.DiscountPercent === 0">
           <div class="regular-price">
             {{ game.Price | currency:'VND' }}
           </div>
-        </ng-container>
+        </ng-container> -->
       </div>
     </div>
   </div>

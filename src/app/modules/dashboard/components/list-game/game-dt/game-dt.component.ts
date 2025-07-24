@@ -25,7 +25,7 @@ export class SafePipe implements PipeTransform {
 @Component({
   selector: 'app-game-dt',
   standalone: true,
-  imports: [CommonModule,SafePipe],
+  imports: [CommonModule],
   templateUrl: './game-dt.component.html',
   styleUrls: ['./game-dt.component.css']
 })
@@ -82,9 +82,7 @@ export class GameDtComponent implements OnInit {
      this.selectedMedia = this.game.media[0];
     this.gameService.getGameDetail(this.idgame).subscribe(res => {
       this.gameDetail = res.data;
-        // if(this.gameDetail.Media.length > 0){
-        //    this.selectedMedia = this.gameDetail.Media[0].MediaURL;
-        // }
+      this.selectedMedia = this.gameDetail.Media[0];
          this.gameService.getGameDiscountId(this.idgame).subscribe(resdiscount => {
           console.log("resdiscount",resdiscount);
          })

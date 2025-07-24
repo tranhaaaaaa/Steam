@@ -28,7 +28,7 @@
             <p class="text-sm mt-2">{{ game.GameName }}</p>
             <div class="mt-4">
               <span class="block">8.5/10</span>
-              <span class="block text-sm">26 thg 2, 2025</span>
+              <span class="block text-sm">{{ game.CreatedAt | date : 'dd/MM/yyyy' }}</span>
               <!-- <span class="block text-lg font-bold mt-2">{{ game.Price | number }} VND</span> -->
             </div>
           </div>

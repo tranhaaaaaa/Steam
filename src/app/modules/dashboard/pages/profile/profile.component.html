@@ -1,106 +1,173 @@
-<div class="profile-page-container">
-  
-  <!-- Profile Header -->
-  <div class="profile-header">
-    <div class="profile-header-content">
-      <!-- Avatar -->
-      <div class="avatar-container">
-        <img [src]="userProfile.avatarUrl" [alt]="userProfile.username" class="avatar-image">
-      </div>
-      
-      <!-- User Info -->
-      <div class="user-info">
-        <h1 class="username">{{ userProfile.username }}</h1>
-        <p class="real-name">{{ userProfile.realName }} <span class="country-flag">🇻🇳</span> {{ userProfile.country }}</p>
-        <p class="motto">{{ userProfile.motto }}</p>
-      </div>
-
-      <!-- Level & Badge -->
-      <div class="level-info">
-        <!-- <div class="level-box">
-          <span class="level-label">Cấp</span>
-          <span class="level-number">{{ userProfile.level }}</span>
-        </div> -->
-        <!-- <div class="featured-badge">
-          <img [src]="featuredBadge.imageUrl" [alt]="featuredBadge.title" class="badge-image">
-          <div class="badge-details">
-            <p>{{ featuredBadge.title }}</p>
-            <span>{{ featuredBadge.xp }} XP</span>
-          </div>
-        </div> -->
-        <!-- <button class="edit-profile-btn">Sửa hồ sơ</button> -->
-      </div>
+<!-- Profile Header -->
+<!-- Profile Header -->
+<div style="background: linear-gradient(to bottom, #3d224a, #1b2838 500px);" class="profile-header bg-white shadow-xl rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between max-w-4xl mx-auto">
+  <!-- Avatar + Info -->
+  <div class="flex items-center gap-6 w-full md:w-auto">
+    <img
+      [src]="userinfo.profilePicture || 'https://via.placeholder.com/150'"
+      [alt]="userinfo.UserName"
+      class="w-24 h-24 rounded-full object-cover border-4 border-blue-500 shadow-md transition duration-300 hover:scale-105"
+    />
+    <div class="text-gray-800 space-y-1">
+      <h2 class="text-2xl font-bold group-hover:text-white text-white">{{ userinfo.UserName }}</h2>
+      <p class="text-sm text-gray-500 text-white">📧 {{ userinfo.Email }}</p>
+      <p class="text-sm text-gray-500 text-white">📞 {{ userinfo.PhoneNumber || 'Chưa có số điện thoại' }}</p>
     </div>
   </div>
 
-  <!-- Main Content -->
-  <div class="main-content-grid">
-    <!-- Left Column: Recent Activity -->
-    <div class="left-column">
-      <div class="section-header">
-        <h3>Hoạt động gần đây</h3>
-        <!-- <span>12,4 giờ hai tuần qua</span> -->
-      </div>
-      
-      <div class="activity-feed">
-        <div *ngFor="let activity of recentActivity" class="activity-card">
-          <img [src]="activity.bannerUrl" [alt]="activity.gameTitle" class="game-banner">
-          <div class="activity-details">
-            <div class="game-info">
-              <h4>{{ activity.gameTitle }}</h4>
-              <p>{{ activity.playtime }}</p>
-              <p>{{ activity.lastPlayed }}</p>
-            </div>
-            <div class="achievement-progress">
-              <p>Tiến trình thành tựu <span>{{ activity.achievementsUnlocked }} trên {{ activity.achievementsTotal }}</span></p>
-              <div class="progress-bar-container">
-                <div class="progress-bar" [style.width.%]="getAchievementProgress(activity.achievementsUnlocked, activity.achievementsTotal)"></div>
-              </div>
-              <div class="achievement-icons">
-                <img *ngFor="let icon of activity.achievementIcons" [src]="icon" alt="achievement">
-                <div class="achievement-more" *ngIf="activity.achievementsTotal > activity.achievementIcons.length">
-                  +{{ activity.achievementsTotal - activity.achievementIcons.length }}
-                </div>
-              </div>
-            </div>
-            <div *ngIf="activity.review" class="review-section">
-              <svg-icon src="assets/icons/heroicons/solid/thumb-up.svg"></svg-icon>
-              <span>{{ activity.review.text }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right Column: Sidebar -->
-    <div class="right-column">
-      <div class="sidebar-section">
-        <p class="online-status">{{ userProfile.status }}</p>
-      </div>
-      
-      <div class="sidebar-section">
-        <h4 class="sidebar-title">Huy hiệu <span>{{ profileBadges.length }}</span></h4>
-        <div class="badges-grid">
-          <img *ngFor="let badge of profileBadges" [src]="badge.imageUrl" [alt]="badge.name" class="badge-icon">
-        </div>
-      </div>
-
-      <div class="sidebar-section links-section">
-        <h4 class="sidebar-title">Trò chơi <span>13</span></h4>
-        <ul>
-          <li><a href="#">Kho đồ</a></li>
-          <li><a href="#">Ảnh chụp</a></li>
-          <li><a href="#">Video</a></li>
-          <li><a href="#">Nội dung Workshop</a></li>
-          <li><a href="#">Đánh giá <span>1</span></a></li>
-          <li><a href="#">Hướng dẫn</a></li>
-          <li><a href="#">Tác phẩm <span>1</span></a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <h4 class="sidebar-title">Bạn bè <span>7</span></h4>
-      </div>
-    </div>
+  <!-- Buttons -->
+  <div class="flex flex-col gap-3 mt-6 md:mt-0 md:ml-6 w-full md:w-auto">
+    <button (click)="openProfileDialog()" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 shadow">
+      ✏️ Cập nhật thông tin
+    </button>
+    <button (click)="openPasswordDialog()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 shadow">
+      🔒 Đổi mật khẩu
+    </button>
   </div>
 </div>
+<!-- Overlay -->
+<div *ngIf="showProfileDialog || showPasswordDialog" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 relative animate-fade-in">
+    <!-- Close Button -->
+    <button (click)="closeDialogs()" class="absolute top-3 right-4 text-gray-400 hover:text-red-500 text-xl font-bold">
+      &times;
+    </button>
+
+    <!-- Profile Update Dialog -->
+    <ng-container *ngIf="showProfileDialog" style="background: linear-gradient(to bottom, #3d224a, #1b2838 500px);">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Cập nhật thông tin</h2>
+      <form [formGroup]="profileForm" (ngSubmit)="onSaveProfile()" class="space-y-4">
+        <div>
+          <label class="text-sm font-medium text-gray-700">Email</label>
+          <input readonly style="background-color: white; color:black" type="email" formControlName="email" class="input-field" />
+        </div>
+        <div>
+          <label class="text-sm font-medium text-gray-700">Số điện thoại</label>
+          <input style="background-color: white;color:black" type="text" formControlName="phoneNumber" class="input-field" />
+        </div>
+   <div>
+          <label class="text-sm font-medium text-gray-700">Ảnh đại diện</label>
+          <input style="background-color: white;color:black" type="file" (change)="fileChange($event)" class="input-field" />
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+       <button
+  type="button"
+  (click)="closeDialogs()"
+  style="
+    background-color: #e5e7eb;
+    color: #374151;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.5rem;
+    border: none;
+    transition: background-color 0.2s ease-in-out;
+  "
+  onmouseover="this.style.backgroundColor='#d1d5db'"
+  onmouseout="this.style.backgroundColor='#e5e7eb'"
+>
+  Hủy
+</button>
+
+<!-- Nút Lưu -->
+<button
+  type="submit"
+  style="
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.5rem;
+    border: none;
+    transition: background-color 0.2s ease-in-out;
+  "
+  onmouseover="this.style.backgroundColor='#1d4ed8'"
+  onmouseout="this.style.backgroundColor='#2563eb'"
+>
+  Lưu
+</button>
+
+        </div>
+      </form>
+    </ng-container>
+
+    <!-- Password Change Dialog -->
+    <ng-container *ngIf="showPasswordDialog">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Đổi mật khẩu</h2>
+      <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()" class="space-y-4">
+      <!-- Mật khẩu hiện tại -->
+<div class="relative">
+  <label class="text-sm font-medium text-gray-700">Mật khẩu hiện tại</label>
+  <input [type]="showPassword ? 'text' : 'password'" formControlName="currentPassword"
+         class="input-field pr-10 bg-white text-black" style="background-color: white;color:black"/>
+  <span class="absolute top-8 right-3 cursor-pointer text-gray-500"
+        (click)="showPassword = !showPassword">
+    {{ showPassword ? '🙈' : '👁️' }}
+  </span>
+</div>
+
+<!-- Mật khẩu mới -->
+<div class="relative">
+  <label class="text-sm font-medium text-gray-700">Mật khẩu mới</label>
+  <input [type]="showNewPassword ? 'text' : 'password'" formControlName="newPassword"
+         class="input-field pr-10 bg-white text-black" style="background-color: white;color:black"/>
+  <span class="absolute top-8 right-3 cursor-pointer text-gray-500"
+        (click)="showNewPassword = !showNewPassword">
+    {{ showNewPassword ? '🙈' : '👁️' }}
+  </span>
+</div>
+
+<!-- Xác nhận mật khẩu -->
+<div class="relative">
+  <label class="text-sm font-medium text-gray-700">Xác nhận mật khẩu mới</label>
+  <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword"
+         class="input-field pr-10" style="background-color: white;color:black" />
+  <span class="absolute top-8 right-3 cursor-pointer text-gray-500"
+        (click)="showConfirmPassword = !showConfirmPassword">
+    {{ showConfirmPassword ? '🙈' : '👁️' }}
+  </span>
+  <p *ngIf="passwordForm.get('newPassword')?.value !== passwordForm.get('confirmPassword')?.value && passwordForm.get('confirmPassword')?.touched"
+     class="text-red-500 text-sm mt-1">
+    Mật khẩu xác nhận không khớp.
+  </p>
+</div>
+        <div class="flex justify-end gap-3 pt-2">
+         <!-- Nút Hủy -->
+<button
+  type="button"
+  (click)="closeDialogs()"
+  style="
+    background-color: #e5e7eb;
+    color: #374151;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.5rem;
+    border: none;
+    transition: background-color 0.2s ease-in-out;
+  "
+  onmouseover="this.style.backgroundColor='#d1d5db'"
+  onmouseout="this.style.backgroundColor='#e5e7eb'"
+>
+  Hủy
+</button>
+
+<!-- Nút Lưu -->
+<button
+  type="submit"
+  style="
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.5rem;
+    border: none;
+    transition: background-color 0.2s ease-in-out;
+  "
+  onmouseover="this.style.backgroundColor='#1d4ed8'"
+  onmouseout="this.style.backgroundColor='#2563eb'"
+>
+  Lưu
+</button>
+
+        </div>
+      </form>
+    </ng-container>
+  </div>
+
+</div>
+        <app-order-history></app-order-history>

@@ -59,9 +59,11 @@
           <span class="font-bold text-white">{{ totalPrice | currency: 'VND' }}</span>
         </div>
         <p class="text-xs text-gray-300">Thuế tiêu thụ sẽ được tính trong quá trình thanh toán nếu có</p>
-        <button class="cursor-pointer mt-4 w-full bg-gradient-to-r from-[#3d9eff] to-[#2775e6] hover:opacity-90 text-white py-2 rounded-sm font-semibold text-sm" (click)="onPayment()">
-          Đặt đơn
-        </button>
+      <button
+  class="cursor-pointer mt-4 w-full bg-gradient-to-r from-[#3d9eff] to-[#2775e6] hover:opacity-90 text-white py-2 rounded-sm font-semibold text-sm"
+  (click)="openPaymentDialog()">
+  Thanh toán
+</button>
       </div>
 
       <!-- License information -->
@@ -73,5 +75,39 @@
 
     </div>
 
+  </div>
+</div>
+<div *ngIf="isPaymentDialogOpen" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50"
+     [ngStyle]="{ 'background-color': 'rgba(0, 0, 0, 0.5)' }">
+  <div class="bg-[#1b2838] p-6 rounded-lg text-white w-96"
+       [ngStyle]="{ 'width': '24rem', 'padding': '1.5rem', 'border-radius': '0.5rem', 'background-color': '#1b2838' }">
+    <h3 class="text-xl font-semibold mb-4" [ngStyle]="{ 'font-size': '1.25rem', 'font-weight': '600', 'margin-bottom': '1rem' }">
+      Chọn phương thức thanh toán
+    </h3>
+    <div class="space-y-4">
+      <!-- Thanh toán bằng VNPay -->
+      <button
+        class="w-full py-2 bg-[#3d9eff] rounded-md text-sm text-white hover:bg-[#2775e6] transition"
+        [ngStyle]="{ 'background-color': '#3d9eff', 'border-radius': '0.375rem', 'padding': '0.5rem', 'text-align': 'center' }"
+        (click)="payWithVNPay()">
+        <i class="fab fa-cc-visa inline-block h-6 mr-2"></i>
+        Thanh toán bằng VNPay
+      </button>
+
+      <!-- Thanh toán bằng MoMo -->
+      <button
+        class="w-full py-2 bg-[#3d9eff] rounded-md text-sm text-white hover:bg-[#2775e6] transition"
+        [ngStyle]="{ 'background-color': '#3d9eff', 'border-radius': '0.375rem', 'padding': '0.5rem', 'text-align': 'center' }"
+        (click)="payWithMoMo()">
+        <i class="fab fa-cc-mastercard inline-block h-6 mr-2"></i>
+        Thanh toán bằng MoMo
+      </button>
+    </div>
+    <button
+      class="mt-4 w-full py-2 bg-[#2f323b] rounded-md text-sm text-white hover:bg-[#3b3f4a] transition"
+      [ngStyle]="{ 'background-color': '#2f323b', 'border-radius': '0.375rem', 'padding': '0.5rem', 'text-align': 'center' }"
+      (click)="closePaymentDialog()">
+      Đóng
+    </button>
   </div>
 </div>
