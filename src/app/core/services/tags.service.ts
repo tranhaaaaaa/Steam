@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
 import { JsonConvert } from 'json2typescript';
-import { Tag } from '../models/db.model';
+import { GameTag, Tag } from '../models/db.model';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { DataResponse } from '../models/data-reponse.service';
 
@@ -33,8 +33,36 @@ getListTag(): Observable<DataResponse> {
         })
       );
   }
+  getListGameTag(): Observable<DataResponse> {
+  let url = `/api/gamestag`;
+   return super.get(url).pipe(
+        map((res) => {
+          const dataRes: DataResponse = this.jsonConvert.deserializeObject(
+            res,
+            DataResponse
+          );
+          let value: Array<GameTag> = this.jsonConvert.deserializeArray(
+            dataRes.data,
+            GameTag
+          );
+          dataRes.data = value;
+          return dataRes;
+        })
+      );
+  }
  addTag(formData : any): Observable<any> {
     let url = `/admin/SystemTag`;
+    return super.postEntity(url, formData).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
+   addgameTag(formData : any): Observable<any> {
+    let url = `/api/gamestag`;
     return super.postEntity(url, formData).pipe(
       map((res) => {
         if (res === undefined) {
@@ -73,6 +101,14 @@ getListTag(): Observable<DataResponse> {
 }
  DeleteTag(id: any): Observable<DataResponse> {
     let url = `/admin/SystemTag`;
+    return super.deleteEntity(url,id).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+   DeleteGameTag(id: any): Observable<DataResponse> {
+    let url = `/api/gamestag`;
     return super.deleteEntity(url,id).pipe(
       map((res) => {
         return res;

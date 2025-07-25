@@ -82,3 +82,13 @@
   border-color: orange;
   background-color: #fdf7f7;
 }
+/* styles.css or component-specific CSS */
+.mat-select-panel {
+  max-height: 70px !important; /* Thay đổi chiều cao tối đa theo nhu cầu */
+  overflow-y: auto;  /* Thêm thanh cuộn dọc */
+}
+.mat-mdc-option.mdc-list-item {
+  height: 40px !important;
+  overflow-y: auto !important;
+  background-color:white !important
+}

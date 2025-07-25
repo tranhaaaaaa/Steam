@@ -100,7 +100,7 @@ isPaymentDialogOpen = false;
     console.log(this.cartWithGames);
     for (let index = 0; index < this.cartWithGames.length; index++) {
       const element = this.cartWithGames[index].gameDetails;
-      this.totalPrice += element.Price;
+      this.totalPrice += element.Price * (1 - element.Discounts[0].value / 100);
     }
   });
   }

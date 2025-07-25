@@ -82,6 +82,7 @@ export class GameDtComponent implements OnInit {
      this.selectedMedia = this.game.media[0];
     this.gameService.getGameDetail(this.idgame).subscribe(res => {
       this.gameDetail = res.data;
+      console.log("this.gameDetail",this.gameDetail);
       this.selectedMedia = this.gameDetail.Media[0];
          this.gameService.getGameDiscountId(this.idgame).subscribe(resdiscount => {
           console.log("resdiscount",resdiscount);

@@ -22,7 +22,10 @@
     <div class="lg:col-span-2 space-y-4">
       <div *ngFor="let item of cartWithGames" class="relative bg-[#1e2026] rounded-xl p-4 flex flex-col md:flex-row justify-between border border-[#2f323b] gap-4">
         <span class="absolute top-4 right-4 text-lg font-bold text-white">
-          {{ item.gameDetails.Price | currency: 'VND' }}
+          <!-- {{ item.gameDetails.Price | currency: 'VND' }}
+          {{ item.gameDetails.Discounts[0].value | currency: 'VND' }} -->
+                <div class="original-price">{{ item.gameDetails.Price  | number}}VND</div>
+            <div class="final-price"> {{ (item.gameDetails.Price * (1 - item.gameDetails.Discounts[0].value / 100)) | currency:'VND' }}</div>
         </span>
 
         <div class="flex gap-4 flex-1">

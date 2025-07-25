@@ -356,8 +356,8 @@ export class GameInfor {
   @JsonProperty('installerFilePath', StringConverter, true)
   InstallerFilePath: string = '' as any;
 
-  @JsonProperty('gameTags', GameTagArrayConverter, true)
-  GameTags: GameTag[] = [];
+  @JsonProperty('tags', GameTagArrayConverter, true)
+  Tags: GameTag[] = [];
 
   @JsonProperty('reviews', ReviewArrayConverter, true)
   Reviews: Review[] = [];
@@ -432,6 +432,9 @@ export class GameTag {
 
   @JsonProperty('game', StringConverter, true)
   Game: string = '';
+
+    @JsonProperty('tagName', StringConverter, true)
+    TagName: string = '';
 
   @JsonProperty('tagID', NumberConverter, true)
   TagID: number = 0;
