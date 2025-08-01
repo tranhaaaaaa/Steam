@@ -38,7 +38,6 @@ export class DiscountComponent implements OnInit {
     });
   }
 
-  // Lọc danh sách theo mã giảm giá
   onSearchChange() {
     const filtered = this.listDiscount.filter(discount =>
       discount.code.toLowerCase().includes(this.searchTerm.toLowerCase())
@@ -59,11 +58,20 @@ export class DiscountComponent implements OnInit {
     if (mode === 'edit' && discount) {
       this.tempDiscount = { ...discount };
     } else {
-      this.tempDiscount = new Discount(); // Reset form cho thêm mới
+      this.tempDiscount = new Discount();
+      this.tempDiscount.code = this.randomString(5);
     }
     this.isDialogOpen = true;
   }
-
+ randomString(length: number) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+ }
   // Đóng dialog
   closeDialog() {
     this.isDialogOpen = false;

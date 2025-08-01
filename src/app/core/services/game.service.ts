@@ -146,7 +146,7 @@ getGameDetail(id : any): Observable<DataResponse> {
     );
   }
      createGameDiscount(id:any,idDiscount:any): Observable<any> {
-    let url = `/api/gamesdiscount/assign/${id}/${idDiscount}`;
+    let url = `/api/GamesDiscount/assign/${id}/${idDiscount}`;
     return super.postEntity(url).pipe(
       map((res) => {
         if (res === undefined) {

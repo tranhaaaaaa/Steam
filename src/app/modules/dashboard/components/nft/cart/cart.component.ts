@@ -40,22 +40,39 @@ export class CartComponent implements OnInit {
     private paymentService : PaymentService
   ) {}
 isPaymentDialogOpen = false;
+isPaymentDialogOpen2 = false;
+
 
   // Mở dialog thanh toán
   openPaymentDialog(): void {
+  if(this.listCart.length < 1){
+    this.toastrService.warning('Giỏ hàng trống');
+  }else{
     this.isPaymentDialogOpen = true;
+  }
   }
 
   // Đóng dialog thanh toán
   closePaymentDialog(): void {
     this.isPaymentDialogOpen = false;
   }
+  openPaymentDialog2(): void {
+    this.isPaymentDialogOpen2 = true;
+  }
+
+  // Đóng dialog thanh toán
+  closePaymentDialog2(): void {
+    this.isPaymentDialogOpen2 = false;
+  }
 
   // Thanh toán bằng VNPay
   payWithVNPay(): void {
     console.log('Thanh toán bằng VNPay');
-    this.closePaymentDialog(); // Đóng dialog sau khi chọn
-    // Bạn có thể gọi API hoặc điều hướng đến trang thanh toán VNPay ở đây
+     this.onPayment();
+   
+    this.closePaymentDialog(); 
+    // this.openPaymentDialog2();
+    
   }
 
   // Thanh toán bằng MoMo
@@ -84,8 +101,6 @@ isPaymentDialogOpen = false;
     });
   }
 
-
-  // Map cart items to full game data by matching gameId
   mapCartToGameDetails() {
     this.totalPrice = 0;
       this.gameService.getListGame().subscribe(data => {
@@ -94,7 +109,7 @@ isPaymentDialogOpen = false;
       const gameDetails = this.listGames.find((game: any) => game.Id == cartItem.GameId);
       return {
         ...cartItem,  
-        gameDetails: gameDetails  // Add the full game details to the cart item
+        gameDetails: gameDetails  
       };
     });
     console.log(this.cartWithGames);
@@ -104,8 +119,8 @@ isPaymentDialogOpen = false;
     }
   });
   }
+  
 onPayment() {
-  // Lấy thông tin người dùng
   const userId = this.userLogged.getCurrentUser().userId;
 
   // Tính toán tổng giá trị
@@ -140,7 +155,14 @@ onPayment() {
       });
     });
       this.toastrService.success("Đặt đơn thành công!");
-
+      debugger
+ let formData = {
+      orderId : this.odId.toString(),
+      amount : totalAmount
+    }
+    this.paymentService.paymentCreate(formData).subscribe((data ) => {
+           window.open(data.paymentUrl, '_blank');
+    })
    this.deleteAll();
   });
 }

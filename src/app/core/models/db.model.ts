@@ -420,6 +420,8 @@ export class Media {
 
   @JsonProperty('mediaURL', StringConverter, true)
   MediaURL: string = '';
+    @JsonProperty('mediaType', StringConverter, true)
+  MediaType: string = '';
 }
 
 @JsonObject('GameTag')

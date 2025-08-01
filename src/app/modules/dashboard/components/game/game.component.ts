@@ -73,14 +73,14 @@ export class GameComponent implements OnInit {
   }
   toggleStatus(account: any) {
     console.log(account);
-  if (account.isActive === 'active') {
-    account.Status = 'inactive';
+  if (account.IsActive === false) {
+    account.Status = "inactive";
       this.gameService.inactive(account,account.Id).subscribe(res => {
         this.toastService.success("Cập nhật trạng thái game thành công!");
       })
 
   } else {
-    account.Status = 'active';
+    account.Status = "active";
      this.gameService.active(account,account.Id).subscribe(res => {
         this.toastService.success("Cập nhật trạng thái game thành công!");
       })

@@ -15,7 +15,7 @@ export class PaymentService extends ApiService{
    
   }
           paymentCreate(formData : any): Observable<any> {
-    let url = `/api/payment/create`;
+    let url = `/api/payment/vnpay-create`;
     return super.postEntity(url, formData).pipe(
       map((res) => {
         if (res === undefined) {

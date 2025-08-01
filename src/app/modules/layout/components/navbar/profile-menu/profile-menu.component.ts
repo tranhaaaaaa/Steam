@@ -44,6 +44,7 @@ export class ProfileMenuComponent implements OnInit {
   cartItemCount = 0;
   public userLogged = new UserLogged()
   public isLogin = false;
+  public img = '';
   public username = '';
   public listCart : Cart[]=[];
   email: any;
@@ -115,6 +116,8 @@ openCart() {
       this.username = this.userLogged.getCurrentUser().username;
      this.userService.getUserById(this.userLogged.getCurrentUser().userId).subscribe((data) => {
        this.email = data.data[0].Email;
+       this.img = data.data[0].profilePicture;
+       console.log("this.img",data);
      })
       }
   }

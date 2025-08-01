@@ -84,7 +84,7 @@ public listTags : Tag[] = [];
   }
 fileChange(event: any) {
   if (event.target.files.length) {
-    const fileAllow = '.png,.jpg'; // Allowed file extensions
+    const fileAllow = '.png,.jpg,.mp4'; // Allowed file extensions
     const sizeFileAllow = '10'; // Max file size in MB
 
     const arrayFileAllow = fileAllow.toLowerCase().split(',');
@@ -224,9 +224,7 @@ fileChange(event: any) {
               discountId: this.discountId,
               gameId: response.data.id
             }
-            this.gameService.createGameDiscount(response.data.id, this.discountId).subscribe({
-              
-            })
+        
             for (let index = 0; index < this.tagSelected.length; index++) {
                 const element = this.tagSelected[index];
                 let formData = {
@@ -241,7 +239,9 @@ fileChange(event: any) {
               error: (err) => console.error('Error uploading file:', err),
             });
           });
-
+    this.gameService.createGameDiscount(response.data.id, this.discountId).subscribe({
+              
+            })
           this.router.navigate(['/dashboard/manager-game']);
         },
         error: (err) => {
@@ -254,7 +254,7 @@ fileChange(event: any) {
       createPayload.id = parseInt(this.idgame);
       this.gameService.UpdateGame(createPayload, this.idgame).subscribe({
         next: (response) => {
-        this.gameService.deleteGameDiscount(this.idgame,this.game.Discounts[0].id).subscribe();
+        this.gameService.createGameDiscount(this.idgame,this.discountId).subscribe();
           this.toastService.success('Cập nhật game thành công!');
           this.router.navigate(['/dashboard/manager-game']);
         },

@@ -81,13 +81,14 @@
             <input type="file" (change)="fileChange($event)" #input class="file-upload-btn" multiple />
 
             <!-- Display placeholder text when no files are uploaded -->
-            <input
+            
+            <!-- <input
               *ngIf="!uploadedFiles.length"
               type="file" (change)="fileChange($event)" #input class="file-upload-btn" multiple
               class="form-control"
               placeholder="Choose a file..."
-               />
-
+               /> -->
+           <i (change)="fileChange($event)" class="fa fa-upload"></i>  Chọn ảnh, video...
             <!-- Display uploaded file names -->
             <div *ngIf="uploadedFiles.length">
               <ul>

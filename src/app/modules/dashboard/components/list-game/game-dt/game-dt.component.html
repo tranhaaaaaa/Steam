@@ -10,16 +10,22 @@
 
     <div class="left-column">
  <div class="media-carousel" *ngIf="selectedMedia">
-        <div class="main-media">
-    
-          <img [src]="selectedMedia.MediaURL" alt="Main game media">
+        <div class="main-media"> 
+          <img [src]="selectedMedia.MediaURL" alt="Main game media" *ngIf="selectedMedia.MediaType === 'image'">
+      <video *ngIf="selectedMedia.MediaType === 'video'" controls>
+            <source [src]="selectedMedia.MediaURL" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+
+
+
         </div>
         <div class="thumbnail-strip">
           <div *ngFor="let media of gameDetail.Media" class="thumbnail" 
                [class.active]="media.Id === selectedMedia.Id"
                (click)="selectMedia(media)">
-            <img [src]="media.MediaURL" alt="Game thumbnail">
-            <!-- <div class="play-icon"></div> -->
+            <img [src]="media.MediaURL" alt="Game thumbnail" *ngIf="media.MediaType === 'image'">
+            <div class="play-icon" *ngIf="media.MediaType === 'video'" (click)="selectMedia(media)"></div>
           </div>
         </div>
       </div>
@@ -28,10 +34,7 @@
         <button class="action-btn">Theo dõi</button>
         <button class="action-btn">Phớt lờ</button>
       </div>
-      <!-- <div class="language-warning">
-        <h3>Không hỗ trợ ngôn ngữ Tiếng Việt</h3>
-        <p>Sản phẩm này không hỗ trợ ngôn ngữ địa phương của bạn. Vui lòng xem lại danh sách ngôn ngữ được hỗ trợ dưới đây trước khi mua.</p>
-      </div> -->
+ 
 
    
       <div class="purchase-section">
@@ -61,8 +64,8 @@
       <img [src]="gameDetail.InstallerFilePath" alt="Game capsule" class="capsule-image">
       <p class="game-description-right">{{ gameDetail.Description }}</p>
       <div class="review-summary">
-        <p><strong>ĐÁNH GIÁ GẦN ĐÂY:</strong> <span class="positive">{{ game.reviews.recent }}</span> ({{ game.reviews.recentCount }})</p>
-        <p><strong>ĐÁNH GIÁ CHUNG:</strong> <span class="positive">{{ game.reviews.all }}</span> ({{ game.reviews.allCount }})</p>
+        <p><strong>ĐÁNH GIÁ GẦN ĐÂY:</strong> <span class="positive">500</span> (200)</p>
+        <p><strong>ĐÁNH GIÁ CHUNG:</strong> <span class="positive">1000</span> (440)</p>
       </div>
       <div class="release-info">
         <p><strong>NGÀY PHÁT HÀNH:</strong> {{ gameDetail.CreatedAt | date }}</p>

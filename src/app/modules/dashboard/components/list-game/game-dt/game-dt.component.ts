@@ -30,40 +30,13 @@ export class SafePipe implements PipeTransform {
   styleUrls: ['./game-dt.component.css']
 })
 export class GameDtComponent implements OnInit {
-
+sanitizedMediaUrl!: SafeResourceUrl;
   selectedMedia: any;
   userLogged = new UserLogged();
 
 
   showAddToCartDialog = false;
 
-
-  game = {
-    id: 1627720, 
-    title: 'Lies of P',
-    description: 'Lies of P is a thrilling soulslike that takes the story of Pinocchio, turns it on its head, and sets it against the darkly elegant backdrop of the Belle Epoque era.',
-    mainImage: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/header.jpg?t=1701916187',
-    media: [
-      { type: 'video', url: 'https://www.youtube.com/embed/opu4T76MUps?autoplay=1&mute=1', thumbnailUrl: 'https://i.ytimg.com/vi/opu4T76MUps/hqdefault.jpg' },
-      { type: 'image', url: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/ss_0a93756b553b4481f084666359b37849c7cc72f1.600x338.jpg' },
-      { type: 'image', url: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/ss_d830f3a38f712757271b86c8782705a221d1193d.600x338.jpg' },
-      { type: 'image', url: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/ss_8f0b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b.600x338.jpg' },
-      { type: 'image', url: 'https://cdn.akamai.steamstatic.com/steam/apps/1627720/ss_4e6984d7a8b8c5c8e8f8f8f8f8f8f8f8f8f8f8f8.600x338.jpg' },
-    ],
-    tags: ['Dark Souls', 'Hành động', 'Kỳ ảo u ám', 'Đen tối'],
-    reviews: {
-      recent: 'Rất tích cực',
-      recentCount: '1,709',
-      all: 'Rất tích cực',
-      allCount: '39,594'
-    },
-    releaseDate: '18 Thg09, 2023',
-    developer: 'NEOWIZ',
-    publisher: 'NEOWIZ',
-    price: '525.000₫',
-    discount: 50,
-    originalPrice: '1.050.000₫'
-  };
   public gameDetail = new GameInfor();
   public idgame : any;
   // NEW: Inject các service cần thiết cho giỏ hàng
@@ -72,6 +45,7 @@ export class GameDtComponent implements OnInit {
     private toastService: ToastrService,
     private authService: AuthService,
     private router: Router,
+    private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private gameService : GameService
   ) { 
@@ -79,7 +53,6 @@ export class GameDtComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.selectedMedia = this.game.media[0];
     this.gameService.getGameDetail(this.idgame).subscribe(res => {
       this.gameDetail = res.data;
       console.log("this.gameDetail",this.gameDetail);
@@ -90,9 +63,13 @@ export class GameDtComponent implements OnInit {
     });
   }
 
-  selectMedia(mediaItem: any): void {
-    this.selectedMedia = mediaItem;
+selectMedia(mediaItem: any): void {
+  if (mediaItem.MediaType === 'video') {
+    this.sanitizedMediaUrl = this.sanitizer.bypassSecurityTrustResourceUrl(mediaItem.MediaURL);
   }
+  this.selectedMedia = mediaItem;
+}
+
 
 
 
