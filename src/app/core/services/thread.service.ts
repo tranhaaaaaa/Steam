@@ -3,7 +3,7 @@ import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { DataResponse } from '../models/data-reponse.service';
-import { Thread, ThreadReply } from '../models/db.model';
+import { Review, Thread, ThreadReply } from '../models/db.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,23 @@ export class ThreadService extends ApiService{
             let value: Array<Thread> = this.jsonConvert.deserializeArray(
               dataRes.data,
               Thread
+            );
+            dataRes.data = value;
+            return dataRes;
+          })
+        );
+    }
+      getListReviewByGameId(gameId: any): Observable<DataResponse> {
+    let url = `/api/games/reviews/by-game/${gameId}`;
+     return super.get(url).pipe(
+          map((res) => {
+            const dataRes: DataResponse = this.jsonConvert.deserializeObject(
+              res,
+              DataResponse
+            );
+            let value: Array<Review> = this.jsonConvert.deserializeArray(
+              dataRes.data,
+              Review
             );
             dataRes.data = value;
             return dataRes;
@@ -69,6 +86,28 @@ export class ThreadService extends ApiService{
     }
      addThreadReply(formData : any): Observable<any> {
     let url = `/api/StoreThreadReply`;
+    return super.postEntity(url, formData).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
+   addReview(formData : any): Observable<any> {
+    let url = `/api/games/reviews`;
+    return super.postEntity(url, formData).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
+      addThreadUpvote(formData : any): Observable<any> {
+    let url = `/api/StoreThread/upvote`;
     return super.postEntity(url, formData).pipe(
       map((res) => {
         if (res === undefined) {

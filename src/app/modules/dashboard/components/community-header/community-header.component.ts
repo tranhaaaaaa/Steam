@@ -20,12 +20,14 @@ export class CommunityHeaderComponent implements OnInit{
   title: any;
   description: any;
   listThreadReply: ThreadReply[] = [];
-  
+  createTitle : any;
+  createImageUrl : any;
+  createDescription : any;
   public userLogged = new UserLogged();
   public game : GameInfor = new GameInfor();
   public gameId: number | null = null;
   public isModalOpen01 : boolean = false;
-
+isLiked!: false
   constructor(private service : GameService,
     private storeService : ThreadService,
     private toastService : ToastrService
@@ -35,6 +37,10 @@ export class CommunityHeaderComponent implements OnInit{
   openModal() {
     this.isModalOpen = true;
   }
+  likePost(id: number) {
+        this.isLiked = this.isLiked; // Đảo ngược trạng thái LIKE
+        // Bạn có thể thêm logic để lưu lại trạng thái LIKE vào cơ sở dữ liệu nếu cần
+    }
 onOpenGame(id: number) {
   this.gameId = id;
   this.isModalOpen = true;
@@ -42,9 +48,30 @@ onOpenGame(id: number) {
   closeModal() {
     this.isModalOpen = false;
   }
+  onCreatePostModal() {
+    
+    if(this.createDescription == null || this.createDescription == undefined || this.createDescription == '' || this.createImageUrl == null || this.createImageUrl == undefined || this.createImageUrl == '' || this.createTitle == null || this.createTitle == undefined || this.createTitle == '')
+      {
+        this.toastService.warning("Vui lòng nhập đầy đủ thông tin!");
+       
+      }
+      else{
+        let formData = {
+          threadTitle : this.createTitle,
+          threadDescription : this.createDescription,
+          createdBy : this.userLogged.getCurrentUser().userId,
+          threadImageUrl : this.createImageUrl,
+          upvoteCount : 0,
+          createdAt: new Date()
+        }
+        this.storeService.addThread(formData).subscribe(res => {
+          this.toastService.success("Thêm bài viết thành công!","Thành công");
+          this.onGetData();
+          this.isModalOpen01 = false;
+        })
+      }
+  }
   onSubmit(){
-    console.log(this.title);
-    console.log(this.description);
     let formData = {
       threadTitle : this.title,
       threadDescription : this.description,

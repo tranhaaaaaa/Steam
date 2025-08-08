@@ -78,7 +78,15 @@ getStars(upvoteCount: number): number[] {
         threadID : this.gameId
       }
         this.threadService.addThreadReply(form).subscribe((res) => {
-          console.log(res);
+          
+          let formData = {
+            userId : this.userLogged.getCurrentUser().userId,
+            threadID : res.data.id,
+            createdAt: new Date()
+          }
+          this.threadService.addThreadUpvote(formData).subscribe((res) => {
+            
+          })
           this.loadGameDetails();
         })
       this.newComment = ''; 

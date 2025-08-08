@@ -12,6 +12,7 @@ import { UserLogged } from 'src/app/core/utils/userLogged';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { TagsService } from 'src/app/core/services/tags.service';
+import { RolepermissionService } from 'src/app/core/services/rolepermission.service';
 export interface FileWithMediaURL {
   file: File;
   mediaURL: string;
@@ -49,6 +50,7 @@ export class GameDetailComponent implements OnInit {
   public discountId : any;
 uploadedFiles: FileWithMediaURL[] = [];
 public listTags : Tag[] = [];
+public isAdmin : boolean = false;
   constructor(
     private gameService: GameService,
     private fb: FormBuilder,
@@ -57,10 +59,14 @@ public listTags : Tag[] = [];
     private toastService: ToastrService,
     private gameCategoryService: GamecategoryService,
     private router: Router,
+    private permissionService : RolepermissionService,
     private tagService : TagsService,
     private location: Location,
     private changeDetectorRef: ChangeDetectorRef
   ) {
+    if(this.permissionService.hasRole(["Admin"])){
+      this.isAdmin = true;
+    }
     // Khởi tạo form với tất cả các trường cần thiết
     this.gameForm = this.fb.group({
       Title: ['', Validators.required],

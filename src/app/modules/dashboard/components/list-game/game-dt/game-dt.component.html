@@ -57,6 +57,32 @@
         <h2>VỀ TRÒ CHƠI NÀY</h2>
         <p>{{ gameDetail.Description }}</p>
       </div>
+      <div class="reviews-section">
+  <h2>ĐÁNH GIÁ SẢN PHẨM</h2>
+
+  <!-- Static review items -->
+  <div class="review-item" *ngFor="let review of listReview">
+    <div class="review-header">
+      <div class="stars">
+        <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star" [class.filled]="star <= review.StarCount"></span>
+      </div>
+      <p class="review-author">{{review.UserID}}</p>
+    </div>
+    <p class="review-text">{{ review.Comment }}</p>
+  </div>
+  <div class="review-input-section">
+    <h3>Để lại đánh giá của bạn</h3>
+    <form>
+      <div class="stars">
+        <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star" style="color:red" [class.filled]="star <= 5"></span>
+      </div>
+      <textarea placeholder="Nhập đánh giá của bạn" name="hihi" rows="4" [(ngModel)]="comment"></textarea>
+      <button type="submit" class="submit-review-btn" (click)="sendComment()">Gửi đánh giá</button>
+    </form>
+  </div>
+</div>
+
+
     </div>
 
 

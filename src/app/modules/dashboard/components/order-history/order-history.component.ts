@@ -18,19 +18,25 @@ export class OrderHistoryComponent implements OnInit {
   public isDialogOpen: boolean = false;  // Track the modal visibility
   public currentPage: number = 1;
   public totalPages: number = 1;
-
+public pagedOrders: StoreOrder[] = [];
   constructor(private storeService: StoreOrdersService) {}
 
   ngOnInit(): void {
     this.onGetData();
   }
 
-  onGetData() {
-    this.storeService.getListOrder().subscribe(res => {
-      this.listOrder = res.data.filter((x: any) => x.UserId == this.userLogged.getCurrentUser().userId);
-      this.totalPages = Math.ceil(this.listOrder.length / 10);
-    });
-  }
+onGetData() {
+  this.storeService.getListOrder().subscribe(res => {
+    this.listOrder = res.data.filter((x: any) => x.UserId == this.userLogged.getCurrentUser().userId);
+    this.totalPages = Math.ceil(this.listOrder.length / 10);
+    this.updatePagedOrders();  // Update the orders for the first page
+  });
+}
+updatePagedOrders() {
+  const start = (this.currentPage - 1) * 10; // Calculate the starting index for pagination
+  const end = start + 10; // Get the next 10 items
+  this.pagedOrders = this.listOrder.slice(start, end);  // Set the sliced array to the displayed list
+}
 
   viewDetails(order: StoreOrder) {
     this.tempOrder = { ...order }; // Clone order data to display in modal
@@ -54,11 +60,13 @@ export class OrderHistoryComponent implements OnInit {
     this.isDialogOpen = false;  // Close the dialog
   }
 
-  changePage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-    }
+changePage(page: number) {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+    this.updatePagedOrders();  // Update orders when the page changes
   }
+}
+
 
   deleteOrder(orderId: string) {
     // this.storeService.deleteOrder(orderId).subscribe(() => {

@@ -34,15 +34,50 @@
       class="w-full bg-[#171a21] border border-[#2a475e] rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
       style="margin-bottom: 10px;"
       *ngFor="let item of listThread"
-      (click)="onOpenGame(item.Id)"
+      
     >
-      <div class="p-4">
-        <h2 class="text-lg font-semibold text-white mb-2">{{ item.ThreadTitle }}</h2>
-        <p class="text-sm text-gray-400 mb-4">{{ item.ThreadDescription }}</p>
-        <div class="text-right text-gray-500 text-xs">
-          <div class="inline-block mr-2">Bình luận</div>
-          Posted on {{ item.CreatedAt | date:'mediumDate' }}
+  <div class="p-4">
+    <h2 class="text-lg font-semibold text-white mb-2" (click)="onOpenGame(item.Id)">{{ item.ThreadTitle }}</h2>
+    <p class="text-sm text-gray-400 mb-4" (click)="onOpenGame(item.Id)">{{ item.ThreadDescription }}</p>
+    
+    <div class="text-right text-gray-500 text-xs">
+        <div class="inline-block mr-2" (click)="onOpenGame(item.Id)">Bình luận</div>
+        Posted on {{ item.CreatedAt | date:'mediumDate' }}
+
+        <!-- Thêm biểu tượng LIKE -->
+        <div class="inline-block ml-2">
+            <button (click)="likePost(item.Id)" class="text-gray-500 hover:text-blue-500">
+                <i class="fas fa-thumbs-up"></i> Thích
+            </button>
         </div>
+    </div>
+</div>
+
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div *ngIf="isModalOpen01" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl p-8 w-full max-w-lg shadow-xl relative animate-fade-in">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Thêm bài viết mới</h2>
+
+    <div class="space-y-5">
+      <div>
+       <label><b>Tiêu đề</b></label>
+       <input type="text" [(ngModel)]="createTitle" style="background-color: white;color: black;" placeholder="Nhập tiêu đề" class="input-field" />
+        <label><b>Nội dung</b></label>
+      <textarea class="input-field" [(ngModel)]="createDescription" style="background-color: white;color: black;" placeholder="Nhập nội dung"></textarea>
+      <label><b>Ảnh minh họa</b></label>
+       <input type="text" [(ngModel)]="createImageUrl" style="background-color: white;color: black;" placeholder="Nhập địa chỉ ảnh" class="input-field" />
+      </div>
+
+
+      <!-- Các nút để đóng hoặc thực hiện hành động -->
+      <div class="flex justify-end gap-3 pt-4">
+        <button type="button" (click)="IscloseModal()"
+                class="px-4 py-2 border rounded-xl text-gray-600 hover:bg-gray-200">Hủy</button>
+        <button type="button"
+                class="px-4 py-2 bg-[#66c0f4] text-white rounded-xl hover:bg-[#55a0cc]" (click)="onCreatePostModal()">Xác nhận</button>
       </div>
     </div>
   </div>

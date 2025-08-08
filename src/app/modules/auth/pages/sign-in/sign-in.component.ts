@@ -53,7 +53,7 @@ export class SignInComponent implements OnInit {
     this.service.login(this.form.value).subscribe(res => {
       if (res) {
         debugger
-      if(res =="OTP đã gửi về email!"){
+      if(res =="An OTP has been sent to your email!"){
         this.toastService.success("OTP đã gửi về email!");
         this.userLogged.setUsername(this.form.value.username);
         this._router.navigate(['auth/verify-login']);
