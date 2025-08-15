@@ -37,4 +37,23 @@
 /* Hover thumb */
 ::-webkit-scrollbar-thumb:hover {
   background-color: #888;
-}
+}  .file-upload-btn {
+    position: absolute;
+    width: 100%;
+    height: 35px;
+    z-index: 9;
+    opacity: 0;
+  }
+  .delete-file {
+    position: absolute;
+    right: 50px;
+    top: 8px;
+    font-size: 16px;
+    opacity: 0.8;
+    cursor: pointer;
+    z-index: 99;
+    visibility: hidden;
+  }
+  &:hover .delete-file {
+    visibility: visible;
+  }

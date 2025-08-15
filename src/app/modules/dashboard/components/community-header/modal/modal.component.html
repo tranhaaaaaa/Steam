@@ -3,10 +3,12 @@
     <!-- Close Button -->
     <button (click)="onClose()" class="absolute top-2 right-3 text-gray-300 text-xl hover:text-white">&times;</button>
     <h2 class="text-xl font-bold">{{ game.ThreadTitle }}</h2>
-    <div class="text-sm text-gray-400 mt-4">
+    <!-- <div class="text-sm text-gray-400 mt-4">
   {{ totalstars | number: '1.1-1' }} Sao
-</div>
+</div> -->
     <p class="text-sm text-gray-400 mb-4">Ngày đăng: {{ game.CreatedAt | date }}</p>
+    <p class="text-sm text-gray-400 mb-4">Tạo bởi: {{ game.createdByUserName }}</p>
+
     <p class="whitespace-pre-line text-sm leading-relaxed mb-6">{{ game.ThreadDescription }}</p>
 
     <div class="border-t border-[#2a475e] pt-6">
@@ -14,32 +16,41 @@
         Bình luận về "{{ game.ThreadTitle }}"
       </h3>
       <div class="flex items-start space-x-3 bg-[#101821] p-4 rounded mb-4">
-        <img src="assets/avatar.png" alt="avatar" class="w-10 h-10 rounded-full object-cover mt-1" />
+        <img [src]="game.createdByProfilePic" alt="avatar" class="w-10 h-10 rounded-full object-cover mt-1" />
         <textarea
           [(ngModel)]="newComment"
           placeholder="Viết bình luận"
           class="flex-1 bg-[#1b2838] text-white p-3 rounded resize-none outline-none border border-[#2a475e] focus:border-[#66c0f4]"
           rows="3"
         ></textarea>
-        <div class="flex items-center space-x-1 ml-2">
+        <div>
+           <input type="file"  [(ngModel)]="this.file.name" (change)="fileChange($event)" #input class="file-upload-btn" />
+
+     
+           <i (change)="fileChange($event)" class="fa fa-upload"></i>  Chọn ảnh, video...
+          </div>
+        <!-- <div class="flex items-center space-x-1 ml-2">
           <i (click)="setStarRating(1)" [class.text-yellow-400]="starRating >= 1" [class.text-gray-400]="starRating < 1" class="fas fa-star cursor-pointer"></i>
           <i (click)="setStarRating(2)" [class.text-yellow-400]="starRating >= 2" [class.text-gray-400]="starRating < 2" class="fas fa-star cursor-pointer"></i>
           <i (click)="setStarRating(3)" [class.text-yellow-400]="starRating >= 3" [class.text-gray-400]="starRating < 3" class="fas fa-star cursor-pointer"></i>
           <i (click)="setStarRating(4)" [class.text-yellow-400]="starRating >= 4" [class.text-gray-400]="starRating < 4" class="fas fa-star cursor-pointer"></i>
           <i (click)="setStarRating(5)" [class.text-yellow-400]="starRating >= 5" [class.text-gray-400]="starRating < 5" class="fas fa-star cursor-pointer"></i>
-        </div>
+        </div> -->
+      
+      </div>
+     
         <button
           (click)="sendComment()"
-          class="text-[#66c0f4] hover:text-white text-xl ml-2"
+          class="px-4 py-2 bg-[#2a475e] text-white rounded-md hover:bg-[#1f3a4b] transition"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        Gửi
+          <!-- <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l7-7-7-7M21 14l-7-7-7 7" />
-          </svg>
+          </svg> -->
         </button>
-      </div>
       <div class="flex items-center space-x-2 mb-6 text-sm">
-        <input type="checkbox" id="follow" class="accent-[#66c0f4]" [(ngModel)]="followDiscussion" />
-        <label for="follow" class="text-white">Đăng ký theo dõi thảo luận</label>
+        <!-- <input type="checkbox" id="follow" class="accent-[#66c0f4]" [(ngModel)]="followDiscussion" />
+        <label for="follow" class="text-white">Đăng ký theo dõi thảo luận</label> -->
       </div>
 
       <!-- Danh sách bình luận -->

@@ -45,7 +45,6 @@
   transform: scale(1.05);
 }
   .file-upload-btn {
-    position: absolute;
     width: 100%;
     height: 35px;
     z-index: 9;

@@ -1,0 +1,12 @@
+/* CSS cho hình ảnh */
+.object-cover {
+  object-fit: cover; /* Giữ tỉ lệ ảnh và đầy đủ khung */
+  width: 20%;
+  height: 100%;
+}
+
+.object-contain {
+  object-fit: contain; /* Giữ tỉ lệ ảnh và làm cho ảnh vừa vặn trong khung */
+  width: 20%;
+  height: 100%;
+}

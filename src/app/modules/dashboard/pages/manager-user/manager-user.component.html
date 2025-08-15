@@ -25,20 +25,29 @@
           <th class="px-6 py-4">Tên</th>
           <th class="px-6 py-4">Email</th>
           <th class="px-6 py-4">Số điện thoại</th>
+          <th class="px-6 py-4">Trạng thái</th>
           <th class="px-6 py-4">Quyền</th>
           <th class="px-6 py-4">Hành động</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let user of paginatedUsers" class="border-b hover:bg-gray-50">
-        
+         
           <td class="px-6 py-4">{{ user.UserName }}</td>
           <td class="px-6 py-4">{{ user.Email }}</td>
           <td class="px-6 py-4">{{ user.PhoneNumber }}</td>
+        <td class="px-6 py-4">
+  <label class="switch">
+    <input type="checkbox" [(value)] = "user.Status" (change)="toggleStatus(user)">
+    <span class="slider" [ngClass]="{'active': user.Status === 'active', 'banned': user.Status === 'banned'}"></span>
+  </label>
+</td>
+
+
             <td class="px-6 py-4">{{ user.Role[0] }}</td>
           <td class="py-4 px-6 text-center space-x-2">
             <button class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 cursor-pointer" (click)="onDetailPages(user)">Sửa</button>
-            <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 cursor-pointer">Xóa</button>
+            <!-- <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 cursor-pointer">Xóa</button> -->
           </td>
         </tr>
       </tbody>

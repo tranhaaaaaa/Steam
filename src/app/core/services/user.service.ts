@@ -67,6 +67,14 @@ getListUser(): Observable<DataResponse> {
       })
     );
   }
+      updateDisplayname(displayname: any,id: number ): Observable<DataResponse> {
+    let url = `/admin/User/update/displayname/${id}?displayName=${displayname}`;
+    return super.putEntityCustom(url).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
 getUserById(id: any): Observable<DataResponse> {
   const url = `/admin/User/id/${id}`;
  return super.get(url).pipe(

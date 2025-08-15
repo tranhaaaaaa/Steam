@@ -111,11 +111,11 @@ export class MenuService implements OnDestroy {
             label: 'Quản lý giảm giá',
             route: '/dashboard/discount',
           },
-           {
-            icon: 'assets/icons/heroicons/outline/calendar.svg',
-            label: 'Quản lý hệ thống',
-            route: '/dashboard/system',
-          },
+          //  {
+          //   icon: 'assets/icons/heroicons/outline/calendar.svg',
+          //   label: 'Quản lý hệ thống',
+          //   route: '/dashboard/system',
+          // },
          
         ],
     

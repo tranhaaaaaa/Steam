@@ -6,6 +6,8 @@ import { UserService } from 'src/app/core/services/user.service';
 import { Nft } from '../../models/nft';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { GameService } from 'src/app/core/services/game.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-manager-user',
@@ -23,8 +25,11 @@ currentPage: number = 1;
   paginatedUsers: User[] = []; 
     searchTerm: string = '';
   constructor( private  userService :UserService,
-    private router : Router
+    private router : Router,
+    private toastService : ToastrService,
+    private gameService : GameService
   ){
+    
   }
   ngOnInit(): void {
     this.onGetData();
@@ -69,5 +74,22 @@ this.totalItems = this.listUser.length;
  get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
+toggleStatus(user: User){
+  debugger
+  if(user.Status == 'active'){
+      this.gameService.bandUser(user.Id).subscribe(res => {
+        this.toastService.success("Khóa người dùng thành công!");
+        this.onGetData();
+      })
+  }
+  else
+if(user.Status == 'banned'){
+      this.gameService.unbandUser(user.Id).subscribe(res => {
+        this.toastService.success("Mở khóa người dùng thành công!");
+        
+      })
+  }
+  
 
+}
 }

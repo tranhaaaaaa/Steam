@@ -10,6 +10,7 @@ import { CartService } from 'src/app/core/services/cart.service';
 import { Cart } from 'src/app/core/models/db.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { RolepermissionService } from 'src/app/core/services/rolepermission.service';
 
 @Component({
   selector: 'app-profile-menu',
@@ -101,7 +102,7 @@ openCart() {
       code: '#6d28d9',
     },
   ];
-
+  isAdmin = false;
   public themeMode = ['light', 'dark'];
   public themeDirection = ['ltr', 'rtl'];
 
@@ -109,19 +110,27 @@ openCart() {
     private router: Router,
     private cartService : CartService,
     private authService : AuthService,
-    private userService : UserService
+    private userService : UserService,
+    private permissionService : RolepermissionService
   ) {
      if(this.userLogged.isLogged()){
       this.isLogin = true;
-      this.username = this.userLogged.getCurrentUser().username;
+      // this.username = this.userLogged.getCurrentUser().username;
      this.userService.getUserById(this.userLogged.getCurrentUser().userId).subscribe((data) => {
        this.email = data.data[0].Email;
+       this.username = data.data[0].displayName;
        this.img = data.data[0].profilePicture;
-       console.log("this.img",data);
      })
       }
+      if(this.permissionService.hasRole(["Admin"]) || this.permissionService.hasRole(["Staff"])){this.isAdmin = true}
+  }
+onRegisterpage(){
+    this.router.navigate(['auth/sign-up']);
   }
 
+onloginPage(){
+    this.router.navigate(['auth/sign-in']);
+}
   ngOnInit(): void {
       this.cartService.getListCart().subscribe((data) =>{
         this.listCart = data.data.filter((x:any)=> x.UserId == this.userLogged.getCurrentUser().userId);
@@ -159,7 +168,7 @@ handleNotificationAction(){
      history(){
     // this.userLogged.logout()
   //  this.router.navigate(['/auth/sign-in'])
-    window.location.href = '/dashboard/order-history'
+    window.location.href = '/dashboard/game-buyed'
   }
   toggleThemeColor(color: string) {
     this.themeService.theme.update((theme) => {

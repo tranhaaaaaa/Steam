@@ -45,7 +45,7 @@ export class ForgotPasswordComponent implements OnInit {
       },
       error => {
         console.log(error);
-        this.toastService.error("Có lỗi xảy ra!");
+      this.toastService.error('OTP không chính xác hoặc đã hết hạn, vui lòng thử lại!','Thất bại!');
       })
     }
   }

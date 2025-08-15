@@ -16,106 +16,107 @@ export class Menu {
           label: 'Trang chủ',
           route: '/dashboard/nfts',
         },
-        {
-          icon: 'assets/icons/heroicons/outline/gift.svg',
-          label: 'Points Shop', // Thêm menu item mới
-          route: '/dashboard/points-shop',
-        },
+        // {
+        //   icon: 'assets/icons/heroicons/outline/gift.svg',
+        //   label: 'Points Shop', // Thêm menu item mới
+        //   route: '/dashboard/points-shop',
+        // },
         {
           icon: 'assets/icons/heroicons/outline/users.svg',
           label: 'Yêu thích',
-          route: '/users',
+          route: '/dashboard/wishlist',
         },
-        {
-          icon: 'assets/icons/heroicons/outline/users.svg',
-          label: 'Tin tức',
-          route: '/users',
-        },
-         {
-          icon: 'assets/icons/heroicons/outline/users.svg',
-          label: 'Thống kê',
-          route: '/users',
-        },
+        // {
+        //   icon: 'assets/icons/heroicons/outline/users.svg',
+        //   label: 'Tin tức',
+        //   route: '/users',
+        // },
+        //  {
+        //   icon: 'assets/icons/heroicons/outline/users.svg',
+        //   label: 'Thống kê',
+        //   route: '/users',
+        // },
       ],
     },
     {
       group: 'Cộng đồng',
       separator: true,
+    //  route: '/dashboard/community',
       items: [
         {
           icon: 'assets/icons/heroicons/outline/download.svg',
           label: 'Trang chủ',
           route: '/dashboard/community',
         },
-        {
-          icon: 'assets/icons/heroicons/outline/gift.svg',
-          label: 'Thảo luận', 
-          route: '/gift',
-        },
-        {
-          icon: 'assets/icons/heroicons/outline/users.svg',
-          label: 'Workshop',
-          route: '/users',
-        },
-         {
-          icon: 'assets/icons/heroicons/outline/users.svg',
-          label: 'Chợ',
-          route: '/users',
-        },
-         {
-          icon: 'assets/icons/heroicons/outline/users.svg',
-          label: 'Phát sóng',
-          route: '/users',
-        },
+        // {
+        //   icon: 'assets/icons/heroicons/outline/gift.svg',
+        //   label: 'Thảo luận', 
+        //   route: '/gift',
+        // },
+        // {
+        //   icon: 'assets/icons/heroicons/outline/users.svg',
+        //   label: 'Workshop',
+        //   route: '/users',
+        // },
+        //  {
+        //   icon: 'assets/icons/heroicons/outline/users.svg',
+        //   label: 'Chợ',
+        //   route: '/users',
+        // },
+        //  {
+        //   icon: 'assets/icons/heroicons/outline/users.svg',
+        //   label: 'Phát sóng',
+        //   route: '/users',
+        // },
       ],
     },
-    {
-      group: this.labelThongTin,
-      separator: true,
-      items: [
-        {
-          icon: 'assets/icons/heroicons/outline/download.svg',
-          label: 'Trang cá nhân',
-          route: this.route,
-        },
-        {
-          icon: 'assets/icons/heroicons/outline/gift.svg',
-          label: 'Discovery Queue', 
-          route: '/gift',
-        },
-        {
-          icon: 'assets/icons/heroicons/outline/users.svg',
-          label: 'Whishlist',
-          route: '/users',
-        },
-      ],
-    },
-    {
-      group: 'Hỗ trợ',
-      separator: false,
-      items: [
-        {
-          icon: 'assets/icons/heroicons/outline/cog.svg',
-          label: 'Settings',
-          route: '/settings',
-        },
-        {
-          icon: 'assets/icons/heroicons/outline/bell.svg',
-          label: 'Notifications',
-          route: '/gift',
-        },
-        {
-          icon: 'assets/icons/heroicons/outline/folder.svg',
-          label: 'Folders',
-          route: '/folders',
-          children: [
-            { label: 'Current Files', route: '/folders/current-files' },
-            { label: 'Downloads', route: '/folders/download' },
-            { label: 'Trash', route: '/folders/trash' },
-          ],
-        },
-      ],
-    },
+    // {
+    //   group: this.labelThongTin,
+    //   separator: true,
+    //   items: [
+    //     {
+    //       icon: 'assets/icons/heroicons/outline/download.svg',
+    //       label: 'Trang cá nhân',
+    //       route: this.route,
+    //     },
+    //     {
+    //       icon: 'assets/icons/heroicons/outline/gift.svg',
+    //       label: 'Discovery Queue', 
+    //       route: '/gift',
+    //     },
+    //     {
+    //       icon: 'assets/icons/heroicons/outline/users.svg',
+    //       label: 'Whishlist',
+    //       route: '/users',
+    //     },
+    //   ],
+    // },
+    // {
+    //   group: 'Hỗ trợ',
+    //   separator: false,
+    //   items: [
+    //     {
+    //       icon: 'assets/icons/heroicons/outline/cog.svg',
+    //       label: 'Settings',
+    //       route: '/settings',
+    //     },
+    //     {
+    //       icon: 'assets/icons/heroicons/outline/bell.svg',
+    //       label: 'Notifications',
+    //       route: '/gift',
+    //     },
+    //     {
+    //       icon: 'assets/icons/heroicons/outline/folder.svg',
+    //       label: 'Folders',
+    //       route: '/folders',
+    //       children: [
+    //         { label: 'Current Files', route: '/folders/current-files' },
+    //         { label: 'Downloads', route: '/folders/download' },
+    //         { label: 'Trash', route: '/folders/trash' },
+    //       ],
+    //     },
+    //   ],
+    // },
   ];
 
     public static pages2: MenuItem[] = [

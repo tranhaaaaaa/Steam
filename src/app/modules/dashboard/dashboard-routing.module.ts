@@ -33,6 +33,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { DiscountComponent } from './components/discount/discount.component';
 import { OrderDetailComponent } from './components/orders/order-detail/order-detail.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { GameBuyedComponent } from './components/game-buyed/game-buyed.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
 const routes: Routes = [
   {
     path: '',
@@ -125,6 +127,14 @@ const routes: Routes = [
          {
       path: 'new-game',
       component: GameDetailComponent
+      },
+          {
+      path: 'wishlist',
+      component: WishlistComponent
+      },
+        {
+      path: 'game-buyed',
+      component: GameBuyedComponent
       },
        {
       path: 'manager-user/user-detail/:id',

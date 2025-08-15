@@ -1,0 +1,145 @@
+/* Vùng nền tổng */
+.steam-bg {
+  background-color: #1b1b1b;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Wrapper */
+.wrapper {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Lưới card */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+/* Card game */
+.game-card {
+  background-color: #2a2a2a; /* nền xám đậm */
+  border-radius: 8px;
+  overflow: hidden;
+  color: #fff; /* chữ trắng */
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Ảnh */
+.cover img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* Meta info */
+.meta {
+  padding: 12px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.genre {
+  font-size: 13px;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+/* Nút */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn.primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn.ghost {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background-color: #0069d9;
+}
+
+.btn.ghost:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 100;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #2a2a2a; /* xám đậm */
+  border-radius: 10px;
+  padding: 20px;
+  width: 500px;
+  max-width: 90%;
+  z-index: 101;
+  color: #fff; /* chữ trắng */
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-cover {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.modal-genre {
+  color: #ccc;
+  font-size: 14px;
+}
+
+.modal-price {
+  color: #9fc0ff;
+  margin-top: 8px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff;
+}

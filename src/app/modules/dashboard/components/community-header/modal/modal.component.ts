@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { GameInfor, Thread, ThreadReply } from 'src/app/core/models/db.model';
 import { GameService } from 'src/app/core/services/game.service';
 import { ThreadService } from 'src/app/core/services/thread.service';
@@ -19,12 +20,14 @@ export class ModalComponent implements OnChanges {
   game: Thread = new Thread();
 newComment: string = '';
 totalstars: number = 0;
+file: any;
 public userLogged = new UserLogged();
 public listReply : ThreadReply[] = [];
 followDiscussion: boolean = false;
 
   constructor(private gameService: GameService,
     private threadService : ThreadService,
+    private toastService : ToastrService
   ) {}
 getStars(upvoteCount: number): number[] {
     return new Array(upvoteCount).fill(0);
@@ -71,12 +74,18 @@ getStars(upvoteCount: number): number[] {
   }
  sendComment() {
     if (this.newComment.trim()) {
-      let form = {
-        threadComment : this.newComment,
-        upvoteCount : this.starRating,
-        createdBy : this.userLogged.getCurrentUser().userId,
-        threadID : this.gameId
-      }
+      let form = new FormData();
+      form.append('threadComment', this.newComment);
+      form.append('upvoteCount', this.starRating.toString());
+      form.append('createdBy', this.userLogged.getCurrentUser().userId.toString());
+      form.append('threadID', this.gameId.toString());
+      form.append('imageFile', this.file);
+      // let form = {
+      //   threadComment : this.newComment,
+      //   upvoteCount : this.starRating,
+      //   createdBy : this.userLogged.getCurrentUser().userId,
+      //   threadID : this.gameId
+      // }
         this.threadService.addThreadReply(form).subscribe((res) => {
           
           let formData = {
@@ -93,6 +102,37 @@ getStars(upvoteCount: number): number[] {
       this.starRating = 5;  
     }
   }
-  
+  fileChange(event: any) {
+  if (event.target.files.length) {
+      
+    const fileAllow = '.png,.jpg,.mp4'; // Allowed file extensions
+    const sizeFileAllow = '10'; // Max file size in MB
+
+    const arrayFileAllow = fileAllow.toLowerCase().split(',');
+
+    // Lấy tệp đầu tiên được chọn
+    const file = event.target.files[0];
+    const fileExtension = `.${file.name.split('.').pop()}`;
+
+    // Kiểm tra phần mở rộng tệp
+    if (!arrayFileAllow.includes(fileExtension.toLowerCase())) {
+      this.toastService.warning('Loại file không được hỗ trợ. Chỉ chấp nhận .png, .jpg, hoặc .mp4.');
+      return;
+    }
+
+    // Kiểm tra kích thước tệp
+    const maxSizeInBytes = parseInt(sizeFileAllow) * 1024 * 1024; // Convert MB to Bytes
+    if (file.size > maxSizeInBytes) {
+      this.toastService.warning('Dung lượng file quá lớn. Vui lòng chọn tệp nhỏ hơn 10MB.');
+      return;
+    }
+
+    // Nếu tệp hợp lệ, gán vào createImageUrl
+    this.file = event.target.files[0];
+
+  } else {
+    this.toastService.warning('Vui lòng chọn tệp.');
+  }
+}
 }
 

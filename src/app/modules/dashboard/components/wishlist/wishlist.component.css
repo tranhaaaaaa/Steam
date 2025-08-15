@@ -1,0 +1,443 @@
+/* Vùng nền tổng */
+.steam-bg {
+  background-color: #1b1b1b;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Wrapper */
+.wrapper {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Lưới card */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+/* Card game */
+.game-card {
+  background-color: #2a2a2a; /* nền xám đậm */
+  border-radius: 8px;
+  overflow: hidden;
+  color: #fff; /* chữ trắng */
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Ảnh */
+.cover img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* Meta info */
+.meta {
+  padding: 12px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.genre {
+  font-size: 13px;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+/* Nút */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn.primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn.ghost {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background-color: #0069d9;
+}
+
+.btn.ghost:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 100;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #2a2a2a; /* xám đậm */
+  border-radius: 10px;
+  padding: 20px;
+  width: 500px;
+  max-width: 90%;
+  z-index: 101;
+  color: #fff; /* chữ trắng */
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-cover {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.modal-genre {
+  color: #ccc;
+  font-size: 14px;
+}
+
+.modal-price {
+  color: #9fc0ff;
+  margin-top: 8px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff;
+}
+:host {
+  display: block;
+  background: #1b2838;
+  color: #c7d5e0;
+  font-family: "Motiva Sans", sans-serif;
+}
+.product-page-container {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+.breadcrumbs { font-size: 0.8rem; color: #8f98a0; margin-bottom: 10px; }
+.breadcrumbs a { color: #8f98a0; text-decoration: none; }
+.breadcrumbs a:hover { color: #ffffff; }
+.game-title { font-size: 1.8rem; font-weight: 300; color: #ffffff; margin-bottom: 20px; }
+
+.main-content-grid {
+  display: grid;
+  grid-template-columns: 600px 1fr;
+  gap: 28px;
+}
+.left-column { display: flex; flex-direction: column; gap: 20px; }
+/* .right-column { /* Styles for capsule, reviews, tags, etc.} 
+
+/* Media Carousel Styles */
+.media-carousel { width: 600px; }
+.main-media img, .main-media iframe {
+  width: 100%;
+  height: 338px;
+  border: none;
+  background-color: #000;
+}
+.thumbnail-strip { display: flex; gap: 4px; margin-top: 4px; }
+.thumbnail {
+  width: 116px;
+  height: 65px;
+  cursor: pointer;
+  position: relative;
+  border: 2px solid transparent;
+}
+.thumbnail:hover { border-color: #fff; }
+.thumbnail.active { border-color: #fff; }
+.thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+.thumbnail .play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="32px" height="32px"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>') no-repeat center center;
+  opacity: 0.8;
+}
+
+/* Action Buttons */
+.action-buttons-container { display: flex; gap: 5px; }
+.action-btn {
+  background: rgba(103, 193, 245, 0.2);
+  border: none;
+  border-radius: 2px;
+  padding: 8px 15px;
+  color: #67c1f5;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.action-btn:hover { background: rgba(103, 193, 245, 0.4); color: #fff; }
+.action-btn.green {
+  background: linear-gradient(to right, #75b022, #588a1b);
+  color: #d2ff9d;
+}
+.action-btn.green:hover { filter: brightness(1.1); }
+
+/* Language Warning */
+.language-warning {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid #000;
+  padding: 10px 15px;
+  font-size: 0.8rem;
+}
+.language-warning h3 {
+  color: #ffc82c;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+.language-warning p { margin: 0; color: #acb2b8; }
+
+/* Right Column Styles */
+.capsule-image { width: 100%; border-radius: 3px; margin-bottom: 10px; }
+.game-description-right { font-size: 0.85rem; line-height: 1.5; margin-bottom: 15px; }
+.review-summary p { font-size: 0.8rem; color: #8f98a0; margin: 0 0 5px; }
+.review-summary .positive { color: #66c0f4; }
+.release-info { font-size: 0.8rem; margin-top: 15px; }
+.release-info p { margin-bottom: 3px; }
+.release-info strong { color: #8f98a0; font-weight: 400; display: inline-block; width: 110px; }
+.release-info a { color: #66c0f4; text-decoration: none; }
+.tags-container { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 15px; }
+.tag {
+  background-color: rgba(102, 192, 244, 0.2);
+  color: #66c0f4; padding: 4px 8px;
+  border-radius: 2px; font-size: 0.75rem; text-decoration: none;
+}
+.tag:hover { background-color: rgba(102, 192, 244, 0.3); }
+.plus-tag { font-weight: bold; }
+
+/* Purchase Section Styles */
+.purchase-section { margin-top: 0; } /* Reset margin as it's now in a flex container */
+.purchase-section h2 { font-size: 1rem; font-weight: 400; color: white; margin-bottom: 10px; }
+.purchase-box {
+  background: linear-gradient(to right, #2a475e, #1b2838);
+  padding: 15px; border-radius: 3px;
+  display: flex; align-items: center; justify-content: space-between; gap: 15px;
+}
+.discount-badge {
+  background-color: #4c6b22; color: #a0cf00;
+  padding: 8px 12px; font-size: 1.5rem; font-weight: 500;
+}
+.reviews-section {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.review-item {
+  background-color: rgba(102, 192, 244, 0.2);
+  border-radius: 8px;
+  color:white;
+  margin-bottom: 20px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+  display: flex;
+  color:white;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.stars {
+  display: inline-block;
+}
+
+.star {
+  font-size: 18px;
+  color: #e0e0e0;
+}
+
+.star.filled {
+  color: #ffca28;
+}
+
+.review-author {
+  font-weight: bold;
+  color:white;
+  color: #333;
+}
+
+.review-text {
+  font-size: 14px;
+  color:white;
+  line-height: 1.6;
+  color: #555;
+}
+
+.review-input-section {
+ background-color: rgba(102, 192, 244, 0.2);
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.review-input-section h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.submit-review-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-review-btn:hover {
+  background-color: #0056b3;
+}
+
+.price-info { text-align: right; }
+.original-price { font-size: 0.8rem; color: #738895; text-decoration: line-through; }
+.final-price { font-size: 1rem; color: #a0cf00; }
+.add-to-cart-btn {
+  background: linear-gradient(to right, #75b022, #588a1b);
+  color: #d2ff9d; border: none; padding: 8px 20px;
+  border-radius: 2px; font-size: 1rem; cursor: pointer;
+  white-space: nowrap;
+}
+.add-to-cart-btn:hover { filter: brightness(1.1); }
+
+/* About Section */
+.about-section h2 {
+  font-size: 1rem; font-weight: 400; color: white;
+  margin-bottom: 10px; padding-bottom: 5px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.about-section p { font-size: 0.9rem; line-height: 1.6; }
+
+
+/* ... (tất cả các style cũ giữ nguyên) ... */
+
+/* NEW: STYLES FOR ADD TO CART DIALOG */
+.dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.dialog-panel {
+  background: #1b2838;
+  color: #c7d5e0;
+  padding: 25px;
+  border-radius: 4px;
+  border: 1px solid #000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 500px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.dialog-title {
+  font-size: 1.5rem;
+  color: #66c0f4;
+  margin: 0 0 15px 0;
+  font-weight: 300;
+}
+
+.dialog-content {
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.dialog-btn {
+  border: none;
+  border-radius: 2px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.dialog-btn:hover {
+  filter: brightness(1.1);
+}
+
+.dialog-btn.secondary {
+  background: linear-gradient(to right, #435f7a, #33495e);
+  color: #d2e8f6;
+}
+
+.dialog-btn.primary {
+  background: linear-gradient(to right, #75b022, #588a1b);
+  color: #d2ff9d;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

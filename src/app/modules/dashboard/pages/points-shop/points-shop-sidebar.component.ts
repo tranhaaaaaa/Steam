@@ -27,8 +27,8 @@ export class PointsShopSidebarComponent implements OnInit {
       group: 'Tiêu biểu',
       items: [
         { label: 'Trang chủ tiêu biểu', route: '/dashboard/points-shop', icon: 'assets/icons/heroicons/outline/home.svg' },
-        { label: 'Từ trò chơi của bạn', route: '/dashboard/points-shop/from-games', icon: 'assets/icons/heroicons/outline/puzzle-piece.svg' },
-        { label: 'Từ ưu đãi & sự kiện', route: '/dashboard/points-shop/sales-events', icon: 'assets/icons/heroicons/outline/calendar-days.svg' },
+        // { label: 'Từ trò chơi của bạn', route: '/dashboard/points-shop/from-games', icon: 'assets/icons/heroicons/outline/puzzle-piece.svg' },
+        // { label: 'Từ ưu đãi & sự kiện', route: '/dashboard/points-shop/sales-events', icon: 'assets/icons/heroicons/outline/calendar-days.svg' },
         { label: 'Bộ sản phẩm', route: '/dashboard/points-shop/bundles', icon: 'assets/icons/heroicons/outline/archive-box.svg' }
       ]
     },

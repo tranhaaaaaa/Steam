@@ -11,6 +11,7 @@ import { GameService } from 'src/app/core/services/game.service';
 import { GameInfor, Review } from 'src/app/core/models/db.model';
 import { ThreadService } from 'src/app/core/services/thread.service';
 import { FormsModule } from '@angular/forms';
+import { WishlistService } from 'src/app/core/services/wishlist.service';
 
 
 @Pipe({
@@ -50,7 +51,8 @@ sanitizedMediaUrl!: SafeResourceUrl;
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private threadService : ThreadService,
-    private gameService : GameService
+    private gameService : GameService,
+    private wishlistService : WishlistService
   ) { 
     this.idgame = this.route.snapshot.paramMap.get('id');
   }
@@ -129,5 +131,10 @@ selectMedia(mediaItem: any): void {
   viewCart(): void {
     this.closeAddToCartDialog();
     this.router.navigate(['/dashboard/cart']);
+  }
+  onAddwishlist(){
+    this.wishlistService.addGameTowishlist(this.userLogged.getCurrentUser().userId,(this.idgame)).subscribe((res:any) => {
+     this.toastService.success("Thêm vào danh sách thích","Thành công");
+    })
   }
 }

@@ -1,0 +1,34 @@
+<div class="steam-bg">
+  <div class="wrapper">
+    <h1 style="color:rgb(221, 151, 151); font-weight: bold;font-size: 20px;margin-bottom: 30px;">Thư viện game đã mua</h1>
+    <div class="grid">
+      <article class="game-card" *ngFor="let g of listLibrary">
+        <div class="cover">
+          <img [src]="g.CoverImagePath" [alt]="g.Title" />
+        </div>
+        <div class="meta">
+          <h3 class="title">{{ g.Title }}</h3>
+          <div class="genre">{{ g.Genre }}</div>
+          <div class="actions">
+            <button class="btn primary" (click)="download(g)">Tải xuống</button>
+            <button class="btn ghost" (click)="openModal(g)">Xem thông tin</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()"></div>
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <span class="close-btn" (click)="closeModal()">×</span>
+    <img class="modal-cover" [src]="selectedGame?.CoverImagePath" />
+    <h2>{{ selectedGame?.Title }}</h2>
+    <p class="modal-genre">{{ selectedGame?.Genre }}</p>
+    <p>{{ selectedGame?.Description }}</p>
+    <p class="modal-price">Giá: {{ selectedGame?.Price | number }} ₫</p>
+    <button class="btn primary" (click)="download(selectedGame!)">Tải xuống</button>
+  </div>
+</div>

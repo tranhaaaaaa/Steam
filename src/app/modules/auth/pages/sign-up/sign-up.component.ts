@@ -67,17 +67,21 @@ export class SignUpComponent implements OnInit {
         if(res ==='User registered.') {
           // this.toastrService.success('Đăng ký thanh cong!');
         
+        }else if(res =="An OTP has been sent to your email for verification. Please check your inbox.")
+        {
+          this.userLogged.setEmail(email);
+          this.router.navigate(['auth/two-steps']);
         }
       },
       error => {
-        debugger
-      if(error.error.text=='Đã gửi OTP xác thực đến email. Vui lòng kiểm tra hộp thư.'){
+     
+      if(error.error.text=="An OTP has been sent to your email for verification. Please check your inbox."){
           this.userLogged.setEmail(email);
   // document.cookie = `email=${email}; path=/auth/two-steps; expires=${new Date(new Date().getTime() + 30*24*60*60*1000).toUTCString()};`;
 
           this.router.navigate(['auth/two-steps']);
       }else{
-         this.toastrService.error('Có lỗi xảy ra!');
+        this.toastrService.error("Email đã đăng ký, vui lý nhập email khác.");
       }
        
       }

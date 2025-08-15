@@ -75,7 +75,7 @@ export class NewPasswordComponent implements OnInit {
       this.router.navigate(['/']);
       this.userLogged.deleteEmail();
   } else{
-    this.toastService.error('Có lỗi xảy ra!');
+     this.toastService.error('OTP không chính xác hoặc đã hết hạn, vui lòng thử lại!','Thất bại!');
   }
     }
     )

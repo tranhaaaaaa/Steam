@@ -1,6 +1,6 @@
-<div class="relative flex items-center gap-3 ml-3">
+<div class="relative flex items-center gap-3 ml-3" *ngIf="isLogin">
   <!-- Nút giỏ hàng -->
-  <button *ngIf="isLogin"
+  <button *ngIf="isLogin && !isAdmin "
     (click)="openCart()"
     class="relative flex h-9 w-9 items-center justify-center rounded-md bg-card text-muted-foreground hover:text-primary transition cursor-pointer"
     type="button"
@@ -51,7 +51,7 @@
     <div class="flext-row flex items-center px-4 pb-4">
       <div class="w-10 shrink-0">
         
-        <img class="rounded-md" src="https://avatars.githubusercontent.com/u/12519008?v=4" alt="" />
+        <img class="rounded-md" [src]="img" alt="" />
       </div>
       <div class="text-foreground overflow-hidden px-2 text-sm font-semibold">
         {{username}}
@@ -67,9 +67,9 @@
          <svg-icon src="./assets/icons/heroicons/outline/user-circle.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
         Hồ sơ của tôi
       </li>
-      <li [routerLink]="['/auth/sign-in']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer" (click)="history()">
-         <svg-icon src="./assets/icons/heroicons/outline/history.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
-       Lịch sử đơn hàng
+      <li *ngIf="!isAdmin" [routerLink]="['/auth/sign-in']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer" (click)="history()">
+         <svg-icon src="./assets/icons/heroicons/outline/download.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
+        Game của bạn
       </li>
       <li [routerLink]="['/auth/sign-in']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer" (click)="logout()">
          <svg-icon src="./assets/icons/heroicons/outline/logout.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
@@ -77,4 +77,14 @@
       </li>
     </ul>
   </div>
+</div>
+<div class="relative flex items-center gap-3 ml-3" *ngIf="!isLogin"> 
+  <button (click)="onRegisterpage()"
+    class="mr-2 inline-flex rounded-md px-10 py-1 text-sm font-medium bg-green-600 text-white cursor-pointer" *ngIf="!isLogin">
+    <span>Đăng ký</span>
+  </button>
+ <button (click)="onloginPage()" *ngIf="!isLogin"
+    class="mr-2 inline-flex rounded-md px-10 py-1 text-sm font-medium text-white cursor-pointer" style="color:white; background-color: rgb(54, 116, 171);">
+    <span>Đăng nhập</span>
+  </button>
 </div>

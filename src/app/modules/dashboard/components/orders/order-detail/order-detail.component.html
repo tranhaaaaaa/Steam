@@ -19,9 +19,9 @@
   <p class="mb-2"><b>Ngày đặt:</b> {{ listOrders.OrderDate | date : 'dd/MM/yyyy hh:mm a'}}</p>
   <p class="mb-4"><b>Tổng tiền:</b> {{ listOrders.TotalAmount| number }}đ</p>
   <p class="mb-4"><b>Email người mua hàng:</b> {{ listOrders.Email}}</p>
-  <p class="mb-4"><b>SDT:</b> {{ listOrders.Email}}</p>
+  <p class="mb-4"><b>SDT:</b> {{ listOrders.PhoneNumber}}</p>
 
-  <div class="mt-8 text-center">
+  <!-- <div class="mt-8 text-center">
     <button
       class="bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-3 rounded-xl shadow-md transition"
      
@@ -34,5 +34,5 @@
     >
       Từ chối cho phép tải game
     </button>
-  </div>
+  </div> -->
 </div>

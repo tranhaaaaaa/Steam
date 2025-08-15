@@ -151,7 +151,17 @@ export class ReviewArrayConverter implements JsonCustomConvert<Review[]> {
         return jsonConvert.deserializeArray(data, Review);
     }
 }
-
+@JsonConverter
+export class GameInfoArrayConverter implements JsonCustomConvert<GameInfor[]> {
+    serialize(data: GameInfor[]): any {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.serializeArray(data);
+    }
+    deserialize(data: any): GameInfor[] {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.deserializeArray(data, GameInfor);
+    }
+}
 @JsonConverter
 export class ReviewConverter implements JsonCustomConvert<Review> {
     serialize(data: Review): any {
@@ -220,7 +230,17 @@ export class DiscountArrayConverter implements JsonCustomConvert<Discount[]> {
         return jsonConvert.deserializeArray(data, Discount);
     }
 }
-
+@JsonConverter
+export class LibraryArrayConverter implements JsonCustomConvert<Library[]> {
+    serialize(data: Library[]): any {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.serializeArray(data);
+    }
+    deserialize(data: any): Library[] {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.deserializeArray(data, Library);
+    }
+}
 @JsonConverter
 export class TagConverter implements JsonCustomConvert<Tag> {
     serialize(data: Tag): any {
@@ -249,6 +269,8 @@ export class User {
   
   @JsonProperty('profilePicture', StringConverter, true)
   profilePicture: string = '' as any;
+  @JsonProperty('displayName', StringConverter, true)
+  displayName: string = '' as any;
 
   @JsonProperty('normalizedEmail', StringConverter, true)
   NormalizedEmail: string = '' as any;
@@ -268,6 +290,9 @@ export class User {
   @JsonProperty('phoneNumber', StringConverter, true)
   PhoneNumber: string = '' as any;
 
+  @JsonProperty('status', StringConverter, true)
+  Status: string = '' as any;
+
   @JsonProperty('phoneNumberConfirmed', BooleanConverter, true)
   PhoneNumberConfirmed: boolean = '' as any;
 
@@ -285,8 +310,37 @@ export class User {
 
   @JsonProperty('roles', Any, true)   
   Role: any = '' as any;
-}
 
+  @JsonProperty('profilePicture', String, true)
+  ProfilePicture: string = '' as any;  
+  @JsonProperty('wishlist', GameInfoArrayConverter, true)
+  Wishlist: GameInfor[] = [];
+  @JsonProperty('library', LibraryArrayConverter, true)
+  Library: Library[] = [] as any;
+}
+@JsonObject('library')
+export class Library {
+  @JsonProperty('id', StringConverter, true)
+  Id: string = '' as any;
+
+  @JsonProperty('title', StringConverter, true)
+  Title: string = '' as any; 
+
+  @JsonProperty('description', StringConverter, true)
+  Description: string = '' as any;
+
+  @JsonProperty('price', NumberConverter, true)
+  Price: number = '' as any;
+
+  @JsonProperty('genre', StringConverter, true)
+  Genre: string = '' as any;
+
+  @JsonProperty('coverImagePath', StringConverter, true)
+  CoverImagePath: string = '' as any;
+
+  @JsonProperty('installerFilePath', StringConverter, true)
+  InstallerFilePath: string = '' as any;
+}
 
 @JsonObject('AddUser')
 export class AddUser {
@@ -361,6 +415,8 @@ export class GameInfor {
 
   @JsonProperty('reviews', ReviewArrayConverter, true)
   Reviews: Review[] = [];
+
+
    @JsonProperty('media',MediaArrayConverter , true)
   Media: Media[] = [];
   @JsonProperty('activeDiscounts',DiscountArrayConverter , true)
@@ -513,9 +569,18 @@ export class Thread {
   @JsonProperty('threadDescription', StringConverter, true)
   ThreadDescription: string = '';
 
+  @JsonProperty('threadImageUrl', StringConverter, true)
+  threadImageUrl: string = '';
+
   @JsonProperty('createdBy', StringConverter, true)
   CreatedBy: string = '';
 
+  @JsonProperty('createdByUserName', StringConverter, true)
+  createdByUserName: string = '';
+
+    @JsonProperty('createdByProfilePic', StringConverter, true)
+  createdByProfilePic: string = '';
+  
   @JsonProperty('upvoteCount', NumberConverter, true)
   upvoteCount: number = 0;
 
@@ -573,6 +638,32 @@ export class Discount {
   @JsonProperty('createdAt', DateTimeConverter, true)
   createdAt: Date = new Date();
 }
+// @JsonObject('wishlist')
+// export class Wishlist {
+//   @JsonProperty('id', NumberConverter, true)
+//   Id: number = 0;
+
+//   @JsonProperty('title', StringConverter, true)
+//   title: string = '';
+
+//   @JsonProperty('orderDate', DateTimeConverter, true)
+//   OrderDate: Date = new Date();
+
+//   @JsonProperty('totalAmount', NumberConverter, true)
+//   TotalAmount: number = undefined as any;
+
+//     @JsonProperty('status', StringConverter, true)
+//   Status: string = undefined as any;
+
+//     @JsonProperty('phoneNumber', StringConverter, true)
+//   PhoneNumber: string = undefined as any;
+
+//     @JsonProperty('email', StringConverter, true)
+//   Email: string = undefined as any;
+
+//     @JsonProperty('orderDetails', OrderDetailsArrayConverter, true)
+//   OrderDetails: OrderDetails[]=[];
+// }
 @JsonObject('StoreOrder')
 export class StoreOrder {
   @JsonProperty('id', NumberConverter, true)

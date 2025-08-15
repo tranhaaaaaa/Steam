@@ -10,6 +10,7 @@ import { User } from 'src/app/core/models/db.model';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { OrderHistoryComponent } from '../../components/order-history/order-history.component';
+import { RolepermissionService } from 'src/app/core/services/rolepermission.service';
 
 // Định nghĩa cấu trúc dữ liệu (giữ nguyên)
 interface UserProfile {
@@ -59,6 +60,7 @@ export class ProfileComponent implements OnInit {
   showPassword: boolean = false;
 showNewPassword: boolean = false;
 showConfirmPassword: boolean = false;
+public isAdmin : boolean = false
   public userLogged = new UserLogged();
   profileForm!: FormGroup;
   userinfo: User = new User();
@@ -69,8 +71,15 @@ showConfirmPassword: boolean = false;
 
   constructor(private fb: FormBuilder, private userService: UserService,
     private toastService : ToastrService,
-    private autheService : AuthService
-  ) {}
+    private autheService : AuthService,
+    private permissionService : RolepermissionService
+  ) {
+      if(this.permissionService.hasRole(["Admin"]) || this.permissionService.hasRole(["Staff"])){
+        this.isAdmin = true;
+      }else{
+        this.isAdmin = false;
+      }
+  }
 
   ngOnInit(): void {
     this.passwordForm = this.fb.group({
@@ -89,7 +98,8 @@ showConfirmPassword: boolean = false;
       this.profileForm = this.fb.group({
         username: [{ value: data.data[0].username, disabled: true }],
         email: [data.data[0].email, [Validators.required, Validators.email]],
-        phoneNumber: [data.data[0].phoneNumber, Validators.required]
+        phoneNumber: [data.data[0].phoneNumber, Validators.required],
+       DisplayName: [data.data[0].displayName, Validators.required],
       });
     });
   }
@@ -99,7 +109,8 @@ showConfirmPassword: boolean = false;
     this.profileForm = this.fb.group({
         username: [{ value:  this.userinfo.UserName, disabled: true }],
         email: [ this.userinfo.Email, [Validators.required, Validators.email]],
-        phoneNumber: [ this.userinfo.PhoneNumber, Validators.required]
+        phoneNumber: [ this.userinfo.PhoneNumber, Validators.required],
+       DisplayName: [this.userinfo.displayName, Validators.required],
       });
   }
 
@@ -148,12 +159,14 @@ onSaveProfile(): void {
     formData.append('Username', updated.username);
     formData.append('Email', updated.email);
     formData.append('PhoneNumber', updated.phoneNumber);
+    formData.append('DisplayName', updated.DisplayName);
+
 
     // Append the image file if present
     if (this.fileUpload) {
       formData.append('imageFile', this.fileUpload);
     }
-
+    this.userService.updateDisplayname(updated.DisplayName,this.userLogged.getCurrentUser().userId).subscribe();
     // Call API to update the user profile
     this.userService.updateProfile(formData, this.userLogged.getCurrentUser().userId).subscribe({
       next: (res) => {
