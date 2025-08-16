@@ -44,6 +44,13 @@ export class GameComponent implements OnInit {
    this.router.navigate([`/dashboard/detail/${account.Id}`])
   
   }
+    deleteGame(account: any) {
+      this.gameService.deleteGame(account.Id).subscribe(res => {
+        this.toastService.success("Xóa game thành công!");
+        this.onGetData();
+      })
+  
+  }
   onGetData(){
    if(this.isAdmin){
      this.gameService.getListGame().subscribe(data => {

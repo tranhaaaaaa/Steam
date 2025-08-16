@@ -1,9 +1,9 @@
 
 <div class="product-page-container">
 
-  <div class="breadcrumbs">
+  <!-- <div class="breadcrumbs">
     <a href="#">Tất cả trò chơi</a> > <a href="#">Hành động</a> > <a href="#">Loạt sản phẩm NEOWIZ</a> > <span>Lies of P</span>
-  </div>
+  </div> -->
   <h1 class="game-title">{{ gameDetail.Title }}</h1>
 
   <div class="main-content-grid">
@@ -40,12 +40,13 @@
       <div class="purchase-section">
         <h2>Mua {{ gameDetail.Title }}</h2>
         <div class="purchase-box">
-          <div class="discount-badge">-{{ gameDetail.Discounts[0].value | number}}%</div>
+          <div class="discount-badge" *ngIf="gameDetail.Discounts.length > 0">-{{ gameDetail.Discounts[0].value | number}}%</div>
           <div class="price-info">
             <!-- <div class="original-price">{{ game. }}</div> -->
               
-             <div class="original-price">{{ gameDetail.Price  | number}}VND</div>
-            <div class="final-price"> {{ (gameDetail.Price * (1 - gameDetail.Discounts[0].value / 100)) | currency:'VND' }}</div>
+             <div class="original-price" *ngIf="gameDetail.Discounts.length > 0">{{ gameDetail.Price  | number}}VND</div>
+            <div class="final-price" *ngIf="gameDetail.Discounts.length > 0"> {{ (gameDetail.Price * (1 - gameDetail.Discounts[0].value / 100)) | currency:'VND' }}</div>
+               <div class="final-price" *ngIf="gameDetail.Discounts.length === 0">{{ gameDetail.Price | currency:'VND' }}</div>
           </div>
          
           <button class="add-to-cart-btn" (click)="addToCart(gameDetail.Id)">Thêm vào giỏ</button>
@@ -53,7 +54,7 @@
       </div>
 
  
-      <div class="about-section">
+<div class="about-section">
         <h2>VỀ TRÒ CHƠI NÀY</h2>
         <p>{{ gameDetail.Description }}</p>
       </div>
@@ -61,15 +62,27 @@
   <h2>ĐÁNH GIÁ SẢN PHẨM</h2>
 
   <!-- Static review items -->
-  <div class="review-item" *ngFor="let review of listReview">
-    <div class="review-header">
-      <div class="stars">
-        <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star" [class.filled]="star <= review.StarCount"></span>
-      </div>
-      <p class="review-author">{{review.UserID}}</p>
-    </div>
-    <p class="review-text">{{ review.Comment }}</p>
+<div class="review-item" *ngFor="let review of listReview">
+  <div class="review-header">
+    <img 
+      [src]="review.profilePicture || 'assets/default-avatar.png'" 
+      alt="Avatar" 
+      style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;"
+    >
+    <p class="review-author" style="color:white; margin: 0;">{{ review.userName }}</p>
   </div>
+
+  <p class="review-text" style="color:white">{{ review.Comment }}</p>
+
+  <!-- Ngày tạo -->
+  <div>
+    <p class="review-text" style="color:rgb(219, 52, 52)">
+      {{ review.CreatedAt | date: 'HH:mm dd/MM/yyyy' }}
+    </p>
+  </div>
+</div>
+
+
   <div class="review-input-section">
     <h3>Để lại đánh giá của bạn</h3>
     <form>

@@ -82,9 +82,9 @@ sanitizedMediaUrl!: SafeResourceUrl;
         comment : this.comment,
         createdAt : new Date()
       }
-      console.log("formData",formData);
       this.gameService.createGameReview(formData).subscribe(res => {
           this.onGetData();
+          this.comment = "";
       })
     }
 selectMedia(mediaItem: any): void {

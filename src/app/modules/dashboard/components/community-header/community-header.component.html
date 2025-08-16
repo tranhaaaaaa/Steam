@@ -1,7 +1,8 @@
 <div *ngIf="selectedTab === 'Tất cả'" class="text-white space-y-4">
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
     <!-- Nút Thêm mới -->
-    <button 
+    <button  
+    *ngIf="userLogged.isLogged()"
       (click)="openCreatePostModal()"
       class="px-4 py-2 bg-[#66c0f4] text-white rounded-md hover:bg-[#55a0cc] transition">
       <i class="fas fa-plus mr-2"></i> Thêm mới

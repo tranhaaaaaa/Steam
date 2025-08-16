@@ -6,17 +6,18 @@
     <!-- <div class="text-sm text-gray-400 mt-4">
   {{ totalstars | number: '1.1-1' }} Sao
 </div> -->
-    <p class="text-sm text-gray-400 mb-4">Ngày đăng: {{ game.CreatedAt | date }}</p>
-    <p class="text-sm text-gray-400 mb-4">Tạo bởi: {{ game.createdByUserName }}</p>
+    <p class="text-sm text-gray-400 mb-4">Ngày đăng: {{ game.CreatedAt | date : 'dd-MM-yyyy hh:mm a' }}</p>
+    <img [src]="game.createdByProfilePic" alt="avatar" class="w-10 h-10 rounded-full object-cover mt-1" />
+    <p class="text-sm text-gray-400 mb-4"> Tạo bởi: {{ game.createdByUserName }}</p>
 
     <p class="whitespace-pre-line text-sm leading-relaxed mb-6">{{ game.ThreadDescription }}</p>
 
     <div class="border-t border-[#2a475e] pt-6">
-      <h3 class="text-[#66c0f4] font-semibold text-lg mb-3">
+      <h3 class="text-[#66c0f4] font-semibold text-lg mb-3" *ngIf="userLogged.isLogged()">
         Bình luận về "{{ game.ThreadTitle }}"
       </h3>
-      <div class="flex items-start space-x-3 bg-[#101821] p-4 rounded mb-4">
-        <img [src]="game.createdByProfilePic" alt="avatar" class="w-10 h-10 rounded-full object-cover mt-1" />
+      <div class="flex items-start space-x-3 bg-[#101821] p-4 rounded mb-4" *ngIf="userLogged.isLogged()">
+        
         <textarea
           [(ngModel)]="newComment"
           placeholder="Viết bình luận"
@@ -24,7 +25,7 @@
           rows="3"
         ></textarea>
         <div>
-           <input type="file"  [(ngModel)]="this.file.name" (change)="fileChange($event)" #input class="file-upload-btn" />
+           <input type="file" (change)="fileChange($event)" #input class="file-upload-btn" />
 
      
            <i (change)="fileChange($event)" class="fa fa-upload"></i>  Chọn ảnh, video...
@@ -39,7 +40,7 @@
       
       </div>
      
-        <button
+        <button *ngIf="userLogged.isLogged()"
           (click)="sendComment()"
           class="px-4 py-2 bg-[#2a475e] text-white rounded-md hover:bg-[#1f3a4b] transition"
         >
@@ -56,14 +57,11 @@
       <!-- Danh sách bình luận -->
       <div *ngIf="listReply.length === 0" class="text-gray-400 text-sm">0 bình luận</div>
       <div *ngFor="let c of listReply" class="mb-3 bg-[#0e151d] p-3 rounded text-sm text-white border border-[#2a475e]">
-        <p class="text-sm font-semibold">{{ c.CreatedAt | date }}</p>
+        <p class="text-sm font-semibold">{{ c.CreatedAt | date : ' hh:mm:ss a dd/MM/yyyy' }}</p>
         <p class="text-sm mt-1">{{ c.ThreadComment }}</p>
+        <img [src]="c.commentImageUrl">
 
-        <!-- Star Rating for Existing Comments -->
-        <div class="flex items-center space-x-1 mt-2">
-          <i *ngFor="let star of getStars(c.UpvoteCount)" class="fas fa-star text-yellow-400"></i>
-          <i *ngFor="let star of getEmptyStars(c.UpvoteCount)" class="fas fa-star text-gray-400"></i>
-        </div>
+       
       </div>
     </div>
   </div>

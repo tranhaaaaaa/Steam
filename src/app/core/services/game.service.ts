@@ -196,6 +196,17 @@ getGameDetail(id : any): Observable<DataResponse> {
       })
     );
   }
+     createInstallGame(formData:any,idgame:any): Observable<any> {
+    let url = `/api/GamesInfo/${idgame}/upload-installer`;
+    return super.postEntity(url,formData).pipe(
+      map((res) => {
+        if (res === undefined) {
+          throw new Error('Invalid response from server');
+        }
+        return res;
+      })
+    );
+  }
    createGameReview(formData: any): Observable<any> {
     let url = `/api/games/reviews`;
     return super.postEntity(url, formData).pipe(
@@ -235,6 +246,14 @@ getGameDetail(id : any): Observable<DataResponse> {
       deleteGameDiscount(gameid: any,discountId: any): Observable<DataResponse> {
     let url = `/api/GamesDiscount/remove/${gameid}`;
     return super.deleteEntity(url,discountId).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+       deleteGame(gameid: any): Observable<DataResponse> {
+    let url = `/api/GamesInfo`;
+    return super.deleteEntity(url,gameid).pipe(
       map((res) => {
         return res;
       })

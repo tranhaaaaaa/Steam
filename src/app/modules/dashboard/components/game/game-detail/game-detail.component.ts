@@ -48,6 +48,8 @@ export class GameDetailComponent implements OnInit {
   public  game : GameInfor = new GameInfor();
    selectedFruits: number[] = [];
   public discountId : any;
+  public categorySelected : any;
+  public fileInstall : any;
 uploadedFiles: FileWithMediaURL[] = [];
 public listTags : Tag[] = [];
 public isAdmin : boolean = false;
@@ -120,12 +122,39 @@ fileChange(event: any) {
     }
   }
 }
+fileChangeInstall(event: any) {
+  if (event.target.files.length) {
+      
+    const fileAllow = '.zip'; 
+    const sizeFileAllow = '100'; 
 
+    const arrayFileAllow = fileAllow.toLowerCase().split(',');
 
-  // Getter để truy cập form controls dễ dàng hơn trong template
+    // Lấy tệp đầu tiên được chọn
+    const file = event.target.files[0];
+    const fileExtension = `.${file.name.split('.').pop()}`;
+
+    // Kiểm tra phần mở rộng tệp
+    if (!arrayFileAllow.includes(fileExtension.toLowerCase())) {
+      this.toastService.warning('Loại file không được hỗ trợ. Chỉ chấp nhận file .zip');
+      return;
+    }
+
+    const maxSizeInBytes = parseInt(sizeFileAllow) * 1024 * 1024; // Convert MB to Bytes
+    if (file.size > maxSizeInBytes) {
+      this.toastService.warning('Dung lượng file quá lớn. Vui lòng chọn tệp nhỏ hơn 100MB.');
+      return;
+    }
+
+    this.fileInstall = event.target.files[0];
+
+  } else {
+    this.toastService.warning('Vui lòng chọn tệp.');
+  }
+}
+
   get f() { return this.gameForm.controls; }
 
-  // Hàm tải dữ liệu ban đầu cho form
    loadInitialData(): void {
     this.isLoading = true;
     this.pageTitle = this.idgame ? 'Chỉnh sửa thông tin Game' : 'Thêm Game Mới';
@@ -133,7 +162,7 @@ fileChange(event: any) {
     this.gameService.getListDiscount().subscribe((data) => {
       this.listDiscount = data.data;
       if(!this.idgame){
-        this.discountId = this.listDiscount[0].id;
+        this.discountId = null;
       }
     });
     this.tagService.getListTag().subscribe((data) => {
@@ -144,6 +173,7 @@ fileChange(event: any) {
         this.listCategory = categoryData.data;
 
         if (this.idgame) {
+          
           this.gameService.getGameDetail(this.idgame).subscribe({
             next: (gameData) => {
               const game = gameData.data;
@@ -156,13 +186,18 @@ fileChange(event: any) {
               Genre: game.Genre,
               
             });
-            this.discountId = game.Discounts[0].id;
-          this.tagSelected = game.Tags ? game.Tags.map((tag: any) => tag.TagID) : [];
+             this.tagSelected = game.Tags ? game.Tags.map((tag: any) => tag.TagID) : [];
               this.uploadedFiles = game.Media.map((media: any) => ({
                 file: new File([media.MediaURL], media.MediaURL, { type: 'application/octet-stream' }),
                 mediaURL: media.MediaURL,
               }));
               this.isLoading = false;
+              if(game.Discounts.length > 0){
+                this.discountId = game.Discounts[0].id ;
+              }else{
+                this.discountId = null;
+              }
+         
             },
             error: (err) => {
               this.toastService.error('Không thể tải thông tin game.', 'Lỗi');
@@ -210,7 +245,7 @@ fileChange(event: any) {
       description: formValues.Description,
       price: formValues.Price,
       coverImagePath: formValues.CoverImagePath,
-      installerFilePath: formValues.CoverImagePath,
+      InstallerFilePath: '',
       createdBy: currentUser.userId,
       isActive: true,
       status: 'active',
@@ -239,15 +274,28 @@ fileChange(event: any) {
                   createdBy: this.userLogged.getCurrentUser().userId
                 }
                 this.tagService.addgameTag(formData).subscribe();
+                
               }
+             var x =  this.listCategory.filter(x => x.CategoryName == this.gameForm.value.Genre);
+              let formDataCate = {
+                  gameID : response.data.id,
+                  categoryID : x[0].Id,
+                  createdBy : this.userLogged.getCurrentUser().userId
+                }
+                this.gameCategoryService.createGameCategory(formDataCate).subscribe();
+                let forms = new FormData();
+                forms.append('installerFile',this.fileInstall);
+                this.gameService.createInstallGame(forms,response.data.id).subscribe({});
             this.gameService.createGameMedia(formData, response.data.id).subscribe({
               next: () => console.log('File uploaded successfully'),
               error: (err) => console.error('Error uploading file:', err),
             });
           });
-    this.gameService.createGameDiscount(response.data.id, this.discountId).subscribe({
+            if(this.discountId != null || this.discountId != 0 || this.discountId != undefined){
+                this.gameService.createGameDiscount(response.data.id, this.discountId).subscribe({
               
             })
+            }
           this.router.navigate(['/dashboard/manager-game']);
         },
         error: (err) => {

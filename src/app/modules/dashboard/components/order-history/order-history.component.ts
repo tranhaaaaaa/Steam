@@ -27,7 +27,7 @@ public pagedOrders: StoreOrder[] = [];
 
 onGetData() {
   this.storeService.getListOrder().subscribe(res => {
-    this.listOrder = res.data.filter((x: any) => x.UserId == this.userLogged.getCurrentUser().userId);
+    this.listOrder = res.data.filter((x: any) => x.UserId == this.userLogged.getCurrentUser().userId).reverse();
     this.totalPages = Math.ceil(this.listOrder.length / 10);
     this.updatePagedOrders();  // Update the orders for the first page
   });
@@ -48,7 +48,7 @@ updatePagedOrders() {
         return 'Đang Chờ';
         case 'pending':
         return 'Đang Chờ';
-      case 'Completed':
+      case 'Success':
         return 'Hoàn Thành';
       case 'Cancelled':
         return 'Đã Hủy';

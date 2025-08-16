@@ -546,8 +546,15 @@ export class Review {
   @JsonProperty('game', StringConverter, true)
   Game: string = '';
 
+   @JsonProperty('profilePicture', StringConverter, true)
+  profilePicture: string = '';
+
   @JsonProperty('userID', StringConverter, true)
   UserID: string = '';
+
+    @JsonProperty('userName', StringConverter, true)
+  userName: string = '';
+
 
   @JsonProperty('starCount', NumberConverter, true)
   StarCount: number = 0;
@@ -601,6 +608,9 @@ export class ThreadReply {
 
   @JsonProperty('threadComment', StringConverter, true)
   ThreadComment: string = '';
+
+    @JsonProperty('commentImageUrl', StringConverter, true)
+  commentImageUrl: string = '';
 
   @JsonProperty('createdBy', StringConverter, true)
   CreatedBy: string = '';

@@ -16,7 +16,7 @@ export class SpecialOffersComponent implements OnInit{
   public listGame : GameInfor[]=[];
   ngOnInit(): void {
  this.service.getListGame().subscribe((data)=>{
-  this.listGame = data.data.filter((x:any) => x.IsActive == true);
+  this.listGame = data.data.filter((x:any) => x.IsActive == true && x.Discounts.length > 0);
   console.log(this.listGame);
  })
   }

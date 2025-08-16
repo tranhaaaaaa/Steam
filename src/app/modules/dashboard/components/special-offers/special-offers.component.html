@@ -3,7 +3,7 @@
   <h2 class="section-title">ƯU ĐÃI ĐẶC BIỆT</h2>
   <div class="game-grid">
     <div *ngFor="let game of listGame" class="game-card" [routerLink]="['/dashboard/game-detail', game.Id]">
-      <img [src]="game.InstallerFilePath" [alt]="game.Title" class="game-image">
+      <img [src]="game.CoverImagePath" [alt]="game.Title" class="game-image">
       <div class="price-section">
         <!-- Hiển thị khi có giảm giá -->
         <ng-container *ngIf="game.Discounts">
