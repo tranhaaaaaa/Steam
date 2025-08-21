@@ -23,6 +23,7 @@ export class FeaturedCarouselComponent implements OnInit, OnDestroy {
   constructor() { } 
 
   ngOnInit(): void {
+    console.log("game featured",this.games);
     // Chỉ bắt đầu auto-slide khi có dữ liệu được truyền vào
     if (this.games.length > 0) {
       this.startAutoSlide();

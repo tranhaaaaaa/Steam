@@ -33,7 +33,10 @@
         <tr *ngFor="let account of paginatedUsers" class="hover:bg-gray-100">
           <td class="px-6 py-4">{{ account.Id }}</td>
           <td class="px-6 py-4">{{ account.Title }}</td>
-          <td class="px-6 py-4">{{ account.Price | number}} VND</td>
+          <td class="px-6 py-4">
+            <span *ngIf="account.Price == 0">Game Miễn Phí</span>
+            <span *ngIf="account.Price != 0">{{ account.Price | number}} VND></span>
+          </td>
           <td class="px-6 py-4">{{ account.Genre }}</td>
          <td class="px-6 py-4">
   <label class="switch">

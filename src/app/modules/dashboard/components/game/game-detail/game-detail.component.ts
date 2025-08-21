@@ -66,7 +66,7 @@ public isAdmin : boolean = false;
     private location: Location,
     private changeDetectorRef: ChangeDetectorRef
   ) {
-    if(this.permissionService.hasRole(["Admin"])){
+    if(this.permissionService.hasRole(["Admin"]) || this.permissionService.hasRole(["Staff"])){
       this.isAdmin = true;
     }
     // Khởi tạo form với tất cả các trường cần thiết
@@ -253,6 +253,9 @@ fileChangeInstall(event: any) {
       developerId: currentUser.userId,
     };
     if (!this.idgame) {
+      if(!this.isAdmin){
+        createPayload.status = 'Pending';
+      }
       this.gameService.createGame(createPayload).subscribe({
         next: (response) => {
           this.toastService.success('Thêm game mới thành công!');
@@ -296,7 +299,11 @@ fileChangeInstall(event: any) {
               
             })
             }
-          this.router.navigate(['/dashboard/manager-game']);
+         if(this.isAdmin){
+           this.router.navigate(['/dashboard/manager-game']);
+         }else{
+           this.router.navigate(['/dashboard/nfts']);
+         }
         },
         error: (err) => {
           this.toastService.error('Đã có lỗi xảy ra khi thêm game.', 'Lỗi');
@@ -308,9 +315,26 @@ fileChangeInstall(event: any) {
       createPayload.id = parseInt(this.idgame);
       this.gameService.UpdateGame(createPayload, this.idgame).subscribe({
         next: (response) => {
+          this.gameCategoryService.getListGameCategory().subscribe((dataaa) => {
+            var gcate = dataaa.data.filter((x: any) => x.GameID === parseInt(this.idgame) );
+            debugger
+                var z =  this.listCategory.filter(x => x.CategoryName == this.gameForm.value.Genre);
+           let formDataCate = {
+                  gameID : this.idgame,
+                  categoryID : z[0].Id,
+                  createdBy : this.userLogged.getCurrentUser().userId
+                }
+                this.gameCategoryService.Update(formDataCate,gcate[0].Id).subscribe();
+          }
+        )
+        
         this.gameService.createGameDiscount(this.idgame,this.discountId).subscribe();
           this.toastService.success('Cập nhật game thành công!');
-          this.router.navigate(['/dashboard/manager-game']);
+          if(this.isAdmin){
+            this.router.navigate(['/dashboard/manager-game']);
+          }else{
+            this.router.navigate(['/dashboard/nfts']);
+          }
         },
         error: (err) => {
           this.toastService.error('Đã có lỗi xảy ra khi cập nhật game.', 'Lỗi');

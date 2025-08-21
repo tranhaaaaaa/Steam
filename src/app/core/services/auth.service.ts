@@ -35,6 +35,7 @@ export class AuthService extends ApiService{
       })
     );
   }
+
       verify(formData : any): Observable<any> {
     let url = `/api/auth/verify-register-otp`;
     return super.postEntity(url, formData).pipe(

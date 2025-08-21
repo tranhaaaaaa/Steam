@@ -1,12 +1,15 @@
 <div class="byp-container">
-  <h2 class="section-title">BECAUSE YOU PLAYED <a href="#">PUBG: BATTLEGROUNDS</a></h2>
+  <h2 class="section-title">BECAUSE <a href="#">FREE TO PLAY</a></h2>
   <div class="carousel-wrapper">
-    <div *ngFor="let game of games" class="game-card">
-      <img [src]="game.image" [alt]="game.title" class="game-image">
+    <div *ngFor="let game of games" class="game-card" [routerLink]="['/dashboard/game-detail', game.Id]">
+      <img [src]="game.CoverImagePath" [alt]="game.Title" class="game-image">
       <div class="info-overlay">
-        <div class="tags">
-          <span *ngFor="let tag of game.tags" class="tag">{{ tag }}</span>
-        </div>
+       <div class="tags">
+  <span *ngFor="let tag of game.Tags | slice:0:3" class="tag">
+    {{ tag.TagName }}
+  </span>
+</div>
+
       </div>
     </div>
   </div>

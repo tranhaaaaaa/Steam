@@ -23,6 +23,9 @@
     <button (click)="openPasswordDialog()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 shadow">
       🔒 Đổi mật khẩu
     </button>
+      <button (click)="showRefundRequests()" class="bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 shadow">
+      💸 Yêu cầu hoàn tiền
+    </button>
   </div>
 </div>
 <!-- Overlay -->
@@ -175,3 +178,45 @@
 
 </div>
        <div *ngIf="!isAdmin"> <app-order-history></app-order-history></div>
+
+
+<div *ngIf="showRefundList" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white w-800 rounded-2xl shadow-2xl p-6 relative animate-fade-in">
+    <!-- Close Button -->
+    <button (click)="closeRefundRequests()" class="absolute top-3 right-4 text-gray-400 hover:text-red-500 text-xl font-bold">
+      &times;
+    </button>
+
+    <!-- Refund Requests List -->
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Danh sách yêu cầu hoàn tiền</h2>
+    <div *ngIf="listRefunds.length === 0" class="text-center text-lg text-gray-500">
+      <p>Chưa có yêu cầu hoàn tiền nào.</p>
+    </div>
+    <table *ngIf="listRefunds.length > 0"  class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg transition-transform transform" style="background: linear-gradient(to bottom, #3d224a, #1b2838 500px);">
+      <thead  class="bg-gray-100 text-gray-700 text-base" style="background: linear-gradient(to bottom, #3d224a, #1b2838 500px);">
+        <tr>
+          <th class="px-6 py-4 text-left text-sm font-medium text-gray-600" style="color:white"><b>Mã đơn hàng yêu cầu</b></th>
+          <th class="px-6 py-4 text-left text-sm font-medium text-gray-600" style="color:white"><b>Lý do</b></th>
+          <th class="px-6 py-4 text-left text-sm font-medium text-gray-600" style="color:white"><b>Trạng thái</b></th>
+          <th class="px-6 py-4 text-left text-sm font-medium text-gray-600" style="color:white"><b>Thời gian gửi</b></th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-800">
+        <tr *ngFor="let request of listRefunds" class="border-gray-200 hover:bg-gray-500">
+          <td class="px-6 py-4" style="color:wheat">{{ request.orderID }}</td>
+          <td class="px-6 py-4" style="color:wheat">{{ request.reason }}</td>
+          <td class="px-6 py-4" style="color:wheat">
+            <span [ngClass]="{
+              'text-green-500': request.Status === 'Approved',
+              'text-yellow-500': request.Status === 'Pending',
+              'text-red-500': request.Status === 'Rejected'
+            }">
+              {{ getStatusText(request.Status) }}
+            </span>
+          </td>
+          <td class="px-6 py-4" style="color:wheat">{{ request.requestDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

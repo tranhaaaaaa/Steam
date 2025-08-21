@@ -674,6 +674,11 @@ export class Discount {
 //     @JsonProperty('orderDetails', OrderDetailsArrayConverter, true)
 //   OrderDetails: OrderDetails[]=[];
 // }
+@JsonObject('Wallet')
+export class Wallet {
+  @JsonProperty('balance', NumberConverter, true)
+  balance: number = 0;
+}
 @JsonObject('StoreOrder')
 export class StoreOrder {
   @JsonProperty('id', NumberConverter, true)
@@ -700,7 +705,59 @@ export class StoreOrder {
     @JsonProperty('orderDetails', OrderDetailsArrayConverter, true)
   OrderDetails: OrderDetails[]=[];
 }
+@JsonObject('StoreRefundRequest')
+export class StoreRefundRequest {
+  @JsonProperty('id', NumberConverter, true)
+  Id: number = 0;
 
+  @JsonProperty('userID', StringConverter, true)
+  UserId: string = '';
+  @JsonProperty('reason', StringConverter, true)
+  reason: string = '';
+  @JsonProperty('requestDate', DateTimeConverter, true)
+  requestDate: Date = new Date();
+
+  @JsonProperty('orderID', NumberConverter, true)
+  orderID: number = undefined as any;
+
+    @JsonProperty('status', StringConverter, true)
+  Status: string = undefined as any;
+    @JsonProperty('order', StoreOrder, true)
+  StoreOrder: StoreOrder = new StoreOrder();
+
+   @JsonProperty('user', User, true)
+  User: User = new User();
+}
+@JsonObject('MyWallet')
+export class MyWallet {
+  @JsonProperty('id', NumberConverter, true)
+  Id: number = 0;
+
+  @JsonProperty('type', StringConverter, true)
+  type: string = '';
+
+  @JsonProperty('createdAt', DateTimeConverter, true)
+  createdAt: Date = new Date();
+
+    @JsonProperty('approvedAt', DateTimeConverter, true)
+  approvedAt: Date = new Date();
+
+  @JsonProperty('amount', NumberConverter, true)
+  amount: number = undefined as any;
+
+    @JsonProperty('status', StringConverter, true)
+  Status: string = undefined as any;
+
+    @JsonProperty('approvedBy', StringConverter, true)
+  approvedBy: string = undefined as any;
+
+    @JsonProperty('note', StringConverter, true)
+  note: string = undefined as any;
+    @JsonProperty('userId', StringConverter, true)
+  userId: string = undefined as any;
+//     @JsonProperty('orderDetails', OrderDetailsArrayConverter, true)
+//   OrderDetails: OrderDetails[]=[];
+}
 @JsonObject('OrderDetails')
 export class OrderDetails {
   @JsonProperty('id', NumberConverter, true)

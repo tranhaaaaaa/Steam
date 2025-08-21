@@ -38,10 +38,11 @@
 
    
       <div class="purchase-section">
-        <h2>Mua {{ gameDetail.Title }}</h2>
+        <h2 *ngIf="gameDetail.Price > 0">Mua {{ gameDetail.Title }}</h2>
+        <h2 *ngIf="gameDetail.Price === 0">Tải xuống: {{ gameDetail.Title }}></h2>
         <div class="purchase-box">
-          <div class="discount-badge" *ngIf="gameDetail.Discounts.length > 0">-{{ gameDetail.Discounts[0].value | number}}%</div>
-          <div class="price-info">
+          <div  class="discount-badge" *ngIf="gameDetail.Discounts.length > 0 || gameDetail.Price > 0">-{{ gameDetail.Discounts[0].value | number}}%</div>
+          <div class="price-info" *ngIf="gameDetail.Price > 0">
             <!-- <div class="original-price">{{ game. }}</div> -->
               
              <div class="original-price" *ngIf="gameDetail.Discounts.length > 0">{{ gameDetail.Price  | number}}VND</div>
@@ -49,7 +50,8 @@
                <div class="final-price" *ngIf="gameDetail.Discounts.length === 0">{{ gameDetail.Price | currency:'VND' }}</div>
           </div>
          
-          <button class="add-to-cart-btn" (click)="addToCart(gameDetail.Id)">Thêm vào giỏ</button>
+          <button *ngIf="gameDetail.Price > 0" class="add-to-cart-btn" (click)="addToCart(gameDetail.Id)">Thêm vào giỏ</button>
+            <button *ngIf="gameDetail.Price === 0" class="add-to-cart-btn" (click)="download(gameDetail)">Tải xuống</button>
         </div>
       </div>
 
@@ -100,7 +102,7 @@
 
 
     <div class="right-column">
-      <img [src]="gameDetail.InstallerFilePath" alt="Game capsule" class="capsule-image">
+      <img [src]="gameDetail.CoverImagePath" alt="Game capsule" class="capsule-image">
       <p class="game-description-right">{{ gameDetail.Description }}</p>
       <div class="review-summary">
         <p><strong>ĐÁNH GIÁ GẦN ĐÂY:</strong> <span class="positive">500</span> (200)</p>

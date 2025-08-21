@@ -54,7 +54,7 @@ export class GameComponent implements OnInit {
   onGetData(){
    if(this.isAdmin){
      this.gameService.getListGame().subscribe(data => {
-  this.allCate = data.data || [];
+  this.allCate = data.data.filter((x:GameInfor) => x.Status != "Pending") || [];
     this.currentPage = 1;
     this.updatePagination();
     })

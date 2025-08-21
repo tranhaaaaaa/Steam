@@ -33,6 +33,7 @@ export class NftComponent implements OnInit {
   useMockData = true;
 
   featuredGames: any[] = [];
+  gameFree : GameInfor[]=[];
   specialOfferGames: any[] = []; // Mảng cho ưu đãi đặc biệt
   isLoading = true;
 
@@ -40,8 +41,14 @@ export class NftComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.useMockData) {
-      // Nếu dùng dữ liệu giả, gọi các hàm getMock...()
-      this.featuredGames = this.getMockFeaturedGames();
+      this.gameService.getListGame().subscribe((data: any) =>{
+    this.featuredGames = data.data.filter((x:any) => x.Discounts.length == 0 && x.Price > 0);
+    this.gameFree = data.data.filter((x:any) => x.Price == 0 && x.Status == "active");
+    
+        
+      }
+)
+      // this.featuredGames = this.getMockFeaturedGames();
       this.specialOfferGames = this.getMockSpecialOfferGames();
       this.isLoading = false;
     } else {

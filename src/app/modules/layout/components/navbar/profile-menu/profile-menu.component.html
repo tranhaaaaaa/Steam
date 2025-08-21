@@ -1,6 +1,23 @@
 <div class="relative flex items-center gap-3 ml-3" *ngIf="isLogin">
   <!-- Nút giỏ hàng -->
-  <button *ngIf="isLogin && !isAdmin "
+   <!-- Ví tiền -->
+  <div *ngIf="isLogin && !isAdmin" class="flex items-center gap-1 bg-green-600 text-white px-2 py-1 rounded-full shadow-sm">
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-4 w-4"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"
+         stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 12.79V8a2 2 0 00-2-2h-3.34a2 2 0 01-1.41-.59L12.34 4.1a2 2 0 00-1.41-.59H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1.21" />
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M16 12h.01M19 15h-6a2 2 0 01-2-2V9a2 2 0 012-2h6a2 2 0 012 2v4a2 2 0 01-2 2z" />
+    </svg>
+    <span class="font-medium text-xs whitespace-nowrap">
+      {{ myWallet.balance | number:'1.0-0' }} đ
+    </span>
+  </div>
+  <button *ngIf="isLogin && !isAdmin"
     (click)="openCart()"
     class="relative flex h-9 w-9 items-center justify-center rounded-md bg-card text-muted-foreground hover:text-primary transition cursor-pointer"
     type="button"
@@ -67,13 +84,20 @@
          <svg-icon src="./assets/icons/heroicons/outline/user-circle.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
         Hồ sơ của tôi
       </li>
-      <li *ngIf="!isAdmin" [routerLink]="['/auth/sign-in']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer" (click)="history()">
+      <li *ngIf="!isAdmin" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer" (click)="history()">
          <svg-icon src="./assets/icons/heroicons/outline/download.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
         Game của bạn
+      </li>
+       <li *ngIf="!isAdmin" [routerLink]="['/dashboard/wallet-request']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer">
+         <svg-icon src="./assets/icons/heroicons/outline/cog.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
+       Nạp/Rút
       </li>
       <li [routerLink]="['/auth/sign-in']" class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer" (click)="logout()">
          <svg-icon src="./assets/icons/heroicons/outline/logout.svg" [svgClass]="'h-5 w-5 text-muted-foreground/50'"> </svg-icon>
        Đăng xuất
+      </li>
+      <li class="text-muted-foreground hover:bg-card hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-semibold cursor-pointer">
+     
       </li>
     </ul>
   </div>

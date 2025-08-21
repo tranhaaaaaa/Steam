@@ -111,6 +111,21 @@ export class MenuService implements OnDestroy {
             label: 'Quản lý giảm giá',
             route: '/dashboard/discount',
           },
+          {
+            icon: 'assets/icons/heroicons/outline/calendar.svg',
+            label: 'Yêu cầu nạp/rút',
+            route: '/dashboard/wallet-request',
+          },
+          {
+            icon: 'assets/icons/heroicons/outline/calendar.svg',
+            label: 'Yêu cầu hoàn tiền',
+            route: '/dashboard/money-request',
+          },
+           {
+            icon: 'assets/icons/heroicons/outline/game-controller.svg',
+            label: 'Game chờ duyệt',
+            route: '/dashboard/game-approve',
+          },
           //  {
           //   icon: 'assets/icons/heroicons/outline/calendar.svg',
           //   label: 'Quản lý hệ thống',

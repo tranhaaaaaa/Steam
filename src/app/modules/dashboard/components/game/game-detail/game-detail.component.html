@@ -66,16 +66,6 @@
               class="mt-2 block w-full rounded-md bg-gray-700 p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
           </div>
 
-          <!-- Thư viện ảnh & video -->
-          <!-- <div>
-            <label for="MediaUrls" class="block text-lg font-medium">URL Ảnh & Video (cách nhau bởi dấu phẩy)</label>
-            <textarea 
-              formControlName="MediaUrls" 
-              id="MediaUrls" 
-              rows="4" 
-              class="mt-2 block w-full p-3 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" 
-              placeholder="https://.../anh1.jpg, https://.../video1.mp4, ..."></textarea>
-          </div> -->
           <div>
             <label>Thư viện ảnh & video</label>
             <input type="file" (change)="fileChange($event)" style="margin-bottom: -50px;" #input class="file-upload-btn cursor-pointer" multiple />
@@ -110,7 +100,7 @@
 
           <!-- Giá & Thể loại -->
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div>
+            <div *ngIf="isAdmin">
               <label for="Price" class="block text-lg font-medium">Giá (VND)</label>
               <input
                 formControlName="Price"
@@ -140,8 +130,8 @@
             </div>
           </div>
           <div>
-            <label class="block text-lg font-medium">Loại giảm giá</label>
-            <select
+            <label *ngIf="isAdmin" class="block text-lg font-medium">Loại giảm giá</label>
+            <select *ngIf="isAdmin"
               class="mt-2 block w-full rounded-md bg-gray-700 p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               (change)="onChangeDiscount($event)">
               <option value="null" [value]="discountId || null">-- Chọn loại giảm giá --</option>

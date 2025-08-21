@@ -6,11 +6,12 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { UserLogged } from 'src/app/core/utils/userLogged';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from 'src/app/core/services/user.service';
-import { User } from 'src/app/core/models/db.model';
+import { StoreRefundRequest, User } from 'src/app/core/models/db.model';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { OrderHistoryComponent } from '../../components/order-history/order-history.component';
 import { RolepermissionService } from 'src/app/core/services/rolepermission.service';
+import { WalletService } from 'src/app/core/services/wallet.service';
 
 // Định nghĩa cấu trúc dữ liệu (giữ nguyên)
 interface UserProfile {
@@ -66,13 +67,15 @@ public isAdmin : boolean = false
   userinfo: User = new User();
   fileUpload : any;
   file: any;
+  showRefundList: boolean = false;
   showProfileDialog = false;
   showPasswordDialog = false;
-
+  public listRefunds : StoreRefundRequest[]=[];
   constructor(private fb: FormBuilder, private userService: UserService,
     private toastService : ToastrService,
     private autheService : AuthService,
-    private permissionService : RolepermissionService
+    private permissionService : RolepermissionService,
+    private walletService : WalletService
   ) {
       if(this.permissionService.hasRole(["Admin"]) || this.permissionService.hasRole(["Staff"])){
         this.isAdmin = true;
@@ -87,7 +90,7 @@ public isAdmin : boolean = false
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
     });
-
+    this.onGetStoreRefund();
     this.onGetUser();
   }
 
@@ -103,7 +106,22 @@ public isAdmin : boolean = false
       });
     });
   }
+    showRefundRequests() {
+    // Open the refund requests modal
+    this.showRefundList = true;
+  }
 
+  closeRefundRequests() {
+    // Close the refund requests modal
+    this.showRefundList = false;
+  }
+
+
+  onGetStoreRefund(){
+    this.walletService.StoreRefundRequest().subscribe(res => {
+      this.listRefunds = res.data.filter((x:StoreRefundRequest) => x.UserId == this.userLogged.getCurrentUser().userId);
+    })
+  }
   openProfileDialog() {
     this.showProfileDialog = true;
     this.profileForm = this.fb.group({
@@ -187,6 +205,28 @@ onSaveProfile(): void {
     });
   }
 }
+getStatusText(status: string): string {
+    switch(status) {
+      case 'Pending':
+        return 'Đang Chờ';
+        case 'pending':
+        return 'Đang Chờ';
+      case 'Success':
+        return 'Hoàn Thành';
+      case 'Cancelled':
+        return 'Đã Hủy';
+         case 'DEPOSIT':
+        return 'Yêu cầu nạp';
+         case 'WITHDRAW':
+        return 'Rút tiền';
+         case 'Approved':
+        return 'Chấp nhận';
+         case 'Rejectd':
+        return 'Từ chối';
+      default:
+        return status;
+    }
+  }
 
 
   onChangePassword(): void {

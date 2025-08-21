@@ -6,83 +6,108 @@ import { Category, GameCategory, GameInfor } from 'src/app/core/models/db.model'
 import { CategoryService } from 'src/app/core/services/category.service';
 import { GameService } from 'src/app/core/services/game.service';
 import { GamecategoryService } from 'src/app/core/services/gamecategory.service';
-interface Game {
-  id: number;
-  name: string;
-  imageUrl: string;
-  price: string;
-  description: string;
-}
+import { switchMap, take } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
+
 @Component({
   selector: 'app-list-game',
-  imports: [CommonModule,FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './list-game.component.html',
   styleUrl: './list-game.component.css'
 })
 export class ListGameComponent implements OnInit {
-  public listGame : GameInfor[] = [];
-  public listCategory : Category[] = [];
-  selectedTab: string = 'Tất cả';
-   searchTerm: string = '';
+  public listGame: GameInfor[] = [];
+  public listCategory: Category[] = [];
+  public listGameOfCategory: GameCategory[] = [];
+
+  private allGameCategories: GameCategory[] = []; // dữ liệu gốc để search/filter
+  selectedTab = 'Tất cả';
+  searchTerm = '';
   public tabTitles: string[] = [];
-  cateName : any;
-  public listGameOfCategory : GameCategory[] = [];
-  constructor(private service : GameService,
-    private router : Router,
-    private cateService : CategoryService,
-    private route : ActivatedRoute,
-    private gameCategorySevice : GamecategoryService
-  ){
-    
-  }
+  cateName: string | null = null;
+
+  constructor(
+    private service: GameService,
+    private router: Router,
+    private cateService: CategoryService,
+    private route: ActivatedRoute,
+    private gameCategorySevice: GamecategoryService
+  ) {}
+
   ngOnInit(): void {
-  this.onGetData();
-}
-onSearchChange() {
-    if (this.searchTerm.trim() !== '') {
-      this.listGameOfCategory = this.listGameOfCategory.filter(game => 
-        game.GameName.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    } else {
-      this.onGetData(); // Nếu ô tìm kiếm trống, reset lại danh sách game
-    }
+    this.onGetData();
   }
-onGetData() {
-  this.route.paramMap.subscribe(params => {
-    this.cateName = this.route.snapshot.paramMap.get('name');
-    console.log(this.cateName);
-    
-    this.cateService.getListCategory().subscribe(data => {
-      this.listCategory = data.data;
 
-      // Cập nhật tabTitles và chọn tab tương ứng
-      this.tabTitles = ['Tất cả', ...this.listCategory.map((category) => category.CategoryName)];
-      if (this.cateName == 'Tất cả') {
-          this.selectedTab = 'Tất cả'; 
-         this.gameCategorySevice.getListGameCategory().subscribe(data => {
-       this.listGameOfCategory = data.data;
-      console.log("listGameOfCategory", this.listGameOfCategory);
+  // Khử trùng lặp theo key
+  private uniqueBy<T>(arr: T[], keyFn: (x: T) => string | number): T[] {
+    const m = new Map<string | number, T>();
+    for (const it of arr) {
+      const k = keyFn(it);
+      if (!m.has(k)) m.set(k, it);
+    }
+    return Array.from(m.values());
+  }
 
-    });
-      
-      } 
-      else {
-        this.selectedTab = this.cateName;
-        this.gameCategorySevice.getListGameCategory().subscribe(data => {
-      this.listGameOfCategory = data.data.filter((game: any) => game.CategoryName === this.cateName);
-    });
-      }
-    });
-  });
-}
+  onSearchChange() {
+    const base = this.selectedTab === 'Tất cả'
+      ? this.allGameCategories
+      : this.allGameCategories.filter(g => g.CategoryName === this.selectedTab);
 
-onTabChange(tab: string): void {
-  this.selectedTab = tab;
-  this.router.navigate(['/dashboard/list-game', tab]);
-}
+    const term = this.searchTerm.trim().toLowerCase();
+    this.listGameOfCategory = term
+      ? base.filter(g => g.GameName.toLowerCase().includes(term))
+      : base;
+  }
 
+  onGetData() {
+    this.route.paramMap
+      .pipe(
+        take(1),
+        switchMap(pm => {
+          this.cateName = pm.get('name');
+          // tải categories + games song song
+          return forkJoin({
+            categories: this.cateService.getListCategory(),
+            games: this.gameCategorySevice.getListGameCategory()
+          });
+        })
+      )
+      .subscribe(({ categories, games }) => {
+        const rawCats = categories?.data ?? [];
+        this.listCategory = this.uniqueBy(rawCats, c => (c.Id ?? c.CategoryName));
+        const catNames = this.listCategory.map(c => c.CategoryName);
+        this.tabTitles = ['Tất cả', ...Array.from(new Set(catNames))];
+        const rawGames: GameCategory[] = games?.data ?? [];
+        this.allGameCategories = this.uniqueBy(rawGames, g => (g.CategoryID ?? g.GameName));
+        const tab = this.cateName && catNames.includes(this.cateName) ? this.cateName : 'Tất cả';
+        this.selectedTab = tab;
+        this.applyTabFilter();
+      });
+  }
 
-   onGameSelect(gameId: number) {
-    this.router.navigate(['/dashboard/game-detail', gameId]); 
+  private applyTabFilter() {
+    const base = this.selectedTab === 'Tất cả'
+      ? this.allGameCategories
+      : this.allGameCategories.filter(g => g.CategoryName === this.selectedTab);
+
+    // Nếu có searchTerm đang nhập thì áp thêm filter
+    const term = this.searchTerm.trim().toLowerCase();
+    this.listGameOfCategory = term
+      ? base.filter(g => g.GameName.toLowerCase().includes(term))
+      : base;
+  }
+
+  onTabChange(tab: string): void {
+    if (this.selectedTab === tab) return;
+    this.selectedTab = tab;
+    this.searchTerm = ''; // reset search khi chuyển tab
+    // cập nhật URL nhưng KHÔNG gọi lại API nhiều lần
+    this.router.navigate(['/dashboard/list-game', tab], { replaceUrl: true });
+    this.applyTabFilter();
+  }
+
+  onGameSelect(gameId: number) {
+    this.router.navigate(['/dashboard/game-detail', gameId]);
   }
 }

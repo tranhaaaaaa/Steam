@@ -10,6 +10,7 @@ import { CartService } from 'src/app/core/services/cart.service';
 import { GameService } from 'src/app/core/services/game.service';
 import { PaymentService } from 'src/app/core/services/payment.service';
 import { ThreadService } from 'src/app/core/services/thread.service';
+import { WalletService } from 'src/app/core/services/wallet.service';
 import { UserLogged } from 'src/app/core/utils/userLogged';
 import { NavbarSubmenuComponent } from 'src/app/modules/layout/components/navbar/navbar-submenu/navbar-submenu.component';
 import { MenuService } from 'src/app/modules/layout/services/menu.service';
@@ -37,7 +38,8 @@ export class CartComponent implements OnInit {
     private toastrService : ToastrService,
     private authService : AuthService,
     private threadService : ThreadService,
-    private paymentService : PaymentService
+    private paymentService : PaymentService,
+    private walletService : WalletService
   ) {}
 isPaymentDialogOpen = false;
 isPaymentDialogOpen2 = false;
@@ -68,7 +70,7 @@ isPaymentDialogOpen2 = false;
   // Thanh toán bằng VNPay
   payWithVNPay(): void {
     console.log('Thanh toán bằng VNPay');
-     this.onPayment();
+     this.onPayment(1);
    
     this.closePaymentDialog(); 
     // this.openPaymentDialog2();
@@ -76,9 +78,9 @@ isPaymentDialogOpen2 = false;
   }
 
   // Thanh toán bằng MoMo
-  payWithMoMo(): void {
+  payWithWallet(): void {
     console.log('Thanh toán bằng MoMo');
-    this.onPayment();
+    this.onPayment(2);
     let formData = {
       orderId : this.odId.toString(),
       amount : this.total
@@ -120,7 +122,7 @@ isPaymentDialogOpen2 = false;
   });
   }
   
-onPayment() {
+onPayment(type: number) {
   const userId = this.userLogged.getCurrentUser().userId;
 
   // Tính toán tổng giá trị
@@ -154,16 +156,33 @@ onPayment() {
 
       });
     });
-      this.toastrService.success("Đặt đơn thành công!");
-      debugger
- let formData = {
-      orderId : this.odId.toString(),
+      if(type == 1){
+         let formData = {
+      orderId : this.odId,
       amount : totalAmount
     }
     this.paymentService.paymentCreate(formData).subscribe((data ) => {
            window.open(data.paymentUrl, '_blank');
+             this.deleteAll();
+             this.onGetData();
+            this.closePaymentDialog();
     })
-   this.deleteAll();
+      }else{
+        let form = {
+           orderId : this.odId
+        }
+        this.walletService.paymentWallet(form).subscribe((data ) => {
+          this.toastrService.success("Thanh toán bằng ví thành công!");
+             this.deleteAll();
+             this.onGetData();
+            this.closePaymentDialog();
+
+        },
+        error => {
+          this.toastrService.error('Có lỗi xảy ra, hãy kiểm tra số dư!','Thất bại!');})
+          
+      }
+
   });
 }
 

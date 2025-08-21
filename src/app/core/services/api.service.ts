@@ -35,6 +35,7 @@ export class ApiService {
     const options: any = {
       params,
     };
+     options['headers'] = this.getHeaders();
     return this.http.get(environment.apiUrl + url, options);
   }
   protected postFile(url: string, body: any): Observable<any> {

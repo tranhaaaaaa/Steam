@@ -25,7 +25,7 @@ import { GameDtComponent } from './components/list-game/game-dt/game-dt.componen
 import { GameDetailComponent } from './components/game/game-detail/game-detail.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 
-import { Category } from 'src/app/core/models/db.model';
+import { Category, Wallet } from 'src/app/core/models/db.model';
 import { CategoryComponent } from './components/category/category.component';
 import { TagsComponent } from './components/tags/tags.component';
 import { OrdersComponent } from './components/orders/orders.component';
@@ -35,6 +35,9 @@ import { OrderDetailComponent } from './components/orders/order-detail/order-det
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { GameBuyedComponent } from './components/game-buyed/game-buyed.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { WalletRequestComponent } from './components/wallet-request/wallet-request.component';
+import { MoneyRequestComponent } from './components/money-request/money-request.component';
+import { GameApproveComponent } from '../layout/components/game-approve/game-approve.component';
 const routes: Routes = [
   {
     path: '',
@@ -135,6 +138,18 @@ const routes: Routes = [
         {
       path: 'game-buyed',
       component: GameBuyedComponent
+      },
+             {
+      path: 'wallet-request',
+      component: WalletRequestComponent
+      },
+        {
+      path: 'money-request',
+      component: MoneyRequestComponent
+      },
+      {
+      path: 'game-approve',
+      component: GameApproveComponent
       },
        {
       path: 'manager-user/user-detail/:id',

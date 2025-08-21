@@ -7,7 +7,7 @@ import { ThemeService } from '../../../../../core/services/theme.service';
 import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
 import { UserLogged } from 'src/app/core/utils/userLogged';
 import { CartService } from 'src/app/core/services/cart.service';
-import { Cart } from 'src/app/core/models/db.model';
+import { Cart, Wallet } from 'src/app/core/models/db.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { RolepermissionService } from 'src/app/core/services/rolepermission.service';
@@ -47,6 +47,7 @@ export class ProfileMenuComponent implements OnInit {
   public isLogin = false;
   public img = '';
   public username = '';
+  public myWallet = new Wallet()
   public listCart : Cart[]=[];
   email: any;
 
@@ -120,6 +121,10 @@ openCart() {
        this.email = data.data[0].Email;
        this.username = data.data[0].displayName;
        this.img = data.data[0].profilePicture;
+     });
+     this.userService.wallet().subscribe((data) => {
+       this.myWallet = data.data;
+       console.log("myWallet",this.myWallet);
      })
       }
       if(this.permissionService.hasRole(["Admin"]) || this.permissionService.hasRole(["Staff"])){this.isAdmin = true}

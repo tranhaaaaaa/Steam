@@ -95,7 +95,9 @@ selectMedia(mediaItem: any): void {
 }
 
 
-
+download(game: GameInfor) {
+  window.open(game.InstallerFilePath, '_blank');
+}
 
 
   addToCart(gameId: number): void {

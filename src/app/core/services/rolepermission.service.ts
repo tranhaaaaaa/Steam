@@ -13,7 +13,6 @@ export class RolepermissionService {
   hasRole(requiredRoles: string[]): boolean {
     let userLogged: UserLogged = new UserLogged();
     this.roles = userLogged.getRoles();
-    console.log("roles",this.roles);
     const requiredTrimmed = requiredRoles.map((role) =>
       role.trim().toLowerCase()
     );

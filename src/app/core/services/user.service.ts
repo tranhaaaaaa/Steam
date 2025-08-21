@@ -3,7 +3,7 @@ import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
 import { Any, JsonConvert } from 'json2typescript';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { User } from '../models/db.model'; 
+import { User, Wallet } from '../models/db.model'; 
 import { DataResponse } from '../models/data-reponse.service';
 
 
@@ -93,5 +93,22 @@ getUserById(id: any): Observable<DataResponse> {
         })
       );
 }
-
+wallet(): Observable<DataResponse> {
+  const url = `/api/wallet`;
+ return super.get(url).pipe(
+        map((res) => {
+          const odataRes: DataResponse = this.jsonConvert.deserializeObject(res, DataResponse);
+  
+          if (Array.isArray(odataRes.data)) {
+            odataRes.data = this.jsonConvert.deserializeArray(odataRes.data, Wallet);
+          } else if (odataRes.data) {
+            console.warn("odataRes.data không phải là mảng. Đang chuyển về dạng object của Staff.");
+            odataRes.data = this.jsonConvert.deserializeObject(odataRes.data, Wallet);
+          } else {
+            console.warn("odataRes.data không có dữ liệu.");
+          }
+          return odataRes;
+        })
+      );
+}
 }
