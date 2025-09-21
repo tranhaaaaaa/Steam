@@ -44,8 +44,6 @@ export class CartComponent implements OnInit {
 isPaymentDialogOpen = false;
 isPaymentDialogOpen2 = false;
 
-
-  // Mở dialog thanh toán
   openPaymentDialog(): void {
   if(this.listCart.length < 1){
     this.toastrService.warning('Giỏ hàng trống');
@@ -53,31 +51,23 @@ isPaymentDialogOpen2 = false;
     this.isPaymentDialogOpen = true;
   }
   }
-
-  // Đóng dialog thanh toán
   closePaymentDialog(): void {
     this.isPaymentDialogOpen = false;
   }
   openPaymentDialog2(): void {
     this.isPaymentDialogOpen2 = true;
   }
-
-  // Đóng dialog thanh toán
   closePaymentDialog2(): void {
     this.isPaymentDialogOpen2 = false;
   }
-
-  // Thanh toán bằng VNPay
   payWithVNPay(): void {
     console.log('Thanh toán bằng VNPay');
      this.onPayment(1);
    
     this.closePaymentDialog(); 
-    // this.openPaymentDialog2();
     
   }
 
-  // Thanh toán bằng MoMo
   payWithWallet(): void {
     console.log('Thanh toán bằng MoMo');
     this.onPayment(2);
@@ -85,11 +75,7 @@ isPaymentDialogOpen2 = false;
       orderId : this.odId.toString(),
       amount : this.total
     }
-    // this.paymentService.paymentMomo(formData).subscribe((data ) => {
-    //     this.router.navigate([data.]);
-    // })
-    this.closePaymentDialog(); // Đóng dialog sau khi chọn
-    // Bạn có thể gọi API hoặc điều hướng đến trang thanh toán MoMo ở đây
+    this.closePaymentDialog(); 
   }
   ngOnInit(): void {
     this.onGetData();
@@ -137,20 +123,18 @@ onPayment(type: number) {
     totalAmount += this.cartWithGames[i].gameDetails.Price;
   }
 
-  // Lấy thời gian hiện tại
   const currentDate = new Date().toISOString();
 
-  // Cấu trúc thông tin đơn hàng
   const orderInfo = {
-    id: 0, // Đây là id tự động của đơn hàng, có thể được tạo khi lưu vào cơ sở dữ liệu
+    id: 0, 
     userID: userId,
     totalAmount: totalAmount,
     status: "Pending", 
   };
   this.threadService.oreder(orderInfo).subscribe(orderResponse => {
     const orderDetails = this.cartWithGames.map(item => ({
-    id: 0, // ID tự động của chi tiết đơn hàng
-    orderID: orderResponse.data.id, // Đặt ID đơn hàng cho các chi tiết này
+    id: 0,
+    orderID: orderResponse.data.id, 
     gameID: item.gameDetails.Id,
     unitPrice: item.gameDetails.Price,
     createdAt: currentDate
