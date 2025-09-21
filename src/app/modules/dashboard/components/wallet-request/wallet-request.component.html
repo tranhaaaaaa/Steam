@@ -2,7 +2,7 @@
   <!-- Transaction Request Table -->
   <div class="mb-6">
     <h2 class="text-3xl font-bold text-gray-400 mb-4">Danh sách yêu cầu nạp/rút tiền</h2>
-      <button (click)="openModal()" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-full shadow-lg transform hover:scale-105 transition duration-300 ease-in-out" style="margin-bottom: 20px;">
+      <button (click)="openModal()" *ngIf="!isAdmin" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-full shadow-lg transform hover:scale-105 transition duration-300 ease-in-out" style="margin-bottom: 20px;">
     Nạp/Rút tiền
   </button>
     <table  class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg transition-transform transform hover:scale-105" style="background: linear-gradient(to bottom, #3d224a, #1b2838 500px);" >

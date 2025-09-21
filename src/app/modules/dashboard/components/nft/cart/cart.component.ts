@@ -114,10 +114,16 @@ isPaymentDialogOpen2 = false;
         gameDetails: gameDetails  
       };
     });
+    debugger
     console.log(this.cartWithGames);
     for (let index = 0; index < this.cartWithGames.length; index++) {
-      const element = this.cartWithGames[index].gameDetails;
-      this.totalPrice += element.Price * (1 - element.Discounts[0].value / 100);
+      const element = this.cartWithGames[index].totalPrice;
+      //  this.totalPrice += element.Price * (1 - element.Discounts[0].value / 100);
+       if(element.Discount && element.Discounts.length > 0){
+        this.totalPrice += element * (1 - element.Discounts[1].value / 100);
+       }else{
+        this.totalPrice += element;
+       }
     }
   });
   }
@@ -266,7 +272,7 @@ onPayment(type: number) {
       items: [
         {
           icon: 'assets/icons/heroicons/outline/download.svg',
-          label: 'Free to play',
+          label: 'Trò chơi miễn phí',
           route: '/download',
         },
         {

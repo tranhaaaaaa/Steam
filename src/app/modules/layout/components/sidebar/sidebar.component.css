@@ -101,3 +101,21 @@ button:focus {
   height: 1px;
   margin: 0.5rem 0;
 }
+/* Tùy chỉnh chữ G thành logo tối màu với đốm lửa sáng */
+.logo-g b {
+  font-family: 'Impact', sans-serif;  /* Sử dụng font đặc biệt */
+  font-size: 36px; /* Kích thước lớn cho chữ G */
+  color: #2c3e50;  /* Màu chữ tối, gần như đen */
+  text-shadow: 
+    0 0 10px #ff6347,  /* Đốm lửa đỏ cam */
+    0 0 20px #ff6347,  /* Đốm lửa đỏ cam lớn hơn */
+    0 0 30px #ff4500,  /* Đốm lửa cam sáng */
+    0 0 40px #ff4500,  /* Đốm lửa cam sáng lớn hơn */
+    0 0 50px #ff8c00,  /* Đốm lửa vàng */
+    0 0 60px #ff8c00;  /* Đốm lửa vàng sáng nhất */
+  
+  background: linear-gradient(135deg, #2c3e50, #34495e); /* Nền màu tối với gradient */
+  border-radius: 50%; /* Làm cho chữ G có dạng tròn */
+  display: inline-block;
+  margin-right: 10px;  /* Khoảng cách với phần còn lại của logo */
+}

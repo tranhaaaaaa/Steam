@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { StoreOrder } from 'src/app/core/models/db.model';
+import { PaymentService } from 'src/app/core/services/payment.service';
 import { StoreOrdersService } from 'src/app/core/services/store-orders.service';
+import { ThreadService } from 'src/app/core/services/thread.service';
 import { WalletService } from 'src/app/core/services/wallet.service';
 import { UserLogged } from 'src/app/core/utils/userLogged';
 
@@ -22,12 +24,17 @@ export class OrderHistoryComponent implements OnInit {
   public dialogReason : boolean = false;
   public reason : string = '';
   public odId : any;
+  total : any;
+  public isPaymentDialogOpen: boolean = false;
   public amount : number = 0;
   public totalPages: number = 1;
 public pagedOrders: StoreOrder[] = [];
   constructor(private storeService: StoreOrdersService,
     private walletService : WalletService,
-    private toastService : ToastrService
+    private toastService : ToastrService,
+    private paymentService : PaymentService,
+    private threadService : ThreadService,
+    private toastrService : ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +48,53 @@ onGetData() {
     this.updatePagedOrders(); 
   });
 }
+closePaymentDialog() {
+  this.isPaymentDialogOpen = false;
+}
+onPayment(type: number) {
+  const userId = this.userLogged.getCurrentUser().userId;
+
+ 
+  // Lấy thời gian hiện tại
+  const currentDate = new Date().toISOString();
+
+  // Cấu trúc thông tin đơn hàng
+  const orderInfo = {
+    id: 0, // Đây là id tự động của đơn hàng, có thể được tạo khi lưu vào cơ sở dữ liệu
+    userID: userId,
+    totalAmount: this.total,
+    status: "Pending", 
+  };
+ 
+      if(type == 1){
+         let formData = {
+      orderId : this.odId,
+      amount : this.total
+    }
+    this.paymentService.paymentCreate(formData).subscribe((data ) => {
+           window.open(data.paymentUrl, '_blank');
+             
+             this.onGetData();
+            this.closePaymentDialog();
+    })
+      }else{
+        let form = {
+           orderId : this.odId
+        }
+        this.walletService.paymentWallet(form).subscribe((data ) => {
+          this.toastrService.success("Thanh toán bằng ví thành công!");
+          
+             this.onGetData();
+            this.closePaymentDialog();
+
+        },
+        error => {
+          this.toastrService.error('Có lỗi xảy ra, hãy kiểm tra số dư!','Thất bại!');})
+          
+      }
+
+ 
+}
 updatePagedOrders() {
   const start = (this.currentPage - 1) * 10; 
   const end = start + 10; 
@@ -50,6 +104,11 @@ onOpenReason(amount : any,id : any){
   this.amount = amount;
   this.odId = id;
   this.dialogReason = true;
+}
+onOpenPayment(amount : any,id : any){
+  this.total = amount;
+  this.odId = id;
+  this.isPaymentDialogOpen = true;
 }
 onCloseReason(){
   this.dialogReason = false;
@@ -70,6 +129,10 @@ onCloseReason(){
         return 'Hoàn Thành';
       case 'Cancelled':
         return 'Đã Hủy';
+         case 'await':
+        return 'Chờ hoàn tiền';
+            case 'Refunded':
+        return 'Đã hoàn tiền';
       default:
         return status;
     }
@@ -77,7 +140,28 @@ onCloseReason(){
   closeDialog() {
     this.isDialogOpen = false;
   }
+  payWithVNPay(): void {
+    console.log('Thanh toán bằng VNPay');
+     this.onPayment(1);
+   
+    this.closePaymentDialog(); 
+    // this.openPaymentDialog2();
+    
+  }
 
+  // Thanh toán bằng MoMo
+  payWithWallet(): void {
+    console.log('Thanh toán bằng MoMo');
+    this.onPayment(2);
+    let formData = {
+      orderId : this.odId.toString(),
+      amount : this.total
+    }
+    // this.paymentService.paymentMomo(formData).subscribe((data ) => {
+    //     this.router.navigate([data.]);
+    // })
+    this.closePaymentDialog(); 
+  }
 changePage(page: number) {
   if (page >= 1 && page <= this.totalPages) {
     this.currentPage = page;

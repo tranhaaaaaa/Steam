@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
+import { MessagessComponent } from './modules/messagess/messagess.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,12 @@ const routes: Routes = [
     path: 'errors',
     loadChildren: () => import('./modules/error/error.module').then((m) => m.ErrorModule),
   },
+   {
+    path: 'notifications/:id/:message',
+    component: MessagessComponent,
+  },
   { path: '**', redirectTo: 'errors/404' },
+  
 ];
 
 @NgModule({

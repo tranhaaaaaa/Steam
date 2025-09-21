@@ -97,23 +97,25 @@ public isAdmin : boolean = false
   onGetUser() {
     const userId = this.userLogged.getCurrentUser().userId;
     this.userService.getUserById(userId).subscribe((data) => {
-      this.userinfo = data.data[0];
+      this.userinfo = data.data;
       this.profileForm = this.fb.group({
-        username: [{ value: data.data[0].username, disabled: true }],
-        email: [data.data[0].email, [Validators.required, Validators.email]],
-        phoneNumber: [data.data[0].phoneNumber, Validators.required],
-       DisplayName: [data.data[0].displayName, Validators.required],
+        username: [{ value: data.data.username, disabled: true }],
+        email: [data.data.email, [Validators.required, Validators.email]],
+        phoneNumber: [data.data.phoneNumber, Validators.required],
+       DisplayName: [data.data.displayName, Validators.required],
       });
     });
   }
     showRefundRequests() {
     // Open the refund requests modal
     this.showRefundList = true;
+    this.onGetStoreRefund();
   }
 
   closeRefundRequests() {
     // Close the refund requests modal
     this.showRefundList = false;
+    this.onGetStoreRefund();
   }
 
 

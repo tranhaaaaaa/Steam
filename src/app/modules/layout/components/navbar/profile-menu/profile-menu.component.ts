@@ -116,11 +116,10 @@ openCart() {
   ) {
      if(this.userLogged.isLogged()){
       this.isLogin = true;
-      // this.username = this.userLogged.getCurrentUser().username;
      this.userService.getUserById(this.userLogged.getCurrentUser().userId).subscribe((data) => {
-       this.email = data.data[0].Email;
-       this.username = data.data[0].displayName;
-       this.img = data.data[0].profilePicture;
+       this.email = data.data.Email;
+       this.username = data.data.displayName;
+       this.img = data.data.profilePicture;
      });
      this.userService.wallet().subscribe((data) => {
        this.myWallet = data.data;

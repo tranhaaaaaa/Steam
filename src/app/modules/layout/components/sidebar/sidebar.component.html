@@ -7,16 +7,13 @@
     <div
       [ngClass]="menuService.showSideBar ? 'justify-between' : 'justify-center'"
       class="mx-4 mb-6 flex h-9 items-center">
-      <div class="flex items-center" *ngIf="menuService.showSideBar">
-        <a
-          (click)="toggleSidebar()"
-          class="bg-primary flex cursor-pointer items-center justify-center rounded-sm p-2 focus:outline-hidden focus:ring-1">
-          <svg-icon src="assets/icons/logo.svg"> </svg-icon>
-        </a>
-        <b class="text-white ps-2 ml-1 grow text-sm font-bold">
-          STEAM
-        </b>
-      </div>
+     <div class="flex items-center" *ngIf="menuService.showSideBar">
+  <p class="logo-g"><b>G</b></p>
+  <b class="text-white ps-2 ml-1 grow text-sm font-bold">
+    GSW
+  </b>
+</div>
+
       <button
         (click)="toggleSidebar()"
         class="text-[#8f98a0] hover:text-white flex items-center justify-center rounded-md p-2 transition-all duration-200 focus:outline-hidden"

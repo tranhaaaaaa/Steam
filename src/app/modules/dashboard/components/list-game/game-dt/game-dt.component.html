@@ -36,24 +36,50 @@
       </div>
  
 
-   
-      <div class="purchase-section">
-        <h2 *ngIf="gameDetail.Price > 0">Mua {{ gameDetail.Title }}</h2>
-        <h2 *ngIf="gameDetail.Price === 0">Tải xuống: {{ gameDetail.Title }}></h2>
-        <div class="purchase-box">
-          <div  class="discount-badge" *ngIf="gameDetail.Discounts.length > 0 || gameDetail.Price > 0">-{{ gameDetail.Discounts[0].value | number}}%</div>
-          <div class="price-info" *ngIf="gameDetail.Price > 0">
-            <!-- <div class="original-price">{{ game. }}</div> -->
-              
-             <div class="original-price" *ngIf="gameDetail.Discounts.length > 0">{{ gameDetail.Price  | number}}VND</div>
-            <div class="final-price" *ngIf="gameDetail.Discounts.length > 0"> {{ (gameDetail.Price * (1 - gameDetail.Discounts[0].value / 100)) | currency:'VND' }}</div>
-               <div class="final-price" *ngIf="gameDetail.Discounts.length === 0">{{ gameDetail.Price | currency:'VND' }}</div>
-          </div>
-         
-          <button *ngIf="gameDetail.Price > 0" class="add-to-cart-btn" (click)="addToCart(gameDetail.Id)">Thêm vào giỏ</button>
-            <button *ngIf="gameDetail.Price === 0" class="add-to-cart-btn" (click)="download(gameDetail)">Tải xuống</button>
-        </div>
+<!-- app/modules/.../purchase-section.component.html -->
+<div class="purchase-section">
+  <!-- Tiêu đề -->
+  <h2 *ngIf="gameDetail.Price > 0">Mua {{ gameDetail.Title }}</h2>
+  <h2 *ngIf="gameDetail.Price === 0">Tải xuống: {{ gameDetail.Title }}</h2>
+
+  <div class="purchase-box">
+    <!-- Badge giảm giá: chỉ hiện khi có discount -->
+    <div class="discount-badge" *ngIf="gameDetail.Discounts.length > 0">
+      -{{ gameDetail.Discounts[0].value | number }}%
+    </div>
+
+    <!-- Khu vực giá: chỉ hiện khi có giá bán -->
+    <div class="price-info" *ngIf="gameDetail.Price > 0">
+      <!-- Giá gốc: chỉ hiện khi có giảm giá -->
+      <div class="original-price" *ngIf="gameDetail.Discounts.length > 0">
+        {{ gameDetail.Price | number }} VND
       </div>
+
+      <!-- Giá cuối cùng -->
+      <div class="final-price" *ngIf="gameDetail.Discounts.length > 0">
+        {{
+          (gameDetail.Price * (1 - gameDetail.Discounts[0].value / 100))
+            | currency:'VND'
+        }}
+      </div>
+      <div class="final-price" *ngIf="gameDetail.Discounts.length === 0">
+        {{ gameDetail.Price | currency:'VND' }}
+      </div>
+    </div>
+
+    <!-- Nút hành động -->
+    <button *ngIf="gameDetail.Price > 0"
+            class="add-to-cart-btn"
+            (click)="addToCart(gameDetail.Id)">
+      Thêm vào giỏ
+    </button>
+    <button *ngIf="gameDetail.Price === 0"
+            class="add-to-cart-btn"
+            (click)="download(gameDetail)">
+      Tải xuống
+    </button>
+  </div>
+</div>
 
  
 <div class="about-section">

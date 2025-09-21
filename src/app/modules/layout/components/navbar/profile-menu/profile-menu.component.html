@@ -1,12 +1,12 @@
 <div class="relative flex items-center gap-3 ml-3" *ngIf="isLogin">
   <!-- Nút giỏ hàng -->
    <!-- Ví tiền -->
-  <div *ngIf="isLogin && !isAdmin" class="flex items-center gap-1 bg-green-600 text-white px-2 py-1 rounded-full shadow-sm">
+  <div *ngIf="isLogin && !isAdmin" class="flex items-center gap-1 bg-green-600 text-white px-2 py-1 rounded-full shadow-sm cursor-pointer" routerLink="/dashboard/wallet-request">
     <svg xmlns="http://www.w3.org/2000/svg"
          class="h-4 w-4"
          fill="none"
          viewBox="0 0 24 24"
-         stroke="currentColor"
+         stroke="currentColor" 
          stroke-width="1.5">
       <path stroke-linecap="round" stroke-linejoin="round"
             d="M21 12.79V8a2 2 0 00-2-2h-3.34a2 2 0 01-1.41-.59L12.34 4.1a2 2 0 00-1.41-.59H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1.21" />
@@ -47,8 +47,6 @@
       {{ cartItemCount }}
     </span>
   </button>
-
-  <!-- Nút profile -->
   <button (click)="toggleMenu()" class="bg-card relative flex rounded-full text-sm cursor-pointer" type="button" *ngIf="isLogin">
     <span class="sr-only">Open user menu</span>
     <img
@@ -60,8 +58,6 @@
       alt="User Avatar"
     />
   </button>
-
-  <!-- Dropdown Menu -->
   <div
     [@openClose]="isOpen ? 'open' : 'closed'"
     class="bg-background shadow-custom border-muted absolute z-20 mt-70 w-60 origin-top-right transform rounded-md border border-dashed py-4 ring-1 ring-transparent ring-opacity-5 transition focus:outline-hidden ltr:right-0 rtl:left-0">

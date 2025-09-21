@@ -1,0 +1,31 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100" *ngIf="isSuccess">
+  <div class="bg-white shadow-lg rounded-2xl p-8 text-center max-w-md">
+    <div class="text-green-500 text-6xl mb-4">✔</div>
+    <h1 class="text-2xl font-bold text-gray-800">Thanh toán thành công!</h1>
+    <p class="text-gray-600 mt-2">
+      Cảm ơn sư phụ đã thanh toán. Giao dịch của bạn đã được xử lý thành công.
+    </p>
+    <button
+      [routerLink]="['/dashboard/nfts']"
+      class="mt-6 px-6 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 transition"
+    >
+      Quay lại trang chủ
+    </button>
+  </div>
+</div>
+<div class="flex items-center justify-center min-h-screen bg-gray-100" *ngIf="!isSuccess">
+  <div class="bg-white shadow-lg rounded-2xl p-8 text-center max-w-md">
+    <div class="text-red-500 text-6xl mb-4">✖</div>
+    <h1 class="text-2xl font-bold text-gray-800">Thanh toán thất bại!</h1>
+    <p class="text-gray-600 mt-2">
+      Rất tiếc, giao dịch của bạn không thành công.  
+      Vui lòng thử lại hoặc liên hệ hỗ trợ để được giúp đỡ.
+    </p>
+    <button
+     [routerLink]="['/dashboard/nfts']"
+      class="mt-6 px-6 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition"
+    >
+      Quay lại trang chủ
+    </button>
+  </div>
+</div>

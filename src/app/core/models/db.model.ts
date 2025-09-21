@@ -534,6 +534,9 @@ export class Cart {
 
   @JsonProperty('gameID', NumberConverter, true)
   GameId: number = undefined as any;
+
+  @JsonProperty('totalPrice', NumberConverter, true)
+  totalPrice: number = undefined as any;
 }
 @JsonObject('Review')
 export class Review {

@@ -22,17 +22,24 @@ export class VerifyPassComponent implements OnInit {
     private router : Router
   ) {}
 
-  ngOnInit(): void {
-    this.verifyForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      otp: ['', Validators.required],
-      newPassword: ['', [
-    Validators.required,
-    Validators.minLength(6),
-    Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).+$/)
-  ]],
-});
-  }
+ngOnInit(): void {
+  this.verifyForm = this.fb.group({
+    otp: ['', Validators.required],
+    newPassword: ['', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).+$/)
+    ]],
+    ConfirmPassword: ['', Validators.required],
+  }, { validator: this.passwordMatchValidator });
+}
+
+passwordMatchValidator(form: FormGroup) {
+  const password = form.get('newPassword')?.value;
+  const confirmPassword = form.get('ConfirmPassword')?.value;
+  return password === confirmPassword ? null : { mismatch: true };
+}
+
 
   onSubmit(): void {
     if (this.verifyForm.valid) {

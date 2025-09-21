@@ -1,5 +1,4 @@
 // src/app/modules/dashboard/components/community-recommends/community-recommends.component.ts
-// (Giả sử bạn đã đổi tên file thành community-recommends.component.ts)
 
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,14 +17,12 @@ interface CommunityRecommendation {
 }
 
 @Component({
-  // SỬA LẠI SELECTOR: Bỏ dấu ngoặc vuông để nó trở thành một element selector
   selector: 'app-community-recommends', 
   standalone: true,
   imports: [CommonModule],
   templateUrl: './community-recommends.component.html',
   styleUrls: ['./community-recommends.component.css'] 
 })
-// SỬA LẠI TÊN CLASS: Thêm 's' vào cuối
 export class CommunityRecommendsComponent implements OnInit, AfterViewInit {
 
   @ViewChild('carousel') carousel!: ElementRef<HTMLDivElement>;
@@ -35,10 +32,10 @@ export class CommunityRecommendsComponent implements OnInit, AfterViewInit {
       id: 1,
       title: 'Wuthering Waves',
       mainImage: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3513350/e2dae6095f417d6c613cc01ba0ed4d10c3ec2a27/capsule_616x353.jpg?t=1746670477',
-      description: 'A promising Open-World ARPG with a fluid, fast-paced combat system and a compelling story. A must-try for fans of the genre.',
-      tags: ['Open World', 'Action RPG', 'Anime', 'Gacha'],
+      description: 'Một game ARPG thế giới mở đầy hứa hẹn với hệ thống chiến đấu mượt mà, nhanh nhẹn và cốt truyện cuốn hút. Rất đáng thử cho những ai yêu thích thể loại này.',
+      tags: ['Thế giới mở', 'Hành động nhập vai', 'Anime', 'Gacha'],
       review: {
-        text: 'This is a promising Open-World ARPG with a fluid, fast-paced combat system and a compelling story. The gacha system is fair, and the world is beautiful to explore. Highly recommended!',
+        text: 'Đây là một game ARPG thế giới mở rất hứa hẹn, chiến đấu nhanh và mượt, cốt truyện hấp dẫn. Hệ thống gacha khá công bằng, thế giới thì rất đẹp để khám phá. Rất đáng chơi!',
         avatar: 'https://avatars.akamai.steamstatic.com/6a0a9750d695f3f9f5c5d5e5f5d5e5f5d5e5f5d5_medium.jpg',
         author: 'DarkHollow'
       }
@@ -47,10 +44,10 @@ export class CommunityRecommendsComponent implements OnInit, AfterViewInit {
       id: 2,
       title: 'Palworld',
       mainImage: 'https://cdn.akamai.steamstatic.com/steam/apps/1623730/header.jpg',
-      description: 'An unexpected hit combining monster-catching with survival and crafting. It\'s chaotic, fun, and surprisingly deep.',
-      tags: ['Open World', 'Survival', 'Crafting', 'Multiplayer'],
+      description: 'Một cú hit bất ngờ khi kết hợp bắt quái vật với sinh tồn và chế tạo. Hỗn loạn, vui nhộn và bất ngờ là khá sâu sắc.',
+      tags: ['Thế giới mở', 'Sinh tồn', 'Chế tạo', 'Nhiều người chơi'],
       review: {
-        text: 'Pokemon with guns! What more could you ask for? The game is incredibly addictive and offers endless hours of fun with friends. The base building and crafting systems are top-notch.',
+        text: '“Pokemon có súng”! Còn gì hơn nữa? Trò chơi cực kỳ gây nghiện và mang lại hàng giờ giải trí bất tận cùng bạn bè. Hệ thống xây dựng căn cứ và chế tạo rất tuyệt vời.',
         avatar: 'https://avatars.akamai.steamstatic.com/f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1_medium.jpg',
         author: 'GamerX'
       }
@@ -59,10 +56,10 @@ export class CommunityRecommendsComponent implements OnInit, AfterViewInit {
       id: 3,
       title: 'HELLDIVERS™ 2',
       mainImage: 'https://cdn.akamai.steamstatic.com/steam/apps/553850/header.jpg',
-      description: 'A thrilling cooperative third-person shooter. Spread democracy across the galaxy with overwhelming firepower!',
-      tags: ['Co-op', 'Third-Person Shooter', 'Sci-Fi', 'Action'],
+      description: 'Một game bắn súng góc nhìn thứ ba co-op đầy kịch tính. Hãy lan tỏa dân chủ khắp thiên hà với hỏa lực áp đảo!',
+      tags: ['Co-op', 'Bắn súng góc nhìn thứ ba', 'Khoa học viễn tưởng', 'Hành động'],
       review: {
-        text: 'For Super Earth! This game is pure, unadulterated fun. The feeling of calling in an orbital strike on a horde of giant bugs is unmatched. A must-play with friends.',
+        text: 'Vì Trái Đất Tự Do! Game này mang lại niềm vui thuần túy. Cảm giác gọi pháo kích quỹ đạo để tiêu diệt bầy côn trùng khổng lồ thật sự đã. Chơi cùng bạn bè là hết sảy!',
         avatar: 'https://avatars.akamai.steamstatic.com/e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3_medium.jpg',
         author: 'LibertyPrime'
       }
@@ -71,10 +68,10 @@ export class CommunityRecommendsComponent implements OnInit, AfterViewInit {
       id: 4,
       title: 'Stardew Valley',
       mainImage: 'https://cdn.akamai.steamstatic.com/steam/apps/413150/header.jpg',
-      description: 'The ultimate farming and life simulation game. Escape to the countryside and build a new life.',
-      tags: ['Farming Sim', 'Life Sim', 'Pixel Graphics', 'Relaxing'],
+      description: 'Trò chơi mô phỏng nông trại và cuộc sống đỉnh cao. Thoát khỏi phố thị, về vùng quê và xây dựng cuộc sống mới.',
+      tags: ['Mô phỏng nông trại', 'Mô phỏng cuộc sống', 'Đồ họa Pixel', 'Thư giãn'],
       review: {
-        text: 'The perfect game to unwind after a long day. There\'s always something to do, whether it\'s farming, fishing, mining, or building relationships with the townsfolk. A true masterpiece.',
+        text: 'Game hoàn hảo để thư giãn sau một ngày dài. Luôn có việc để làm: trồng trọt, câu cá, khai thác mỏ hoặc xây dựng mối quan hệ với dân làng. Một kiệt tác thật sự.',
         avatar: 'https://avatars.akamai.steamstatic.com/d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2_medium.jpg',
         author: 'CozyGamer'
       }

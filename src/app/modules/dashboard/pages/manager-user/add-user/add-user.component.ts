@@ -28,6 +28,7 @@ export class AddUserComponent implements OnInit{
       this.idUser = this.route.snapshot.paramMap.get('id');
   if (this.idUser) {
      this.loadUserDetail(this.idUser);
+    //  console.log(this.idUser);
   }
   }
 
@@ -50,7 +51,7 @@ export class AddUserComponent implements OnInit{
   
     loadUserDetail(id: any) {
      this.userService.getUserById(id).subscribe((data)=>{
-       this.userdetail  = data.data[0];
+       this.userdetail  = data.data;
        console.log(this.userdetail);
      })
     }
