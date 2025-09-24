@@ -45,7 +45,11 @@
     <td class="px-6 py-4">
                 <span class="font-medium text-green-500" *ngIf="order.Status === 'Pending'">Chờ thanh toán</span>
                 <span class="font-medium text-red-500" *ngIf="order.Status === 'COMPLETED'">Thành công</span>
+                <span class="font-medium text-red-500" *ngIf="order.Status === 'Success'">Thành công</span>
                 <span class="font-medium text-red-500" *ngIf="order.Status === 'FAILED'">Thất bại</span>
+                <span class="font-medium text-red-500" *ngIf="order.Status === 'Refunded'">Đã hoàn tiền</span>
+                <span class="font-medium text-red-500" *ngIf="order.Status === 'Rejected'">Yêu cầu hoàn tiền bị từ chối</span>
+
                 <span class="font-medium text-red-500" *ngIf="order.Status === 'await'">Chờ hoàn tiền</span>
 
               </td>

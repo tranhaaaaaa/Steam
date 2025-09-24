@@ -1,9 +1,6 @@
 <div class="flex items-center justify-between">
-
-  
   <!-- Menu items container -->
   <div class="flex space-x-4">
-    
     <div class="dropdown relative inline-block" *ngFor="let menu of menuService.pagesMenu2">
       <button
         [ngClass]="
@@ -22,12 +19,40 @@
         [submenu]="menu.items"></div>
     </div>
   </div>
-<input
-  type="text"
-  style="width:240px;margin-bottom:8px"
-  placeholder="Search..."
-  class="ml-4 rounded-md border border-gray-300 px-2 py-1 text-sm w-[50px] focus:outline-none focus:ring-2 focus:ring-primary"
- />
 
-
+  <!-- Search Bar -->
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    style="width:240px;margin-bottom:8px"
+    placeholder="Search..."
+    class="ml-4 rounded-md border border-gray-300 px-2 py-1 text-sm w-[50px] focus:outline-none focus:ring-2 focus:ring-primary"
+    (input)="searchGames()"
+  />
+</div>
+<div *ngIf="filteredGames.length == 0 && searchQuery.length > 0" class="bg-gray shadow-lg rounded-md mt-2 z-50"
+  style="top: calc(100% + 8px); margin-left: 16px; width: calc(100% - 32px);">
+  <ul class="list-none p-0 m-0">
+    <li class="px-4 py-2 border-b cursor-pointer hover:bg-gray-100">
+      <div class="flex items-center space-x-3">
+        <div>
+          <h4 class="text-sm font-medium">Không tìm thấy game!</h4>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<div *ngIf="filteredGames.length > 0 && searchQuery.length > 0" class="bg-gray shadow-lg rounded-md mt-2 z-50"
+  style="top: calc(100% + 8px); margin-left: 16px; width: calc(100% - 32px);">
+  <ul class="list-none p-0 m-0">
+    <li *ngFor="let game of filteredGames" class="px-4 py-2 border-b cursor-pointer hover:bg-gray-100">
+     <div class="flex items-center space-x-3" (click)="onPageChange(game.Id)" >
+        <img [src]="game.CoverImagePath" alt="{{ game.Title }}" class="w-16 h-16 object-cover rounded-md" />
+        <div>
+          <h4 class="text-sm font-medium">{{ game.Title }}</h4>
+          <p class="text-xs text-gray-500">{{ game.Genre }}</p>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

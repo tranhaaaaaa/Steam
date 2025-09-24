@@ -35,27 +35,25 @@ export class OrdersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadOrders(); // Tải danh sách đơn hàng khi component được khởi tạo
+    this.loadOrders();
   }
 
   loadOrders() {
     this.storeOrdersService.getListOrder().subscribe(data => {
-      this.orders = data.data; // Lưu dữ liệu gốc
+      this.orders = data.data.reverse();
       console.log(this.orders);
-      this.totalItems = this.orders.length; // Tính tổng số đơn hàng
-      this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage); // Tính tổng số trang
-      this.paginateOrders(); // Phân trang đơn hàng
+      this.totalItems = this.orders.length; 
+      this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage); 
+      this.paginateOrders();
     });
   }
 
-  // Phương thức phân trang đơn hàng
   paginateOrders() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.filteredOrders = this.orders.slice(startIndex, endIndex); // Cập nhật danh sách đơn hàng đã phân trang
+    this.filteredOrders = this.orders.slice(startIndex, endIndex);
   }
 
-  // Phương thức thay đổi trang
   changePage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
