@@ -63,7 +63,7 @@ const routes: Routes = [
         ]
       },
       { path: 'profile', component: ProfileComponent },
-      { path: 'report', component: ReportComponent , canActivate: [GuardService], data: { roles: ['Staff','Admin'] }},
+      { path: 'report', component: ReportComponent , canActivate: [GuardService], data: { roles: ['Admin'] }},
 
       { path: 'discount', component: DiscountComponent ,canActivate: [GuardService], data: { roles: ['Staff','Admin'] }},
 
