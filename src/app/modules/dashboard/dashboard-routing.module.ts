@@ -38,6 +38,8 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { WalletRequestComponent } from './components/wallet-request/wallet-request.component';
 import { MoneyRequestComponent } from './components/money-request/money-request.component';
 import { GameApproveComponent } from '../layout/components/game-approve/game-approve.component';
+import { ReportComponent } from './components/report/report.component';
+import { GuardService } from 'src/app/core/services/guard.service';
 const routes: Routes = [
   {
     path: '',
@@ -61,7 +63,9 @@ const routes: Routes = [
         ]
       },
       { path: 'profile', component: ProfileComponent },
-      { path: 'discount', component: DiscountComponent },
+      { path: 'report', component: ReportComponent , canActivate: [GuardService], data: { roles: ['Staff','Admin'] }},
+
+      { path: 'discount', component: DiscountComponent ,canActivate: [GuardService], data: { roles: ['Staff','Admin'] }},
 
       { path: '', redirectTo: 'nfts', pathMatch: 'full' },
       { path: 'nfts', component: NftComponent },
@@ -91,17 +95,17 @@ const routes: Routes = [
       { path: 'category', component: CategoryComponent },
       { path: 'order-history', component: OrderHistoryComponent },
 
-        { path: 'hastags', component: TagsComponent },
+        { path: 'hastags', component: TagsComponent , canActivate: [GuardService], data: { roles: ['Staff','Admin'] }},
       { path: 'community', component: CommunityComponent },
-         { path: 'manager-game', component: GameComponent },
-         { path:'orders', component: OrdersComponent },
+         { path: 'manager-game', component: GameComponent , canActivate: [GuardService], data: { roles: ['Staff','Admin'] }},
+         { path:'orders', component: OrdersComponent , canActivate: [GuardService], data: { roles: ['Staff','Admin'] }},
          { path:'orders/order-details/:id', component: OrderDetailComponent },
 
 
       {
         path: 'manager-user',
         component: ManagerUserComponent,
-
+ canActivate: [GuardService], data: { roles: ['Admin'] }},
         
         // children: [
         //   {
@@ -109,7 +113,7 @@ const routes: Routes = [
         //     component: AddUserComponent
         //   }
         // ]
-      },
+      
 
       {
       path: 'manager-user/add-user',
@@ -117,8 +121,9 @@ const routes: Routes = [
       },
        {
       path: 'list-game/:name',
-      component: ListGameComponent
-      },
+      component: ListGameComponent,
+       canActivate: [GuardService], data: { roles: ['Staff','Admin'] }},
+      
            {
       path: 'game-detail/:id',
       component: GameDtComponent
@@ -149,8 +154,9 @@ const routes: Routes = [
       },
       {
       path: 'game-approve',
-      component: GameApproveComponent
-      },
+      component: GameApproveComponent,
+       canActivate: [GuardService], data: { roles: ['Staff','Admin'] }},
+      
        {
       path: 'manager-user/user-detail/:id',
       component: AddUserComponent

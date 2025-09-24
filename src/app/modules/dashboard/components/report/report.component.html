@@ -1,0 +1,31 @@
+<div class="report-container">
+  <div class="header">
+    <h1>Báo cáo doanh thu từng tháng</h1>
+    <p class="date-range">Đến ngày: {{ currentDate | date: 'dd/MM/yyyy' }}</p>
+    <p class="date-range"><b>Lần cuối cập nhật</b>: {{ currentDate | date: 'hh:mm' }}</p>
+
+  </div>
+
+  <div class="table-container">
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>Tháng</th>
+          <th>Thu nhập</th>
+          <th>Tỉ lệ thu nhập (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of monthlyRevenue">
+          <td>{{ data.month }}</td>
+          <td>{{ data.revenue | number }} VND</td>
+          <td *ngIf="data.growth !== undefined" class="justify-content-center flex items-center">
+             <span *ngIf="data.trend === 'up'" class="up-trend">&#x2191; </span>
+            <span *ngIf="data.trend === 'down'" class="down-trend">&#x2193; </span>{{ data.growth | number: '1.2-2' }} %</td>
+          <td  class="justify-content-center flex items-center" *ngIf="data.growth === undefined">Chưa xác định</td>
+         
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

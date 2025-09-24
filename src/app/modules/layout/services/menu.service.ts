@@ -81,6 +81,11 @@ export class MenuService implements OnDestroy {
         group: 'Quản trị',
         separator: true,
         items: [
+           {
+            icon: 'assets/icons/heroicons/outline/game-controller.svg',
+            label: 'Báo cáo doanh thu',
+            route: '/dashboard/report',
+          },
           {
             icon: 'assets/icons/heroicons/outline/home.svg',
             label: 'Quản lý người dùng',

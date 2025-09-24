@@ -1,0 +1,101 @@
+.report-container {
+  width: 80%;
+  margin: 20px auto;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 2.5em;
+  color: #333;
+}
+
+.header .date-range {
+  font-size: 1.2em;
+  color: #611414;
+  margin-top: 5px;
+}
+
+.table-container {
+  margin-top: 20px;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+
+.report-table th, .report-table td {
+  padding: 12px 20px;
+  text-align: left;
+  font-size: 1.1em;
+}
+
+.report-table th {
+  background-color: #ffff;
+  color: black;
+  font-weight: bold;
+}
+
+.report-table td {
+  background-color: #f2f2f2;
+}
+
+.report-table tr:nth-child(even) td {
+  background-color: #e9f7e9;
+}
+
+.report-table td:last-child {
+  text-align: center;
+  font-weight: bold;
+}
+
+.up-trend {
+  color: green;
+  font-size: 1.5em;
+}
+
+.down-trend {
+  color: red;
+  font-size: 1.5em;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1em;
+  color: #555;
+}
+
+.footer-note {
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .report-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .header h1 {
+    font-size: 2em;
+  }
+
+  .header .date-range {
+    font-size: 1em;
+  }
+
+  .report-table th, .report-table td {
+    padding: 8px;
+    font-size: 1em;
+  }
+}
